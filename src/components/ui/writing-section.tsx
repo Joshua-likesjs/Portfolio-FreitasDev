@@ -2,6 +2,7 @@
 
 import React, { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, ArrowUpRight, Clock } from "lucide-react";
 
@@ -101,10 +102,12 @@ export default function WritingSection() {
           <article className="group cursor-pointer">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 dark:bg-[hsl(0,0%,8%)] bg-white dark:border-neutral-800 border-neutral-200 border rounded-2xl overflow-hidden dark:hover:border-[#C3E41D]/40 hover:border-[#C3E41D]/60 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-[rgba(195,228,29,0.08)]">
               <div className="relative overflow-hidden h-48 md:h-full">
-                <img
+                <Image
                   src={articles[0].image}
                   alt={articles[0].title}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  width={500}
+                  height={300}
                 />
                 <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-transparent md:from-black/50" />
                 <div className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-black"
@@ -159,10 +162,12 @@ export default function WritingSection() {
               className="group cursor-pointer dark:bg-[hsl(0,0%,8%)] bg-white dark:border-neutral-800 border-neutral-200 border rounded-xl overflow-hidden dark:hover:border-[#C3E41D]/40 hover:border-[#C3E41D]/60 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-[rgba(195,228,29,0.05)]"
             >
               <div className="relative h-40 overflow-hidden">
-                <img
+                <Image
                   src={article.image}
                   alt={article.title}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  width={500}
+                  height={300}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
               </div>

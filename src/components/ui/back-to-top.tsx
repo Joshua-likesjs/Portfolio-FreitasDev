@@ -29,7 +29,7 @@ export default function BackToTop() {
           exit={{ opacity: 0, scale: 0.8, y: 10 }}
           transition={{ duration: 0.3 }}
           onClick={scrollToTop}
-          className="fixed bottom-6 right-6 z-50 p-3 rounded-full shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 group"
+          className="fixed bottom-6 right-6 z-50 p-3 rounded-full shadow-lg transition-all duration-300 hover:shadow-[0_0_24px_rgba(195,228,29,0.4)] hover:-translate-y-1 group cursor-pointer"
           style={{
             backgroundColor: "#C3E41D",
           }}

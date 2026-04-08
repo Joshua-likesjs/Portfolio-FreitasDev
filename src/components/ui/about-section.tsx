@@ -2,6 +2,7 @@
 
 import React, { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { BookOpen, Code2, Palette, Database } from "lucide-react";
 
@@ -164,10 +165,12 @@ export default function AboutSection() {
                   className="w-32 h-32 sm:w-36 sm:h-36 rounded-2xl overflow-hidden shadow-2xl"
                   style={{ border: "3px solid #C3E41D" }}
                 >
-                  <img
+                  <Image
                     src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face"
                     alt="Freitas headshot"
                     className="w-full h-full object-cover"
+                    width={400}
+                    height={400}
                   />
                 </div>
                 <div

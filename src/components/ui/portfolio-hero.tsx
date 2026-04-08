@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef, useMemo, useCallback, useSyncExternalStore } from "react";
 import { Menu, X, ChevronDown, Download } from "lucide-react";
+import Image from "next/image";
 import ParticleNetwork from "@/components/ui/particle-network";
 
 // BlurText animation component
@@ -111,7 +112,7 @@ export default function PortfolioHero() {
 
   // Active section tracking via IntersectionObserver
   useEffect(() => {
-    const sectionIds = ["home", "about", "projects", "experience", "education", "writing", "testimonials", "faq", "achievements", "newsletter", "contact"];
+    const sectionIds = ["home", "about", "projects", "experience", "education", "writing", "testimonials", "faq", "achievements", "tools", "newsletter", "contact"];
     const observers: IntersectionObserver[] = [];
 
     sectionIds.forEach((id) => {
@@ -347,10 +348,12 @@ export default function PortfolioHero() {
             {/* Profile Picture */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
               <div className="w-[65px] h-[110px] sm:w-[90px] sm:h-[152px] md:w-[110px] md:h-[185px] lg:w-[129px] lg:h-[218px] rounded-full overflow-hidden shadow-2xl transition-transform duration-300 hover:scale-110 cursor-pointer ring-4 ring-transparent hover:ring-[#C3E41D]/30">
-                <img
+                <Image
                   src="https://i.postimg.cc/y8DnKLyK/albert-dera-ILip77-Sbm-OE-unsplash.jpg"
                   alt="Profile"
                   className="w-full h-full object-cover"
+                  width={400}
+                  height={400}
                 />
               </div>
             </div>

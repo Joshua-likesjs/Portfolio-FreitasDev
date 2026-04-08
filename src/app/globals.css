@@ -270,3 +270,79 @@ html.theme-transitioning *::after {
 .border-gradient:hover::before {
   opacity: 1;
 }
+
+/* Magnetic hover effect for buttons */
+@keyframes magnetic-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(195, 228, 29, 0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(195, 228, 29, 0); }
+}
+
+/* Smooth underline animation for links */
+.link-underline {
+  position: relative;
+}
+.link-underline::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #C3E41D;
+  border-radius: 1px;
+  transition: width 0.3s ease;
+}
+.link-underline:hover::after {
+  width: 100%;
+}
+
+/* Glass morphism card utility */
+.glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px) saturate(120%);
+  -webkit-backdrop-filter: blur(12px) saturate(120%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+:not(.dark) .glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+/* Smooth scale on hover for interactive cards */
+.card-hover-scale {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.card-hover-scale:hover {
+  transform: translateY(-4px);
+}
+
+/* Accent color glow for icons */
+.icon-glow:hover {
+  filter: drop-shadow(0 0 6px rgba(195, 228, 29, 0.6));
+  transition: filter 0.3s ease;
+}
+
+/* Smooth number counter appearance */
+@keyframes count-in {
+  from { opacity: 0; transform: translateY(10px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Subtle radial gradient section backgrounds */
+.section-glow {
+  position: relative;
+}
+.section-glow::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-mask-image: radial-gradient(circle, black 30%, transparent 70%);
+  mask-image: radial-gradient(circle, black 30%, transparent 70%);
+  width: 120%;
+  height: 120%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(195, 228, 29, 0.03) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}

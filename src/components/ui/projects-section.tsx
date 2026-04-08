@@ -2,6 +2,7 @@
 
 import React, { useRef, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -113,10 +114,12 @@ function ProjectModal({ project, onClose }: { project: typeof projects[0]; onClo
       >
         {/* Header Image */}
         <div className="relative h-48 md:h-56">
-          <img
+          <Image
             src={project.image}
             alt={project.name}
             className="w-full h-full object-cover"
+            width={600}
+            height={400}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
           <button
@@ -252,10 +255,12 @@ export default function ProjectsSection() {
                 )}
 
                 <div className="relative overflow-hidden -mx-6 -mt-6 mb-0">
-                  <img
+                  <Image
                     src={project.image}
                     alt={project.name}
                     className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-105"
+                    width={600}
+                    height={400}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
                   <div className="absolute bottom-3 left-4">

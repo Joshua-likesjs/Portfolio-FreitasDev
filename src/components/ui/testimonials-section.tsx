@@ -2,6 +2,7 @@
 
 import React, { useRef, useEffect, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { Quote, ChevronLeft, ChevronRight, Star } from "lucide-react";
 
 const testimonials = [
@@ -156,10 +157,12 @@ export default function TestimonialsSection() {
                       className="w-12 h-12 rounded-full overflow-hidden ring-2"
                       style={{ ringColor: "#C3E41D" }}
                     >
-                      <img
+                      <Image
                         src={testimonials[current].avatar}
                         alt={testimonials[current].name}
                         className="w-full h-full object-cover"
+                        width={100}
+                        height={100}
                       />
                     </div>
                     <div>

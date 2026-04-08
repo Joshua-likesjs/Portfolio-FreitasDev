@@ -527,3 +527,226 @@ The portfolio is a **fully-featured, production-quality single-page portfolio we
 5. **Low**: Admin panel for contact messages + newsletter subscribers
 6. **Low**: Add unsubscribe mechanism for newsletter
 7. **Low**: Deploy and test production build
+
+---
+Task ID: 8
+Agent: Main Agent (webDevReview cron #7)
+Task: Image optimization migration, Tools & Setup section, Availability banner, CSS styling polish
+
+Work Log:
+- Read worklog.md and assessed full project state (20 section components, 2 API routes, DB schema with 4 models)
+- ESLint: 0 errors (1 pre-existing font warning) — after fixing setState-in-effect error in availability-banner
+- Dev server: clean compilation, all 200s
+- Full QA with agent-browser: zero console errors across all sections, mobile responsive at 375x812, both themes tested
+
+Performance Optimization:
+- Migrated all 8 `<img>` tags to Next.js `<Image>` component across 5 files:
+  - `portfolio-hero.tsx` — 1 image (profile pic, 400×400)
+  - `about-section.tsx` — 1 image (headshot, 400×400)
+  - `projects-section.tsx` — 2 images (modal header + card loop, 600×400 each)
+  - `writing-section.tsx` — 2 images (featured + grid, 500×300 each)
+  - `testimonials-section.tsx` — 1 image (avatar, 100×100)
+- remotePatterns already configured in next.config.ts (images.unsplash.com, i.postimg.cc)
+
+New Features:
+- Created `tools-section.tsx` — "TOOLS & SETUP" section with 5 tool categories (Editor & IDE, Frontend, Backend, DevOps, Hardware), 20 tool cards total, each with emoji icon, tool name (Fira Code), description (Antic), compact rounded-xl card design, hover effects (border glow, translateY, shadow), staggered Framer Motion entrance, flex-wrap layout with category dividers
+- Created `availability-banner.tsx` — Dismissible freelancer availability banner with pulsing green dot, "Available for freelance work" text, "Updated Jan 2025" date, gradient bottom border (#C3E41D), Framer Motion fade-in/exit animation, localStorage dismissal persistence
+
+Bug Fixes:
+- Fixed `react-hooks/set-state-in-effect` lint error in availability-banner.tsx: Replaced `useState(false)` + `useEffect` with lazy initializer `useState(() => !localStorage.getItem(key))` to avoid synchronous setState in effect
+
+Navigation & Integration:
+- Updated hero IntersectionObserver sectionIds to include "tools"
+- Updated footer nav links: Added Tools (9 items total)
+- Updated page.tsx: Added AvailabilityBanner (at top), ToolsSection (between Achievements and Newsletter), SectionDivider
+
+Styling Improvements:
+- **Education cards**: Added hover lift (-translate-y-1) and shadow glow (matching experience cards)
+- **Back-to-top button**: Enhanced hover with accent color glow shadow (`hover:shadow-[0_0_24px_rgba(195,228,29,0.4)]`)
+- **New CSS utilities in globals.css**:
+  - `@keyframes magnetic-pulse` — Button ring pulse animation
+  - `.link-underline` — Smooth underline reveal on hover (0 → 100% width transition)
+  - `.glass-card` — Glassmorphism card utility (backdrop-blur + semi-transparent bg)
+  - `.card-hover-scale` — Smooth spring-easing card lift on hover
+  - `.icon-glow:hover` — Drop-shadow glow filter for icons
+  - `@keyframes count-in` — Number counter appearance animation
+  - `.section-glow` — Subtle radial gradient background for sections (mask-image trick)
+
+Files Modified/Created:
+| File | Status | Description |
+|------|--------|-------------|
+| `src/components/ui/tools-section.tsx` | Created | Tools & Setup section with 20 tool cards |
+| `src/components/ui/availability-banner.tsx` | Created | Dismissible availability banner |
+| `src/components/ui/portfolio-hero.tsx` | Modified | Image migration + sectionIds |
+| `src/components/ui/about-section.tsx` | Modified | Image migration |
+| `src/components/ui/projects-section.tsx` | Modified | Image migration |
+| `src/components/ui/writing-section.tsx` | Modified | Image migration |
+| `src/components/ui/testimonials-section.tsx` | Modified | Image migration |
+| `src/components/ui/education-section.tsx` | Modified | Hover lift + shadow on cards |
+| `src/components/ui/back-to-top.tsx` | Modified | Enhanced hover glow |
+| `src/components/ui/portfolio-footer.tsx` | Modified | Added Tools nav link |
+| `src/app/page.tsx` | Modified | Added AvailabilityBanner + ToolsSection |
+| `src/app/globals.css` | Modified | 7 new CSS utilities/animations |
+
+Verification Results:
+- ✅ ESLint: 0 errors (1 pre-existing font warning)
+- ✅ Dev server: clean compilation, all routes 200
+- ✅ Agent-browser QA: all 21 sections rendering correctly
+- ✅ Availability banner: renders at top, dismissible with X, gradient border
+- ✅ Tools section: 5 categories with 20 tools, hover effects, staggered animations
+- ✅ Next.js Image: all 8 images migrated, no `<img>` tags remaining
+- ✅ Mobile responsive: tested at 375x812, both themes
+- ✅ Theme toggle: dark ↔ light working smoothly
+- ✅ Navigation: smooth scroll to all nav items + footer links
+- ✅ Zero console errors
+
+---
+## Handover Document
+
+### Current Project Status / Assessment
+The portfolio is a **fully-featured, production-quality single-page portfolio website** for "Freitas". Current state:
+- **21 sections**: Availability Banner, Hero (particles + CTA + glassmorphism header + cursor glow), About (skill bars + subtitle + headshot), Stats (animated counters + light mode), Services (6 cards), Process (4 steps with connectors), Tech Stack (dual marquee), Projects (modals with Escape), Experience (timeline), Education (timeline), Writing (featured + grid), Testimonials (carousel), FAQ (accordion), Achievements (6 cards), Tools & Setup (20 tools in 5 categories), Newsletter (email form + API), Contact (DB-persisted form), Footer (CTA + nav + social), Back-to-Top, Scroll Progress Bar, Loading Skeleton
+- **Backend APIs**: Contact form POST/GET + Newsletter POST endpoints with Zod validation and SQLite persistence
+- **Database**: 4 Prisma models (User, Post, ContactMessage, NewsletterSubscriber)
+- **SEO**: JSON-LD Person structured data, OpenGraph metadata, Twitter cards
+- **Performance**: All images use Next.js `<Image>` component, loading skeleton page, remotePatterns configured
+- **Dark/Light theme** with smooth transition animation, localStorage persistence, and FOUC prevention
+- **Canvas particle network** in hero with mouse interaction
+- **Glassmorphism header** that activates on scroll with backdrop blur
+- **Scroll progress indicator** bar at top of page
+- **Cursor glow effect** — subtle lime green radial gradient following mouse on desktop
+- **Availability banner** — dismissible freelancer status with gradient border
+- **Active section tracking** in navigation via IntersectionObserver
+- **Keyboard accessibility**: Escape closes modals, Arrow keys navigate testimonials
+- **Animated section dividers** between major sections with glow pulse dots
+- **Responsive** across mobile (375px) to desktop (1920px)
+- **Zero compilation errors**, zero runtime errors, zero console errors
+
+### Architecture Summary
+- **Framework**: Next.js 16 App Router with `'use client'` components
+- **Styling**: Tailwind CSS 4 + shadcn/ui components + inline styles for accent colors + 15+ custom CSS utilities
+- **Animations**: Framer Motion (entrance, counters, carousel, modals, accordion) + Canvas API (particles) + CSS keyframes (float, glow-pulse, shimmer, bounce-slow, count-in, magnetic-pulse)
+- **State**: useSyncExternalStore for theme, useState/useCallback for component state, localStorage for persistence
+- **Backend**: 2 Next.js API routes (contact, newsletter) + Prisma ORM + SQLite
+- **Fonts**: Fira Code (monospace), Antic (sans-serif), Brush Script MT (signature) via Google Fonts
+- **FOUC Prevention**: Inline script in `<head>` reads localStorage before React hydrates
+- **SEO**: JSON-LD Person schema, OpenGraph + Twitter metadata
+- **Performance**: Next.js Image optimization for all 8 images, loading skeleton page, remotePatterns for unsplash + postimg
+
+### Unresolved Issues / Risks & Next Phase Recommendations
+1. **Writing articles are static** — Could connect to MDX files or a CMS for real blog content
+2. **Contact form has no admin UI** — Messages persist to DB but no management interface
+3. **Newsletter has no unsubscribe mechanism** — Subscribers are stored but no way to opt out
+4. **Resume button doesn't have a real file** — Currently navigates to Projects section
+5. **No analytics/tracking** — Could add privacy-friendly analytics (Plausible, Umami)
+6. **No i18n support** — Currently English only
+7. **Many CSS utilities unused** — `.link-underline`, `.glass-card`, `.icon-glow`, `.section-glow` are defined but not yet applied to components
+
+### Recommended Next Phase Priority
+1. **Medium**: Connect Writing section to MDX files for real blog content
+2. **Medium**: Add a blog post detail view / reading page
+3. **Medium**: Apply unused CSS utilities (.link-underline, .glass-card, .icon-glow) to existing components
+4. **Medium**: Add analytics (privacy-friendly)
+5. **Low**: Admin panel for contact messages + newsletter subscribers
+6. **Low**: Add unsubscribe mechanism for newsletter
+7. **Low**: Deploy and test production build
+
+---
+Task ID: 5
+Agent: Main Agent
+Task: Create availability status banner component
+
+Work Log:
+- Read worklog.md to understand full project context (19+ sections, accent color #C3E41D, Fira Code + Antic fonts, framer-motion animations)
+- Created `src/components/ui/availability-banner.tsx`
+
+Component Features:
+- `'use client'` directive for client-side interactivity
+- Compact full-width bar with `py-2.5 px-4` padding
+- Dark/light mode aware background: `bg-[hsl(0,0%,95%)] dark:bg-[hsl(0,0%,6%)]`
+- Subtle gradient border at bottom: 1px linear-gradient of #C3E41D fading from center to transparent
+- Left side: pulsing green dot (`w-2 h-2 rounded-full bg-green-500 animate-pulse`) + "Available for freelance work" text in Fira Code monospace, text-xs uppercase tracking-widest
+- Right side (desktop): "Updated Jan 2025" in muted text + dismiss X button
+- Right side (mobile): "Updated Jan 2025" moves below the main line
+- Center-aligned content within max-w-6xl container
+- Dismissible with X button (lucide-react X icon) — stores dismissal in localStorage under key `availability-banner-dismissed`
+- Framer Motion entrance: fade-in from top (opacity 0, y -40 → opacity 1, y 0) with 0.3s delay and AnimatePresence for exit animation
+- Imports: `motion, AnimatePresence` from framer-motion, `X` from lucide-react
+
+Verification Results:
+- ✅ Component file created at correct path
+- ✅ Uses all specified imports and design tokens
+- ✅ No other files modified
+
+---
+Task ID: 4
+Agent: Main Agent
+Task: Create Tools & Setup section
+
+Work Log:
+- Read worklog.md to understand project context (19+ sections, AnimatedHeading patterns, styling conventions)
+- Read faq-section.tsx and services-section.tsx to match AnimatedHeading pattern (IntersectionObserver + blur entrance, Fira Code, #C3E41D color)
+- Created `src/components/ui/tools-section.tsx` with all specified requirements
+
+Component Features:
+- Section id="tools" with dark:bg-[hsl(0,0%,4%)] bg-[hsl(0,0%,96%)] background
+- AnimatedHeading "TOOLS & SETUP" — same IntersectionObserver + blur entrance pattern as other sections
+- Subtitle in Antic font: "The hardware, software, and tools I use daily to build great products."
+- 5 tool categories, each with Lucide icon + uppercase tracking-widest header (#C3E41D):
+  1. Editor & IDE (Code2): VS Code, Vim, Figma, iTerm2
+  2. Frontend (Palette): React/Next.js, TypeScript, Tailwind CSS, Framer Motion
+  3. Backend (Server): Node.js, Prisma, PostgreSQL, Redis
+  4. DevOps (Cloud): Docker, GitHub Actions, AWS, Vercel
+  5. Hardware (Monitor): MacBook Pro 16", LG 4K Monitor, Keychron K2, Logitech MX Master 3
+- Tool cards: compact rounded-xl (px-3 py-2), emoji + name (Fira Code text-sm) + description (Antic text-xs muted)
+- Card styling: dark:bg-[hsl(0,0%,8%)] bg-white, dark:border-neutral-800 border-neutral-200
+- Hover effects: border → #C3E41D/40, translateY(-2px), subtle green shadow glow
+- Staggered Framer Motion entrance (fade-in from bottom, 60ms delay per tool)
+- Categories separated by border-t dividers
+- Layout: flex-wrap gap-3 within each category, max-w-6xl mx-auto
+- Responsive design, dark/light mode support
+
+Files Created:
+| File | Status | Description |
+|------|--------|-------------|
+| `src/components/ui/tools-section.tsx` | Created | Tools & Setup section with 5 categories, 20 tool cards |
+
+Stage Summary:
+- New tools-section.tsx created following all existing project patterns
+- Matches AnimatedHeading, card styling, hover effects, and animation patterns from other sections
+- No other files modified
+
+---
+Task ID: 3
+Agent: Main Agent
+Task: Migrate all `<img>` tags to Next.js `<Image>` component across the entire project
+
+Work Log:
+- Read worklog.md to understand project context (19+ sections, remotePatterns already configured in next.config.ts)
+- Identified all `<img>` tags across 5 component files (8 total images)
+- Added `import Image from "next/image"` to each file
+- Replaced all `<img>` tags with `<Image>` component, adding appropriate `width` and `height` props
+- Verified zero remaining `<img>` tags in src/components/ui/
+
+Migrations performed:
+
+| File | Images | width×height | Notes |
+|------|--------|-------------|-------|
+| `src/components/ui/portfolio-hero.tsx` | 1 (profile pic) | 400×400 | Inside rounded-full overflow-hidden container with w-full h-full object-cover |
+| `src/components/ui/about-section.tsx` | 1 (headshot) | 400×400 | Inside rounded-2xl overflow-hidden container with w-full h-full object-cover |
+| `src/components/ui/projects-section.tsx` | 2 (modal header, card loop) | 600×400 each | Modal header has w-full h-full object-cover; cards have h-48 object-cover with group-hover:scale-105 |
+| `src/components/ui/writing-section.tsx` | 2 (featured article, grid loop) | 500×300 each | Featured has w-full h-full object-cover with group-hover:scale-105; grid cards have h-40 with same hover |
+| `src/components/ui/testimonials-section.tsx` | 1 (avatar) | 100×100 | Inside w-12 h-12 rounded-full overflow-hidden ring-2 container |
+
+All existing className, style, and other props preserved unchanged. Only additions were `import Image` and `width`/`height` props.
+
+Verification Results:
+- ✅ Zero `<img>` tags remaining in src/components/ui/
+- ✅ Dev server: clean compilation, all routes returning 200
+- ✅ ESLint: 0 new errors (1 pre-existing font warning, 1 pre-existing error in availability-banner.tsx unrelated to this task)
+- ✅ All 8 images successfully migrated to Next.js `<Image>` component
+
+Stage Summary:
+- All 8 external images across 5 component files migrated from `<img>` to Next.js `<Image>`
+- Images now benefit from Next.js automatic optimization (lazy loading, format conversion, size optimization)
+- No visual or behavioral changes — all existing classNames and styles preserved

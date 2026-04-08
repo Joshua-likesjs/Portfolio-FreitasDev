@@ -20,11 +20,14 @@ import Footer from "@/components/ui/portfolio-footer";
 import BackToTop from "@/components/ui/back-to-top";
 import SectionDivider from "@/components/ui/section-divider";
 import CursorGlow from "@/components/ui/cursor-glow";
+import AvailabilityBanner from "@/components/ui/availability-banner";
+import ToolsSection from "@/components/ui/tools-section";
 
 export default function Home() {
   return (
     <div className="min-h-screen flex flex-col">
       <CursorGlow />
+      <AvailabilityBanner />
       <ScrollProgress />
       <PortfolioHero />
       <div className="flex-1">
@@ -46,6 +49,8 @@ export default function Home() {
         <FAQSection />
         <SectionDivider />
         <AchievementsSection />
+        <SectionDivider />
+        <ToolsSection />
         <SectionDivider />
         <NewsletterSection />
         <ContactSection />

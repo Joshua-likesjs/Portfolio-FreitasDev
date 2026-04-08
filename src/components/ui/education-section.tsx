@@ -102,7 +102,7 @@ export default function EducationSection() {
                 />
 
                 {/* Content Card */}
-                <div className="dark:bg-[hsl(0,0%,12%)] bg-white dark:border-neutral-800 border-neutral-200 border rounded-xl p-5 md:p-6 hover:dark:border-[#C3E41D]/30 hover:border-[#C3E41D]/50 transition-colors">
+                <div className="dark:bg-[hsl(0,0%,12%)] bg-white dark:border-neutral-800 border-neutral-200 border rounded-xl p-5 md:p-6 hover:dark:border-[#C3E41D]/30 hover:border-[#C3E41D]/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-[rgba(195,228,29,0.05)]">
                   {/* Degree & School */}
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-3">
                     <h3

@@ -11,7 +11,7 @@ import TechMarqueeSection from "@/components/ui/tech-marquee-section";
 import ProjectsSection from "@/components/ui/projects-section";
 import ExperienceSection from "@/components/ui/experience-section";
 import EducationSection from "@/components/ui/education-section";
-import WritingSection from "@/components/ui/writing-section";
+import FeaturedArticlesSection from "@/components/ui/featured-articles-section";
 import TestimonialsSection from "@/components/ui/testimonials-section";
 import FAQSection from "@/components/ui/faq-section";
 import AchievementsSection from "@/components/ui/achievements-section";
@@ -59,7 +59,7 @@ export default function Home() {
         <ExperienceSection />
         <EducationSection />
         <SectionDivider />
-        <WritingSection />
+        <FeaturedArticlesSection />
         <TestimonialsSection />
         <SectionDivider />
         <FAQSection />

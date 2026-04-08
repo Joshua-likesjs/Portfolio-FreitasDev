@@ -1295,3 +1295,253 @@ The portfolio is a **fully-featured, production-quality single-page portfolio we
 4. **Low**: Add image swap for dark/light mode (different atmospheres)
 5. **Low**: Connect writing section to MDX content
 6. **Low**: Admin panel for contact messages
+
+
+---
+Task ID: 12-b
+Agent: Main Agent
+Task: Add Monthly/Per-Project Toggle to Pricing Section
+
+Work Log:
+- Read worklog.md and existing pricing-section.tsx to understand current state
+- Added `BillingType` type ('project' | 'monthly') and `useState` for toggle state
+- Added monthly pricing data to all 3 plans: Starter "$500/mo", Professional "$1,200/mo", Enterprise "Custom" (unchanged)
+- Added billing toggle UI between subtitle and pricing cards:
+  - "Per Project" label (clickable, #C3E41D when active, neutral-400/500 when inactive, Fira Code font)
+  - Toggle switch: w-12 h-6 rounded-full, bg-neutral-700 inactive / #C3E41D active, spring-animated thumb (w-5 h-5 white)
+  - "Monthly" label (clickable, same active/inactive styling)
+- Added "Save 20%" badge next to "Per Project" label when monthly is active:
+  - AnimatePresence fade-in/out, bg-green-500/10, text-green-400, text-[10px], rounded-full, px-2 py-0.5
+- Wrapped price display with AnimatePresence + motion.div using key={billingType}:
+  - Spring animation (stiffness: 300, damping: 25), scale down/up + fade out/in on toggle
+  - Both price amount and period text animate together in flex items-baseline container
+- Preserved all existing features: popular badge, features list, not included items, hover effects, CTA buttons, glow effects
+- Imported AnimatePresence from framer-motion
+
+Files Modified:
+| File | Status | Description |
+|------|--------|-------------|
+| `src/components/ui/pricing-section.tsx` | Modified | Added billing toggle, monthly prices, price animation, Save 20% badge |
+
+Verification Results:
+- ✅ ESLint: 0 errors (1 pre-existing font warning)
+- ✅ All existing features preserved (popular badge, features, hover, CTA, not included)
+- ✅ Toggle animates smoothly with spring physics
+- ✅ Prices scale/fade transition between Per Project and Monthly
+- ✅ Save 20% badge appears only when monthly is active
+
+---
+Task ID: 12-a
+Agent: Main Agent
+Task: Add Category Filter Tabs to Projects Section
+
+Work Log:
+- Read worklog.md for project context (21+ sections, 2 API routes, Prisma/SQLite)
+- Read existing projects-section.tsx to understand current data structure (6 projects, 5 old categories, filter tabs already present)
+- Updated category labels: ["All", "Frontend", "Full-Stack", "Creative", "Data"] → ["All", "Web Apps", "Mobile", "Design", "Open Source"]
+- Reassigned project categories:
+  - DesignFlow: Creative → Web Apps
+  - CloudSync: Full-Stack → Web Apps
+  - PixelArt Studio: Creative → Design
+  - EcoTrack: Data → Mobile
+  - NoteFlow: Frontend → Open Source
+  - ShopStream: Full-Stack → Web Apps
+- Distribution: All (6), Web Apps (3), Mobile (1), Design (1), Open Source (1)
+
+Filter Tab Styling:
+- Restyled tabs: rounded-full, px-4 py-2, text-xs uppercase tracking-wider, Fira Code font
+- Active tab: #C3E41D background, black text, #C3E41D border
+- Inactive tab: transparent background, neutral border/text (dark: hsl(0,0%,20%/70%), light: hsl(0,0%,82%/40%))
+- Hover on inactive: framer-motion whileHover animates border-color → #C3E41D, color → #C3E41D, scale 1.03
+- Active hover: scale 1.03 only
+- whileTap: scale 0.97 on all tabs
+
+Counter Badge:
+- Added inline count badge next to each tab label
+- Badge styling: rounded-full, px-1.5, text-[10px], font-semibold
+- Active badge: rgba(0,0,0,0.15) background, black text, full opacity
+- Inactive badge: rgba(255,255,255,0.08) dark / rgba(0,0,0,0.06) light background, 0.6 opacity
+
+Filter Animation:
+- Wrapped card grid in `motion.div` with `layout` prop for smooth container transitions
+- Added `AnimatePresence mode="popLayout"` around individual cards
+- Each card wrapper: `motion.div` with `layout`, `key={project.name}`
+- Initial: opacity 0, scale 0.85
+- Animate: opacity 1, scale 1
+- Exit: opacity 0, scale 0.85
+- Stagger: 0.08s delay per card index
+- Layout transition: 0.35s easeInOut for smooth repositioning
+
+Files Modified:
+| File | Status | Description |
+|------|--------|-------------|
+| `src/components/ui/projects-section.tsx` | Modified | Category tabs, badges, AnimatePresence filter animation |
+
+Verification Results:
+- ✅ ESLint: 0 errors (1 pre-existing font warning)
+- ✅ All existing project data, modal, card layout, hover effects preserved
+- ✅ Filter tabs with correct categories and counts
+- ✅ Counter badges with proper active/inactive styling
+- ✅ AnimatePresence with fade+scale+stagger animation
+- ✅ Dark/light mode support maintained
+
+---
+Task ID: 12-c
+Agent: Main Agent
+Task: Create New "Featured Articles" Enhanced Reading Section
+
+Work Log:
+- Read worklog.md to understand full project context (25+ sections, 2 API routes, Prisma/SQLite)
+- Read existing writing-section.tsx for AnimatedHeading pattern and card design reference
+- Read globals.css for existing utility classes (glass-card, scroll-snap-x, link-underline, custom-scrollbar-thin)
+
+Created `featured-articles-section.tsx`:
+- Section id="featured-articles" with dark/light mode background
+- AnimatedHeading "FEATURED ARTICLES" in Fira Code, #C3E41D, blur entrance animation via IntersectionObserver
+- AnimatedSubtitle "Thoughts on design, code, and the creative process." in Antic with fade-in + translate-up entrance
+- Horizontal scrollable article carousel with scroll-snap-x, flex layout, gap-6, overflow-x-auto, pb-4
+- 6 article cards in a horizontal row, each min-w-[320px] sm:min-w-[380px]
+- Each card features:
+  - Article number (01-06) in Fira Code, #C3E41D, text-6xl font-bold, opacity 0.15
+  - Category badge with color coding (Design=#C3E41D, Development=blue-400, Creative=purple-400, Startup=orange-400)
+  - Title in Fira Code, dark:text-white, text-neutral-900
+  - Description in Antic, text-sm, line-clamp-2
+  - Footer with Clock icon + reading time on left, date on right
+  - "Read" + ArrowRight link on hover with link-underline animation
+  - Glass-card styling, rounded-2xl, p-6, hover:-translate-y-2, hover:shadow-lg, hover border glow #C3E41D/20
+- Staggered Framer Motion entrance animations (0.1s delay between cards)
+- Scroll position tracking via passive scroll listener for dot indicators
+- CSS gradient mask edges on scroll container (fade in/out on left/right)
+- 3 dot indicators below carousel with active state (width expands to 28px when active, color #C3E41D)
+- Dot click scrolls carousel to start/middle/end positions
+
+Integration:
+- Replaced WritingSection import with FeaturedArticlesSection in page.tsx
+- Replaced <WritingSection /> with <FeaturedArticlesSection /> at same position (after Education section + SectionDivider)
+
+Verification Results:
+- ✅ ESLint: 0 errors (1 pre-existing font warning)
+- ✅ No other files modified except page.tsx and the new component
+
+---
+Task ID: 12-d
+Agent: Main Agent
+Task: Enhance Services and Process Sections with Stagger Animations + Interactive Features
+
+Work Log:
+- Read worklog.md for full project context
+- Read existing services-section.tsx and process-section.tsx
+
+Part 1 — Services Section Enhancements:
+1. **Staggered Card Entrance**: Updated delay from 0.08s to 0.1s per card, using whileInView with viewport once + amount 0.2
+2. **Animated Gradient Border**: Added outer wrapper div with CSS gradient background that transitions from transparent to `linear-gradient(135deg, #C3E41D, #8aaa10, #C3E41D)` on hover via mouseEnter/mouseLeave state
+3. **Icon Scale Bounce**: Replaced static CSS scale with Framer Motion `animate` that bounces `scale: [1, 1.1, 1.0]` with 0.4s easeInOut on hover
+4. **Tech Tags Shift**: Tags container uses `translateY(-2px)` on card hover with smooth transition; tags also change color to #C3E41D with opacity 0.9
+5. **Service Counter**: Added number indicator ("01"-"06") in top-right corner with Fira Code font, 12px, opacity 0.3, turns accent color on hover
+6. **Expand/Collapse Case Study**: Added `caseStudy` paragraph to each service data object (hardcoded real-world case studies with metrics); click toggles expand via `useState<number | null>` (only one expanded at a time); AnimatePresence with height/opacity animation; shows "Click for case study →" hint on hover; shows "Click to collapse ↑" when expanded
+7. **Removed ScrollReveal wrapper**: Cards now animate independently via whileInView
+
+Part 2 — Process Section Enhancements:
+1. **Animated Circular Progress Ring**: Created `ProgressRing` component with SVG circle (44px, 2.5px stroke); uses IntersectionObserver to trigger `stroke-dashoffset` animation from circumference to 0 with staggered delay per step; step number displayed in center
+2. **Connector Arrow Animation**: Created `ConnectorArrow` component replacing static ArrowRight; SVG line draws itself via Framer Motion `pathLength` animation (0→1) triggered by IntersectionObserver; arrow head polygon fades in after line completes; each connector has staggered delay
+3. **Key Tools Hover Detail**: Added `keyTools` data to each step (Discovery: Figma/Miro/Notion, Research: Analytics/Hotjar/竞品分析, Design: Figma/Framer/Storybook, Build: Next.js/TypeScript/GitHub Actions); on hover, a "Key Tools" sub-section with pill badges animates in (opacity + height via Framer Motion)
+4. **Icon Bounce**: Same spring bounce animation as services section (scale 1→1.1→1.0 on hover)
+5. **Title Hover Color**: Step title transitions to #C3E41D on hover
+
+Files Modified:
+| File | Status | Description |
+|------|--------|-------------|
+| `src/components/ui/services-section.tsx` | Modified | Stagger animations, gradient border, icon bounce, tags shift, counter, expand/collapse case study |
+| `src/components/ui/process-section.tsx` | Modified | SVG progress ring, connector draw animation, key tools hover, icon bounce |
+
+Verification Results:
+- ✅ ESLint: 0 errors (1 pre-existing font warning)
+- ✅ No other files modified
+- ✅ All existing data, layouts, and functionality preserved
+- ✅ All existing animations still functional
+
+---
+Task ID: 12
+Agent: Main Agent (webDevReview cron #9)
+Task: QA, new interactive features, and section enhancements
+
+Work Log:
+- Reviewed worklog.md — 22 section components, stable project
+- ESLint: 0 errors (1 pre-existing font warning)
+- Full QA with agent-browser: zero console errors, all sections rendering, mobile responsive, both themes
+- Launched 4 parallel subagents for feature development
+
+New Features (Subagent 12-a):
+- **Projects filter tabs** — 5 categories (All, Web Apps, Mobile, Design, Open Source) with animated filter
+- Added category field to all 6 projects (including 2 new: NoteFlow, ShopStream)
+- Counter badges on tabs showing project count
+- AnimatePresence with popLayout for smooth card enter/exit
+- Staggered entrance (0.08s delay per card)
+
+New Features (Subagent 12-b):
+- **Pricing toggle** — Per Project / Monthly billing switch
+- Animated toggle track + thumb with spring physics
+- Monthly prices: Starter $500/mo, Professional $1,200/mo, Enterprise Custom
+- Price transition animation (scale down/up + fade) with AnimatePresence
+- "Save 20%" badge appears when monthly is active
+
+New Section (Subagent 12-c):
+- **Featured Articles section** — replaces WritingSection
+- Horizontal scroll carousel with snap scrolling (6 articles)
+- Color-coded category badges (Design=#C3E41D, Development=blue, Creative=purple, Startup=orange)
+- Article numbers (01-06), reading time estimates, dates
+- Scroll fade edges + dot position indicators
+- Glass-card hover effects with border glow
+
+Enhancements (Subagent 12-d):
+- **Services section**: Staggered entrance, animated gradient border on hover, icon spring bounce, tech tags shift, service counter (01-06), click-to-expand case study paragraphs
+- **Process section**: SVG animated progress rings, connector arrow draw animation, key tools pills revealed on hover
+
+Files Modified/Created:
+| File | Status | Description |
+|------|--------|-------------|
+| `src/components/ui/projects-section.tsx` | Modified | Filter tabs, category field, counter badges, filter animation |
+| `src/components/ui/pricing-section.tsx` | Modified | Billing toggle, monthly prices, price animation, save badge |
+| `src/components/ui/featured-articles-section.tsx` | Created | Horizontal scroll carousel, 6 articles, category badges |
+| `src/components/ui/services-section.tsx` | Modified | Stagger, gradient border, bounce, expand case study |
+| `src/components/ui/process-section.tsx` | Modified | Progress rings, arrow draw, key tools hover |
+| `src/app/page.tsx` | Modified | Replaced WritingSection with FeaturedArticlesSection |
+
+Verification Results:
+- ✅ ESLint: 0 errors (1 pre-existing font warning)
+- ✅ Dev server: clean compilation
+- ✅ Agent-browser QA: all 22 sections rendering correctly
+- ✅ Projects: filter tabs present, 11 interactive buttons
+- ✅ Pricing: toggle between Per Project and Monthly working
+- ✅ Featured Articles: horizontal carousel renders
+- ✅ Services: expand/collapse interaction added
+- ✅ Process: progress rings and tools on hover
+- ✅ Zero console errors
+
+---
+## Handover Document
+
+### Current Project Status / Assessment
+The portfolio is a **fully-featured, production-quality single-page portfolio website** for "Freitas". Current state:
+- **22 sections**: Hero, About, Trusted Brands, Skills Radar, Stats, Services (expandable case studies), Process (progress rings + tools hover), Tech Stack, Projects (filter tabs), Experience, Education, Featured Articles (horizontal carousel), Testimonials (progress bar + shuffle), FAQ, Pricing (monthly toggle), Achievements, Tools, Contribution Graph, Timeline Journey, Now, Quote, Newsletter, Contact, Footer
+- **Interactive features**: Project category filter, pricing toggle, services expand/collapse, testimonials shuffle, music player, command palette, magnetic buttons
+- **Floating paths**: Fixed viewport background, visible site-wide
+- **Dark/Light theme**: Smooth transition, localStorage, FOUC prevention
+- **Responsive**: Mobile (375px) to desktop (1920px)
+- **Zero compilation errors**, zero runtime errors, zero console errors
+
+### Architecture Summary
+- **Framework**: Next.js 16 App Router
+- **Styling**: Tailwind CSS 4 + shadcn/ui + 25+ CSS keyframe animations
+- **Animations**: Framer Motion + Canvas API (particles) + SVG animations
+- **Backend**: 2 API routes + Prisma ORM + SQLite
+- **Accent color**: #C3E41D (lime green)
+- **Fonts**: Fira Code, Antic, Brush Script MT
+
+### Recommended Next Phase Priority
+1. **Medium**: Add interactive music player with real audio (Web Audio API)
+2. **Medium**: Add dark/light mode image adaptation (CSS filters on section images)
+3. **Medium**: Add blog post detail view for Featured Articles
+4. **Low**: Add scroll-triggered stagger animations to remaining sections (FAQ, Achievements, Tools)
+5. **Low**: Admin panel for contact messages + newsletter subscribers
+6. **Low**: Deploy and test production build

@@ -20,14 +20,14 @@ function subscribeToTheme(callback: () => void) {
   return () => window.removeEventListener("storage", callback);
 }
 
-const categories = ["All", "Frontend", "Full-Stack", "Creative", "Data"] as const;
+const categories = ["All", "Web Apps", "Mobile", "Design", "Open Source"] as const;
 
 type Category = (typeof categories)[number];
 
 const projects = [
   {
     name: "DesignFlow",
-    category: "Creative" as Category,
+    category: "Web Apps" as Category,
     description:
       "An AI-powered design tool that helps teams generate, iterate, and refine UI designs in real-time using natural language prompts and smart suggestions.",
     fullDescription: "DesignFlow uses state-of-the-art machine learning models to understand design intent from natural language. Teams can describe what they want, and the AI generates multiple design variants that can be refined through an intuitive interface. Features include real-time collaboration, version history, design token extraction, and automatic responsive layout generation.",
@@ -40,7 +40,7 @@ const projects = [
   },
   {
     name: "CloudSync",
-    category: "Full-Stack" as Category,
+    category: "Web Apps" as Category,
     description:
       "A real-time collaboration platform enabling distributed teams to work on documents, designs, and code simultaneously with seamless syncing.",
     fullDescription: "CloudSync provides a zero-latency collaboration experience through operational transformation algorithms and WebSocket connections. It supports rich text editing, code collaboration with syntax highlighting, design file commenting, and video conferencing integration. Built to scale to thousands of concurrent users.",
@@ -53,7 +53,7 @@ const projects = [
   },
   {
     name: "PixelArt Studio",
-    category: "Creative" as Category,
+    category: "Design" as Category,
     description:
       "A creative pixel art editor built with the Canvas API, featuring layers, animation timeline, custom palettes, and export to sprite sheets.",
     fullDescription: "PixelArt Studio is a browser-based pixel art editor designed for game developers and digital artists. It features a layer system with blend modes, an animation timeline with onion skinning, custom color palettes, tilemap editing, and export to sprite sheets, GIF animations, and PNG sequences. All processing happens client-side for instant feedback.",
@@ -66,7 +66,7 @@ const projects = [
   },
   {
     name: "EcoTrack",
-    category: "Data" as Category,
+    category: "Mobile" as Category,
     description:
       "A sustainability dashboard that visualizes environmental impact data, tracks carbon footprints, and provides actionable insights.",
     fullDescription: "EcoTrack helps organizations measure, track, and reduce their environmental impact. The dashboard visualizes carbon emissions across scopes, tracks sustainability goals, benchmarks against industry standards, and provides AI-powered recommendations for reduction strategies. Integrates with popular carbon accounting APIs and IoT sensor data.",
@@ -79,7 +79,7 @@ const projects = [
   },
   {
     name: "NoteFlow",
-    category: "Frontend" as Category,
+    category: "Open Source" as Category,
     description:
       "A beautiful markdown note-taking app with real-time preview, syntax highlighting, and cloud sync. Minimalist design meets powerful features.",
     fullDescription: "NoteFlow is a markdown-first note-taking application with a split-pane editor and live preview. It features syntax highlighting for 50+ languages, keyboard shortcuts for power users, tagging and search, and real-time cloud sync across devices. The UI is designed for focus mode with distraction-free editing.",
@@ -92,7 +92,7 @@ const projects = [
   },
   {
     name: "ShopStream",
-    category: "Full-Stack" as Category,
+    category: "Web Apps" as Category,
     description:
       "A modern e-commerce platform with live streaming shopping, real-time inventory management, and integrated payment processing.",
     fullDescription: "ShopStream combines live video shopping with a full e-commerce backend. Features include stream scheduling, real-time chat during streams, instant purchase buttons, inventory management dashboard, analytics, and Stripe payment integration. Built for creators who want to monetize their audience.",
@@ -289,100 +289,115 @@ export default function ProjectsSection() {
               <motion.button
                 key={category}
                 onClick={() => setActiveCategory(category)}
-                whileHover={{ scale: 1.03 }}
+                whileHover={
+                  isActive
+                    ? { scale: 1.03 }
+                    : { scale: 1.03, borderColor: "#C3E41D", color: "#C3E41D" }
+                }
                 whileTap={{ scale: 0.97 }}
-                className="relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300"
+                className="relative flex items-center gap-1 rounded-full px-4 py-2 text-xs uppercase tracking-wider font-medium transition-all duration-300"
                 style={{
                   fontFamily: "'Fira Code', monospace",
                   backgroundColor: isActive ? "#C3E41D" : "transparent",
                   color: isActive ? "black" : isDark ? "hsl(0 0% 70%)" : "hsl(0 0% 40%)",
-                  border: isActive ? "1px solid #C3E41D" : isDark ? "1px solid hsl(0 0% 20%)" : "1px solid hsl(0 0% 82%)",
+                  border: `1px solid ${isActive ? "#C3E41D" : isDark ? "hsl(0 0% 20%)" : "hsl(0 0% 82%)"}`,
                 }}
               >
-                {category}
+                <span>{category}</span>
                 <span
-                  className="ml-1.5 text-xs opacity-60"
+                  className="inline-flex items-center justify-center rounded-full px-1.5 text-[10px] font-semibold"
+                  style={{
+                    backgroundColor: isActive ? "rgba(0,0,0,0.15)" : isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.06)",
+                    color: isActive ? "black" : undefined,
+                    opacity: isActive ? 1 : 0.6,
+                  }}
                 >
-                  ({count})
+                  {count}
                 </span>
               </motion.button>
             );
           })}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {filteredProjects.map((project, index) => (
-            <motion.div
-              key={project.name}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className={index === 3 ? "md:col-span-2 lg:col-span-1" : ""}
-            >
-              <Card
-                className="dark:bg-[hsl(0,0%,12%)] bg-white dark:border-neutral-800 border-neutral-200 dark:hover:border-[#C3E41D]/40 hover:border-[#C3E41D]/60 transition-all duration-300 overflow-hidden group h-full relative cursor-pointer"
-                onClick={() => setSelectedProject(project)}
-                onKeyDown={(e) => e.key === "Enter" && setSelectedProject(project)}
-                tabIndex={0}
-                role="button"
+        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          <AnimatePresence mode="popLayout">
+            {filteredProjects.map((project, index) => (
+              <motion.div
+                key={project.name}
+                layout
+                initial={{ opacity: 0, scale: 0.85 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.85 }}
+                transition={{
+                  duration: 0.3,
+                  delay: index * 0.08,
+                  layout: { duration: 0.35, ease: "easeInOut" },
+                }}
               >
-                {project.featured && (
-                  <div className="absolute top-3 right-3 z-20 flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider text-black"
-                    style={{ backgroundColor: "#C3E41D", fontFamily: "'Fira Code', monospace" }}
-                  >
-                    <Star className="w-3 h-3" />
-                    Featured
+                <Card
+                  className="dark:bg-[hsl(0,0%,12%)] bg-white dark:border-neutral-800 border-neutral-200 dark:hover:border-[#C3E41D]/40 hover:border-[#C3E41D]/60 transition-all duration-300 overflow-hidden group h-full relative cursor-pointer"
+                  onClick={() => setSelectedProject(project)}
+                  onKeyDown={(e) => e.key === "Enter" && setSelectedProject(project)}
+                  tabIndex={0}
+                  role="button"
+                >
+                  {project.featured && (
+                    <div className="absolute top-3 right-3 z-20 flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider text-black"
+                      style={{ backgroundColor: "#C3E41D", fontFamily: "'Fira Code', monospace" }}
+                    >
+                      <Star className="w-3 h-3" />
+                      Featured
+                    </div>
+                  )}
+
+                  <div className="relative overflow-hidden -mx-6 -mt-6 mb-0">
+                    <Image
+                      src={project.image}
+                      alt={project.name}
+                      className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-105"
+                      width={600}
+                      height={400}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
+                    <div className="absolute bottom-3 left-4">
+                      <span className="text-white text-lg font-bold drop-shadow-lg" style={{ fontFamily: "'Fira Code', monospace" }}>
+                        {project.name}
+                      </span>
+                    </div>
                   </div>
-                )}
 
-                <div className="relative overflow-hidden -mx-6 -mt-6 mb-0">
-                  <Image
-                    src={project.image}
-                    alt={project.name}
-                    className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-105"
-                    width={600}
-                    height={400}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
-                  <div className="absolute bottom-3 left-4">
-                    <span className="text-white text-lg font-bold drop-shadow-lg" style={{ fontFamily: "'Fira Code', monospace" }}>
-                      {project.name}
-                    </span>
-                  </div>
-                </div>
+                  <CardHeader className="pt-4">
+                    <CardDescription
+                      className="dark:text-neutral-400 text-neutral-600 leading-relaxed text-sm"
+                      style={{ fontFamily: "'Antic', sans-serif" }}
+                    >
+                      {project.description}
+                    </CardDescription>
+                  </CardHeader>
 
-                <CardHeader className="pt-4">
-                  <CardDescription
-                    className="dark:text-neutral-400 text-neutral-600 leading-relaxed text-sm"
-                    style={{ fontFamily: "'Antic', sans-serif" }}
-                  >
-                    {project.description}
-                  </CardDescription>
-                </CardHeader>
+                  <CardContent className="flex flex-wrap gap-2">
+                    {project.tags.map((tag) => (
+                      <Badge key={tag} variant="secondary" className="text-xs dark:bg-neutral-800 dark:text-neutral-300 bg-neutral-100 text-neutral-600">
+                        {tag}
+                      </Badge>
+                    ))}
+                  </CardContent>
 
-                <CardContent className="flex flex-wrap gap-2">
-                  {project.tags.map((tag) => (
-                    <Badge key={tag} variant="secondary" className="text-xs dark:bg-neutral-800 dark:text-neutral-300 bg-neutral-100 text-neutral-600">
-                      {tag}
-                    </Badge>
-                  ))}
-                </CardContent>
-
-                <CardFooter>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="dark:border-neutral-700 dark:text-neutral-300 dark:hover:border-[#C3E41D] dark:hover:text-[#C3E41D] border-neutral-300 text-neutral-600 hover:border-[#C3E41D] hover:text-[#C3E41D] transition-colors"
-                  >
-                    <ExternalLink className="w-4 h-4 mr-2" />
-                    View Details
-                  </Button>
-                </CardFooter>
-              </Card>
-            </motion.div>
-          ))}
-        </div>
+                  <CardFooter>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="dark:border-neutral-700 dark:text-neutral-300 dark:hover:border-[#C3E41D] dark:hover:text-[#C3E41D] border-neutral-300 text-neutral-600 hover:border-[#C3E41D] hover:text-[#C3E41D] transition-colors"
+                    >
+                      <ExternalLink className="w-4 h-4 mr-2" />
+                      View Details
+                    </Button>
+                  </CardFooter>
+                </Card>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
       </div>
 
       {/* Project Modal */}

@@ -1,14 +1,18 @@
 'use client';
 
 import React, { useRef, useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Check, Sparkles, ArrowRight } from "lucide-react";
+
+type BillingType = 'project' | 'monthly';
 
 const plans = [
   {
     name: "Starter",
     price: "$2,500",
+    monthlyPrice: "$500",
     period: "per project",
+    monthlyPeriod: "month",
     description: "Perfect for small businesses and personal projects that need a professional online presence.",
     features: [
       "Single page website",
@@ -26,7 +30,9 @@ const plans = [
   {
     name: "Professional",
     price: "$5,000",
+    monthlyPrice: "$1,200",
     period: "per project",
+    monthlyPeriod: "month",
     description: "For growing businesses that need a feature-rich web application with polished UX.",
     features: [
       "Multi-page application",
@@ -46,7 +52,9 @@ const plans = [
   {
     name: "Enterprise",
     price: "Custom",
+    monthlyPrice: "Custom",
     period: "contact for quote",
+    monthlyPeriod: "contact for quote",
     description: "Full-scale digital products with dedicated support, ongoing maintenance, and scaling.",
     features: [
       "Full-stack development",
@@ -102,6 +110,8 @@ function AnimatedHeading({ text }: { text: string }) {
 }
 
 export default function PricingSection() {
+  const [billingType, setBillingType] = useState<BillingType>('project');
+
   return (
     <section
       id="pricing"
@@ -126,6 +136,79 @@ export default function PricingSection() {
           >
             Transparent pricing for every stage of your project. No hidden fees, no surprises — just great work.
           </p>
+
+          {/* Billing Toggle */}
+          <div className="flex items-center justify-center gap-3 mt-8">
+            {/* Per Project Label */}
+            <span
+              className="flex items-center gap-2 text-sm cursor-pointer select-none"
+              style={{
+                fontFamily: "'Fira Code', monospace",
+                color: billingType === 'project' ? '#C3E41D' : undefined,
+              }}
+              onClick={() => setBillingType('project')}
+            >
+              <span
+                style={{
+                  fontFamily: "'Fira Code', monospace",
+                  color: billingType === 'project' ? '#C3E41D' : undefined,
+                }}
+                className={`text-sm select-none transition-colors duration-300 ${billingType === 'project' ? '' : 'dark:text-neutral-500 text-neutral-400'}`}
+              >
+                Per Project
+              </span>
+              <AnimatePresence>
+                {billingType === 'monthly' && (
+                  <motion.span
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                    transition={{ duration: 0.2 }}
+                    className="inline-flex items-center rounded-full bg-green-500/10 text-green-400 text-[10px] px-2 py-0.5"
+                  >
+                    Save 20%
+                  </motion.span>
+                )}
+              </AnimatePresence>
+            </span>
+
+            {/* Toggle switch */}
+            <button
+              type="button"
+              onClick={() => setBillingType(billingType === 'project' ? 'monthly' : 'project')}
+              className="relative w-12 h-6 rounded-full transition-colors duration-300 flex-shrink-0 focus:outline-none"
+              style={{
+                backgroundColor: billingType === 'monthly' ? '#C3E41D' : 'hsl(0,0%,25%)',
+              }}
+              aria-label="Toggle between per project and monthly pricing"
+            >
+              <motion.div
+                className="absolute top-0.5 w-5 h-5 rounded-full bg-white"
+                animate={{ left: billingType === 'monthly' ? '1.625rem' : '0.125rem' }}
+                transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+              />
+            </button>
+
+            {/* Monthly Label */}
+            <span
+              className="flex items-center text-sm cursor-pointer select-none"
+              style={{
+                fontFamily: "'Fira Code', monospace",
+                color: billingType === 'monthly' ? '#C3E41D' : undefined,
+              }}
+              onClick={() => setBillingType('monthly')}
+            >
+              <span
+                style={{
+                  fontFamily: "'Fira Code', monospace",
+                  color: billingType === 'monthly' ? '#C3E41D' : undefined,
+                }}
+                className={`text-sm select-none transition-colors duration-300 ${billingType === 'monthly' ? '' : 'dark:text-neutral-500 text-neutral-400'}`}
+              >
+                Monthly
+              </span>
+            </span>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-4 lg:gap-6 items-start">
@@ -178,20 +261,31 @@ export default function PricingSection() {
                     {plan.name}
                   </h3>
 
-                  {/* Price */}
+                  {/* Price with animation */}
                   <div className="mb-4">
-                    <span
-                      className="text-4xl md:text-5xl font-bold dark:text-white text-neutral-900"
-                      style={{ fontFamily: "'Fira Code', monospace" }}
-                    >
-                      {plan.price}
-                    </span>
-                    <span
-                      className="text-sm dark:text-neutral-500 text-neutral-400 ml-2"
-                      style={{ fontFamily: "'Antic', sans-serif" }}
-                    >
-                      {plan.period}
-                    </span>
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={`${plan.name}-${billingType}`}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.8 }}
+                        transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+                        className="flex items-baseline"
+                      >
+                        <span
+                          className="text-4xl md:text-5xl font-bold dark:text-white text-neutral-900"
+                          style={{ fontFamily: "'Fira Code', monospace" }}
+                        >
+                          {billingType === 'project' ? plan.price : plan.monthlyPrice}
+                        </span>
+                        <span
+                          className="text-sm dark:text-neutral-500 text-neutral-400 ml-2"
+                          style={{ fontFamily: "'Antic', sans-serif" }}
+                        >
+                          {billingType === 'project' ? plan.period : plan.monthlyPeriod}
+                        </span>
+                      </motion.div>
+                    </AnimatePresence>
                   </div>
 
                   {/* Description */}

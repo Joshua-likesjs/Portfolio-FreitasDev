@@ -3,6 +3,8 @@
 import PortfolioHero from "@/components/ui/portfolio-hero";
 import AboutSection from "@/components/ui/about-section";
 import StatsSection from "@/components/ui/stats-section";
+import ServicesSection from "@/components/ui/services-section";
+import TechMarqueeSection from "@/components/ui/tech-marquee-section";
 import ProjectsSection from "@/components/ui/projects-section";
 import ExperienceSection from "@/components/ui/experience-section";
 import EducationSection from "@/components/ui/education-section";
@@ -19,6 +21,8 @@ export default function Home() {
       <div className="flex-1">
         <AboutSection />
         <StatsSection />
+        <ServicesSection />
+        <TechMarqueeSection />
         <ProjectsSection />
         <ExperienceSection />
         <EducationSection />

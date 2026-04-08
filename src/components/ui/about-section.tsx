@@ -116,14 +116,19 @@ function ProgressBar({ name, level, delay }: { name: string; level: number; dela
           {level}%
         </span>
       </div>
-      <div className="h-2 rounded-full dark:bg-neutral-800 bg-neutral-200 overflow-hidden">
+      <div className="h-2 rounded-full dark:bg-neutral-800 bg-neutral-200 overflow-hidden relative">
         <motion.div
-          className="h-full rounded-full"
+          className="h-full rounded-full relative"
           style={{ backgroundColor: "#C3E41D" }}
           initial={{ width: 0 }}
           animate={inView ? { width: `${level}%` } : { width: 0 }}
           transition={{ duration: 1, delay, ease: "easeOut" }}
-        />
+        >
+          {/* Shimmer effect */}
+          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-[shimmer_2s_ease-in-out_infinite]" />
+          </div>
+        </motion.div>
       </div>
     </div>
   );
@@ -137,6 +142,12 @@ export default function AboutSection() {
     >
       <div className="max-w-6xl mx-auto">
         <AnimatedHeading text="ABOUT" />
+        <p
+          className="text-base md:text-lg dark:text-neutral-400 text-neutral-500 mb-12 md:mb-16 max-w-2xl"
+          style={{ fontFamily: "'Antic', sans-serif" }}
+        >
+          A creative developer and designer based in San Francisco, crafting digital experiences that matter.
+        </p>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-start">
           {/* Left: Bio + Headshot */}

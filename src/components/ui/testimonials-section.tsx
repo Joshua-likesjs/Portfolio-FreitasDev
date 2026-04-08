@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Quote, ChevronLeft, ChevronRight, Star } from "lucide-react";
 
@@ -74,21 +74,31 @@ export default function TestimonialsSection() {
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(0);
 
-  const next = () => {
+  const next = useCallback(() => {
     setDirection(1);
     setCurrent((prev) => (prev + 1) % testimonials.length);
-  };
+  }, []);
 
-  const prev = () => {
+  const prev = useCallback(() => {
     setDirection(-1);
     setCurrent((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-  };
+  }, []);
 
   // Auto-advance
   useEffect(() => {
     const timer = setInterval(next, 6000);
     return () => clearInterval(timer);
-  }, []);
+  }, [next]);
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "ArrowRight") next();
+      if (e.key === "ArrowLeft") prev();
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [next, prev]);
 
   const variants = {
     enter: (dir: number) => ({ x: dir > 0 ? 100 : -100, opacity: 0 }),
@@ -198,7 +208,7 @@ export default function TestimonialsSection() {
                 }}
                 className="w-2 h-2 rounded-full transition-all duration-300"
                 style={{
-                  backgroundColor: i === current ? "#C3E41D" : i < current || i > current ? (undefined) : undefined,
+                  backgroundColor: i === current ? "#C3E41D" : "hsl(0 0% 50%)",
                   opacity: i === current ? 1 : 0.3,
                   transform: i === current ? "scale(1.3)" : "scale(1)",
                 }}

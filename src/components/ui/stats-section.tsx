@@ -119,14 +119,11 @@ export default function StatsSection() {
   return (
     <section
       id="stats"
-      className="py-20 md:py-32 px-4 relative overflow-hidden"
-      style={{
-        background: "linear-gradient(135deg, hsl(0 0% 6%) 0%, hsl(0 0% 3%) 50%, hsl(0 0% 6%) 100%)",
-      }}
+      className="py-20 md:py-32 px-4 relative overflow-hidden dark:bg-[hsl(0,0%,5%)] bg-[hsl(0,0%,97%)] transition-colors"
     >
-      {/* Subtle grid pattern background */}
+      {/* Grid pattern background */}
       <div
-        className="absolute inset-0 opacity-[0.03]"
+        className="absolute inset-0 opacity-[0.03] dark:opacity-[0.04]"
         style={{
           backgroundImage: `linear-gradient(#C3E41D 1px, transparent 1px), linear-gradient(90deg, #C3E41D 1px, transparent 1px)`,
           backgroundSize: "60px 60px",
@@ -135,11 +132,11 @@ export default function StatsSection() {
 
       {/* Glow effects */}
       <div
-        className="absolute top-0 left-1/4 w-96 h-96 rounded-full blur-[128px] opacity-10"
+        className="absolute top-0 left-1/4 w-96 h-96 rounded-full blur-[128px] dark:opacity-10 opacity-[0.04]"
         style={{ backgroundColor: "#C3E41D" }}
       />
       <div
-        className="absolute bottom-0 right-1/4 w-96 h-96 rounded-full blur-[128px] opacity-5"
+        className="absolute bottom-0 right-1/4 w-96 h-96 rounded-full blur-[128px] dark:opacity-5 opacity-[0.02]"
         style={{ backgroundColor: "#C3E41D" }}
       />
 

@@ -200,6 +200,17 @@ function ProjectModal({ project, onClose }: { project: typeof projects[0]; onClo
 export default function ProjectsSection() {
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
 
+  // Close modal on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && selectedProject) {
+        setSelectedProject(null);
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [selectedProject]);
+
   return (
     <section
       id="projects"

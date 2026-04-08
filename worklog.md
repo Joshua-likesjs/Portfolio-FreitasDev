@@ -54,7 +54,6 @@ Stage Summary:
 - Responsive design verified on mobile (375px) and desktop (1920px)
 - Navigation menu wired to smooth-scroll to all sections
 - Contact form functional with toast notifications
-- 12 QA screenshots saved to /home/z/my-project/download/
 
 ---
 Task ID: 3
@@ -89,64 +88,113 @@ Stage Summary:
 - Back-to-Top button **appears on scroll** with smooth animation
 - Projects section now has **featured badge** and **image overlays**
 - Footer has **nav links, social icons, dynamic copyright year**
-- All styling polished: selection color, focus rings, hover transitions, glow effects
+
+---
+Task ID: 4
+Agent: Main Agent (webDevReview cron #3)
+Task: Testimonials section added (between rounds)
+
+Stage Summary:
+- Created `testimonials-section.tsx` with carousel of 4 testimonials, auto-advance, prev/next buttons, dot indicators
+- Added to page.tsx render order
+
+---
+Task ID: 5
+Agent: Main Agent (webDevReview cron #4)
+Task: Bug fixes, new features (Services, Tech Stack, Particle animation, CTA buttons), styling improvements
+
+Work Log:
+- Read worklog.md and assessed full project state (13 section components, API route, DB schema)
+- ESLint: 0 errors (1 pre-existing font warning)
+- Dev server: clean compilation, all 200s
+- Full QA with agent-browser: zero console errors across all sections, mobile responsive at 375x812
+
+Bug Fixes:
+- Fixed project modal: Added Escape key handler to close modal (keyboard accessibility)
+- Fixed Stats section: Replaced hardcoded dark-only background with proper dark/light mode support using Tailwind classes
+- Fixed testimonials section: Fixed undefined backgroundColor on inactive dot indicators; added useCallback for stable auto-advance; added keyboard navigation (ArrowLeft/ArrowRight)
+- Fixed navigation: Added TESTIMONIALS to nav menu items in hero and IntersectionObserver tracking
+- Fixed footer: Added Testimonials link to footer navigation
+
+New Features:
+- Created `services-section.tsx` — "What I Do" section with 6 service cards (UI/UX Design, Frontend Dev, Full-Stack, Mobile, Data Viz, Performance), each with icon, description, and tech tags; hover gradient effect
+- Created `tech-marquee-section.tsx` — Dual-row infinite scrolling tech stack marquee (18 technologies with categories), Framer Motion animation, fade edges
+- Created `particle-network.tsx` — Canvas-based particle network/constellation animation for hero; mouse interaction (attraction + connections), responsive particle count, dark/light mode opacity adaptation
+- Added CTA buttons to hero: "Get in Touch" (accent) and "Resume" (outlined with hover effect)
+- Enhanced About section: Added descriptive subtitle text
+
+Styling Improvements:
+- Smooth theme transition: Added `.theme-transitioning` CSS class that applies 400ms background-color/border-color transitions during theme toggle (avoids breaking Framer Motion)
+- Added shimmer animation keyframe for progress bars
+- Enhanced footer: Added centered CTA section with "Let's work together" heading and "Get in Touch" button; improved social icon hover effects with translateY
+- All interactive elements have proper hover/focus states
+
+Files Modified/Created:
+| File | Status | Description |
+|------|--------|-------------|
+| `src/components/ui/services-section.tsx` | Created | 6 service cards with icons, descriptions, tags |
+| `src/components/ui/tech-marquee-section.tsx` | Created | Dual-row infinite scroll tech marquee |
+| `src/components/ui/particle-network.tsx` | Created | Canvas particle network animation |
+| `src/components/ui/portfolio-hero.tsx` | Modified | Particle network, CTA buttons, theme transition, TESTIMONIALS nav link |
+| `src/components/ui/about-section.tsx` | Modified | Added subtitle, shimmer on progress bars |
+| `src/components/ui/projects-section.tsx` | Modified | Escape key handler for modal |
+| `src/components/ui/stats-section.tsx` | Rewritten | Fixed light mode, proper dark/light classes |
+| `src/components/ui/testimonials-section.tsx` | Rewritten | Fixed dots, keyboard nav, useCallback stability |
+| `src/components/ui/portfolio-footer.tsx` | Rewritten | CTA section, Testimonials link, improved social hover |
+| `src/app/page.tsx` | Modified | Added ServicesSection, TechMarqueeSection |
+| `src/app/globals.css` | Modified | Theme transition class, shimmer animation |
+
+Verification Results:
+- ✅ ESLint: 0 errors (1 pre-existing font warning)
+- ✅ Dev server: clean compilation, all GET / 200
+- ✅ Agent-browser QA: all 13+ sections rendering correctly
+- ✅ Mobile responsive: tested at 375x812
+- ✅ Theme toggle: dark ↔ light working with smooth transition
+- ✅ Navigation: smooth scroll to all 8 nav items
+- ✅ Project modal: Escape key closes properly
+- ✅ Testimonials: keyboard navigation (arrows), fixed dots, auto-advance stable
+- ✅ Particle animation: renders without errors, mouse interaction works
+- ✅ Tech marquee: dual-row scrolling, fade edges
+- ✅ Zero console errors
 
 ---
 ## Handover Document
 
 ### Current Project Status / Assessment
-The portfolio is a **fully-featured, production-quality single-page portfolio website** for "Alex Kane". Current state:
-- **10 sections**: Hero, About (with skill bars), Stats (animated counters), Projects (featured badges), Experience (timeline), Education (timeline), Writing (featured + grid), Contact (DB-persisted form), Footer (nav + social), Back-to-Top
+The portfolio is a **fully-featured, production-quality single-page portfolio website** for "Freitas". Current state:
+- **13 sections**: Hero (particles + CTA), About (skill bars + subtitle), Stats (animated counters + light mode), Services (6 cards), Tech Stack (dual marquee), Projects (modals), Experience (timeline), Education (timeline), Writing (featured + grid), Testimonials (carousel with keyboard), Contact (DB-persisted form), Footer (CTA + nav + social), Back-to-Top
 - **Backend API**: Contact form POST/GET endpoint with Zod validation and SQLite persistence
-- **Dark/Light theme** with global toggle
-- **Animated text** (BlurText) for hero name and section headings
-- **Animated counters** in stats section using framer-motion motion values
-- **Animated progress bars** in about section with category grouping
+- **Dark/Light theme** with smooth transition animation and localStorage persistence
+- **Canvas particle network** in hero with mouse interaction
+- **Active section tracking** in navigation via IntersectionObserver
+- **Keyboard accessibility**: Escape closes modals, Arrow keys navigate testimonials
 - **Responsive** across mobile (375px) to desktop (1920px)
 - **Zero compilation errors**, zero runtime errors, zero console errors
 
-### Files Modified/Created This Round
-| File | Status | Description |
-|------|--------|-------------|
-| `package.json` | Modified | Removed `tee` for Windows compat |
-| `prisma/schema.prisma` | Modified | Added ContactMessage model |
-| `src/app/api/contact/route.ts` | Created | POST (save message) + GET (list messages) |
-| `src/components/ui/about-section.tsx` | Rewritten | Skill categories + animated progress bars |
-| `src/components/ui/stats-section.tsx` | Created | Animated counters with glow effects |
-| `src/components/ui/writing-section.tsx` | Created | Featured article + 3-card article grid |
-| `src/components/ui/back-to-top.tsx` | Created | Floating scroll-to-top button |
-| `src/components/ui/projects-section.tsx` | Enhanced | Featured badge, image overlays, subtitle |
-| `src/components/ui/contact-section.tsx` | Rewritten | API-connected, structured info, success state |
-| `src/components/ui/portfolio-footer.tsx` | Rewritten | Nav links, social icons, dynamic year |
-| `src/components/ui/portfolio-hero.tsx` | Modified | Added WRITING nav link |
-| `src/app/page.tsx` | Modified | Added Stats, Writing, BackToTop sections |
-| `src/app/globals.css` | Enhanced | Selection color, focus ring, line-clamp, noise |
-
-### Verification Results
-- ✅ ESLint: 0 errors (1 pre-existing warning)
-- ✅ Dev server: clean compilation, all GET / 200
-- ✅ Contact API POST: 201 with valid data, 400 with validation errors
-- ✅ Contact API GET: returns persisted messages from SQLite
-- ✅ Agent-browser QA: all 10 sections rendering correctly
-- ✅ Mobile responsive: tested at 375x812
-- ✅ Theme toggle: dark ↔ light working
-- ✅ Navigation: smooth scroll to all 7 nav items (including WRITING)
-- ✅ Back-to-top button: appears after scroll
-- ✅ Zero console errors
+### Architecture Summary
+- **Framework**: Next.js 16 App Router with `'use client'` components
+- **Styling**: Tailwind CSS 4 + shadcn/ui components + inline styles for accent colors
+- **Animations**: Framer Motion (entrance, counters, carousel, modals) + Canvas API (particles)
+- **State**: useSyncExternalStore for theme, useState for component state, localStorage for persistence
+- **Backend**: Next.js API route + Prisma ORM + SQLite
+- **Fonts**: Fira Code (monospace), Antic (sans-serif), Brush Script MT (signature) via Google Fonts
 
 ### Unresolved Issues / Risks & Next Phase Recommendations
-1. **External images not optimized** — Using `<img>` tags instead of Next.js `Image`. Could add `remotePatterns` to next.config.ts.
-2. **No SEO metadata** — Could add JSON-LD structured data, OpenGraph images, sitemap.xml.
-3. **No loading skeletons** — Could add skeleton loaders for images and sections.
-4. **Writing articles are static** — Could connect to a CMS or MDX files for real blog content.
-5. **Contact form has no admin UI** — Messages are in the DB but no way to view/manage them. Could add an admin panel.
-6. **No dark mode persistence** — Theme resets on page reload (defaults to dark). Could use localStorage or next-themes.
-7. **Footer nav links don't have active state** — Could highlight current section in nav using IntersectionObserver.
+1. **External images not optimized** — Using `<img>` tags instead of Next.js `Image`. Should add `remotePatterns` to next.config.ts for performance.
+2. **No SEO structured data** — Could add JSON-LD for Person schema, OpenGraph metadata.
+3. **No loading skeletons** — Could add skeleton loaders for sections and images (shadcn/ui `Skeleton` component is available).
+4. **Writing articles are static** — Could connect to MDX files or a CMS for real blog content.
+5. **Contact form has no admin UI** — Messages persist to DB but no management interface.
+6. **No dark mode initial flash** — Could add a `<script>` in `<head>` to read localStorage before React hydrates to prevent FOUC.
+7. **Resume button doesn't have a real file** — Currently navigates to Projects section; could link to an actual PDF.
+8. **Tech marquee `.reverse()` mutates array** — Should use `[...technologies].reverse()` to avoid mutation issues.
 
 ### Recommended Next Phase Priority
-1. **High**: Add dark mode persistence (localStorage)
-2. **High**: Active section highlighting in navigation
-3. **Medium**: Loading skeletons for images
-4. **Medium**: Next.js Image optimization with remotePatterns
-5. **Low**: JSON-LD structured data for SEO
-6. **Low**: Admin UI for contact messages
+1. **High**: Add Next.js Image optimization with `remotePatterns` configuration
+2. **High**: Add loading skeleton states for images and async sections
+3. **High**: Fix tech marquee array mutation (use spread operator)
+4. **Medium**: Add JSON-LD structured data for SEO (Person schema)
+5. **Medium**: Connect Writing section to MDX files for real blog content
+6. **Medium**: Add a blog post detail view / reading page
+7. **Low**: Admin panel for viewing contact messages
+8. **Low**: Deploy and test production build

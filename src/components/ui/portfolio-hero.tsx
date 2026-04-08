@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useState, useEffect, useRef, useMemo, useCallback, useSyncExternalStore } from "react";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, Download } from "lucide-react";
+import ParticleNetwork from "@/components/ui/particle-network";
 
 // BlurText animation component
 interface BlurTextProps {
@@ -102,7 +103,7 @@ export default function PortfolioHero() {
 
   // Active section tracking via IntersectionObserver
   useEffect(() => {
-    const sectionIds = ["home", "about", "projects", "experience", "education", "writing", "contact"];
+    const sectionIds = ["home", "about", "projects", "experience", "education", "writing", "testimonials", "contact"];
     const observers: IntersectionObserver[] = [];
 
     sectionIds.forEach((id) => {
@@ -143,6 +144,8 @@ export default function PortfolioHero() {
   const toggleTheme = useCallback(() => {
     const newTheme = !isDark;
     localStorage.setItem("portfolio-theme", newTheme ? "dark" : "light");
+    // Add smooth transition class
+    document.documentElement.classList.add("theme-transitioning");
     if (newTheme) {
       document.documentElement.classList.add("dark");
     } else {
@@ -150,6 +153,10 @@ export default function PortfolioHero() {
     }
     // Force re-render by dispatching storage event
     window.dispatchEvent(new Event("storage"));
+    // Remove transition class after animation completes
+    setTimeout(() => {
+      document.documentElement.classList.remove("theme-transitioning");
+    }, 500);
   }, [isDark]);
 
   const handleNavClick = useCallback((href: string) => {
@@ -167,6 +174,7 @@ export default function PortfolioHero() {
     { label: "EXPERIENCE", href: "#experience" },
     { label: "EDUCATION", href: "#education" },
     { label: "WRITING", href: "#writing" },
+    { label: "TESTIMONIALS", href: "#testimonials" },
     { label: "CONTACT", href: "#contact" },
   ];
 
@@ -179,6 +187,9 @@ export default function PortfolioHero() {
         color: isDark ? "hsl(0 0% 100%)" : "hsl(0 0% 10%)",
       }}
     >
+      {/* Particle Network Animation */}
+      <ParticleNetwork isDark={isDark} />
+
       {/* Animated gradient glow orbs */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div
@@ -327,8 +338,48 @@ export default function PortfolioHero() {
           </div>
         </div>
 
+        {/* CTA Buttons */}
+        <div className="absolute bottom-28 sm:bottom-32 md:bottom-36 lg:bottom-44 xl:bottom-48 left-1/2 -translate-x-1/2 w-full px-6">
+          <div className="flex justify-center gap-4">
+            <button
+              type="button"
+              onClick={() => handleNavClick("#contact")}
+              className="flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold uppercase tracking-wider transition-all duration-300 hover:shadow-lg hover:shadow-[#C3E41D20] hover:-translate-y-0.5 active:translate-y-0"
+              style={{
+                backgroundColor: "#C3E41D",
+                color: "black",
+                fontFamily: "'Fira Code', monospace",
+              }}
+            >
+              <span>Get in Touch</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => handleNavClick("#projects")}
+              className="flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold uppercase tracking-wider border transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0"
+              style={{
+                borderColor: isDark ? "hsl(0 0% 25%)" : "hsl(0 0% 80%)",
+                color: isDark ? "hsl(0 0% 90%)" : "hsl(0 0% 20%)",
+                fontFamily: "'Fira Code', monospace",
+                backgroundColor: "transparent",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = "#C3E41D";
+                e.currentTarget.style.color = "#C3E41D";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = isDark ? "hsl(0 0% 25%)" : "hsl(0 0% 80%)";
+                e.currentTarget.style.color = isDark ? "hsl(0 0% 90%)" : "hsl(0 0% 20%)";
+              }}
+            >
+              <Download className="w-4 h-4" />
+              <span>Resume</span>
+            </button>
+          </div>
+        </div>
+
         {/* Tagline */}
-        <div className="absolute bottom-16 sm:bottom-20 md:bottom-24 lg:bottom-32 xl:bottom-36 left-1/2 -translate-x-1/2 w-full px-6">
+        <div className="absolute bottom-16 sm:bottom-20 md:bottom-24 lg:bottom-28 xl:bottom-32 left-1/2 -translate-x-1/2 w-full px-6">
           <div className="flex justify-center">
             <BlurText
               text="Designing human experiences in code."

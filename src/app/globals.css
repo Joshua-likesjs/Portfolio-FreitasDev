@@ -126,6 +126,14 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Smooth theme transition - only background and border colors */
+html.theme-transitioning,
+html.theme-transitioning *,
+html.theme-transitioning *::before,
+html.theme-transitioning *::after {
+  transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.3s ease !important;
+}
+
 /* Scrollbar styling */
 ::-webkit-scrollbar {
   width: 8px;
@@ -148,6 +156,15 @@ html {
 }
 .animate-bounce-slow {
   animation: bounce-slow 2s ease-in-out infinite;
+}
+
+/* Shimmer animation for progress bars */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+.animate-[shimmer_2s_ease-in-out_infinite] {
+  animation: shimmer 2s ease-in-out infinite;
 }
 
 /* Selection color */

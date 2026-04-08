@@ -1,7 +1,7 @@
 'use client';
 
 import React from "react";
-import { Heart, Github, Linkedin, Twitter, Mail } from "lucide-react";
+import { Heart, Github, Linkedin, Twitter, Mail, ArrowUp } from "lucide-react";
 
 const navLinks = [
   { label: "Home", href: "#home" },
@@ -9,6 +9,7 @@ const navLinks = [
   { label: "Projects", href: "#projects" },
   { label: "Experience", href: "#experience" },
   { label: "Writing", href: "#writing" },
+  { label: "Testimonials", href: "#testimonials" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -28,9 +29,40 @@ export default function PortfolioFooter() {
   };
 
   return (
-    <footer className="py-12 px-4 dark:bg-[hsl(0,0%,3%)] bg-[hsl(0,0%,98%)] dark:border-neutral-800 border-neutral-200 border-t transition-colors">
+    <footer className="py-16 px-4 dark:bg-[hsl(0,0%,3%)] bg-[hsl(0,0%,98%)] dark:border-neutral-800 border-neutral-200 border-t transition-colors">
       <div className="max-w-6xl mx-auto">
-        {/* Top row: Nav links */}
+        {/* Top section with CTA */}
+        <div className="text-center mb-12">
+          <p
+            className="text-2xl md:text-3xl font-bold mb-4 dark:text-white text-neutral-900"
+            style={{ fontFamily: "'Fira Code', monospace" }}
+          >
+            Let&apos;s work together
+          </p>
+          <p
+            className="text-base dark:text-neutral-400 text-neutral-500 mb-6 max-w-md mx-auto"
+            style={{ fontFamily: "'Antic', sans-serif" }}
+          >
+            Have a project in mind? I&apos;d love to hear about it.
+          </p>
+          <button
+            onClick={() => handleClick("#contact")}
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold uppercase tracking-wider transition-all duration-300 hover:shadow-lg hover:shadow-[#C3E41D20] hover:-translate-y-0.5"
+            style={{
+              backgroundColor: "#C3E41D",
+              color: "black",
+              fontFamily: "'Fira Code', monospace",
+            }}
+          >
+            <Mail className="w-4 h-4" />
+            Get in Touch
+          </button>
+        </div>
+
+        {/* Divider */}
+        <div className="w-full h-px dark:bg-neutral-800 bg-neutral-200 mb-10" />
+
+        {/* Nav links */}
         <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-8">
           {navLinks.map((link) => (
             <button
@@ -61,7 +93,7 @@ export default function PortfolioFooter() {
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 rounded-lg dark:text-neutral-500 text-neutral-400 hover:text-[#C3E41D] dark:hover:text-[#C3E41D] transition-colors"
+                className="p-2 rounded-lg dark:text-neutral-500 text-neutral-400 hover:text-[#C3E41D] dark:hover:text-[#C3E41D] transition-all duration-300 hover:-translate-y-0.5"
                 aria-label={label}
               >
                 <Icon className="w-4 h-4" />

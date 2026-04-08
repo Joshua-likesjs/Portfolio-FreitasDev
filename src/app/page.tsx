@@ -24,6 +24,8 @@ import SectionDivider from "@/components/ui/section-divider";
 import CursorGlow from "@/components/ui/cursor-glow";
 import AvailabilityBanner from "@/components/ui/availability-banner";
 import ToolsSection from "@/components/ui/tools-section";
+import ContributionGraphSection from "@/components/ui/contribution-graph-section";
+import TimelineJourneySection from "@/components/ui/timeline-journey-section";
 
 export default function Home() {
   return (
@@ -54,6 +56,10 @@ export default function Home() {
         <AchievementsSection />
         <SectionDivider />
         <ToolsSection />
+        <SectionDivider />
+        <ContributionGraphSection />
+        <SectionDivider />
+        <TimelineJourneySection />
         <SectionDivider />
         <NowSection />
         <SectionDivider />

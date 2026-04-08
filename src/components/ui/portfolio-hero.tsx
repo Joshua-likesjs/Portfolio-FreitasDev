@@ -195,7 +195,7 @@ export default function PortfolioHero() {
 
   // Active section tracking via IntersectionObserver
   useEffect(() => {
-    const sectionIds = ["home", "about", "projects", "experience", "education", "writing", "testimonials", "faq", "achievements", "tools", "skills-radar", "now", "newsletter", "contact"];
+    const sectionIds = ["home", "about", "projects", "experience", "education", "writing", "testimonials", "faq", "achievements", "tools", "skills-radar", "contribution-graph", "journey", "now", "newsletter", "contact"];
     const observers: IntersectionObserver[] = [];
 
     sectionIds.forEach((id) => {
@@ -284,18 +284,18 @@ export default function PortfolioHero() {
       {/* Animated gradient glow orbs */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div
-          className="absolute -top-1/4 -left-1/4 w-[600px] h-[600px] rounded-full opacity-[0.07] animate-pulse"
+          className="absolute -top-1/4 -left-1/4 w-[600px] h-[600px] rounded-full animate-breathe"
           style={{
             background: "radial-gradient(circle, #C3E41D 0%, transparent 70%)",
-            animationDuration: "8s",
+            opacity: 0.07,
           }}
         />
         <div
-          className="absolute -bottom-1/4 -right-1/4 w-[500px] h-[500px] rounded-full opacity-[0.05] animate-pulse"
+          className="absolute -bottom-1/4 -right-1/4 w-[500px] h-[500px] rounded-full animate-breathe"
           style={{
             background: "radial-gradient(circle, #C3E41D 0%, transparent 70%)",
-            animationDuration: "10s",
-            animationDelay: "4s",
+            opacity: 0.05,
+            animationDelay: "3s",
           }}
         />
         <div

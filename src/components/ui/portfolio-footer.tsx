@@ -11,6 +11,8 @@ const navLinks = [
   { label: "Achievements", href: "#achievements" },
   { label: "Skills", href: "#skills-radar" },
   { label: "Tools", href: "#tools" },
+  { label: "Activity", href: "#contribution-graph" },
+  { label: "Journey", href: "#journey" },
   { label: "Now", href: "#now" },
   { label: "Newsletter", href: "#newsletter" },
   { label: "FAQ", href: "#faq" },
@@ -33,8 +35,11 @@ export default function PortfolioFooter() {
   };
 
   return (
-    <footer className="py-16 px-4 dark:bg-[hsl(0,0%,3%)] bg-[hsl(0,0%,98%)] dark:border-neutral-800 border-neutral-200 border-t transition-colors">
-      <div className="max-w-6xl mx-auto">
+    <footer className="py-16 px-4 dark:bg-[hsl(0,0%,3%)] bg-[hsl(0,0%,98%)] transition-colors relative overflow-hidden">
+      {/* Decorative top gradient border */}
+      <div className="gradient-line absolute top-0 left-0 right-0" />
+
+      <div className="max-w-6xl mx-auto relative z-10">
         {/* Top section with CTA */}
         <div className="text-center mb-12">
           <p
@@ -51,11 +56,12 @@ export default function PortfolioFooter() {
           </p>
           <button
             onClick={() => handleClick("#contact")}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold uppercase tracking-wider transition-all duration-300 hover:shadow-lg hover:shadow-[#C3E41D20] hover:-translate-y-0.5"
+            className="glass-button inline-flex items-center gap-2 px-8 py-3 rounded-full text-sm font-bold uppercase tracking-wider hover:shadow-lg hover:shadow-[#C3E41D20] hover:-translate-y-0.5"
             style={{
               backgroundColor: "#C3E41D",
               color: "black",
               fontFamily: "'Fira Code', monospace",
+              border: "none",
             }}
           >
             <Mail className="w-4 h-4" />
@@ -64,7 +70,7 @@ export default function PortfolioFooter() {
         </div>
 
         {/* Divider */}
-        <div className="w-full h-px dark:bg-neutral-800 bg-neutral-200 mb-10" />
+        <div className="gradient-line mb-10" />
 
         {/* Nav links */}
         <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-8">
@@ -81,7 +87,7 @@ export default function PortfolioFooter() {
         </div>
 
         {/* Divider */}
-        <div className="w-full h-px dark:bg-neutral-800 bg-neutral-200 mb-8" />
+        <div className="gradient-line mb-8" />
 
         {/* Bottom row */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">

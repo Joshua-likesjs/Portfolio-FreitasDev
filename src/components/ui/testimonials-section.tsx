@@ -16,14 +16,14 @@ const testimonials = [
   {
     name: "Marcus Rivera",
     role: "Product Lead, Digital Dynamics",
-    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face",
+    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
     quote: "Working with Alex transformed our product. He brought a level of polish and attention to detail that elevated our entire platform. The design system he built is still the foundation of our UI.",
     rating: 5,
   },
   {
     name: "Emily Park",
     role: "Design Director, Creative Studio",
-    avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face",
+    avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&h=100&fit=crop&crop=face",
     quote: "Alex has an incredible eye for design paired with deep technical expertise. He understands both sides of the equation and delivers solutions that are both beautiful and performant.",
     rating: 5,
   },

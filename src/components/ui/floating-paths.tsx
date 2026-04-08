@@ -17,42 +17,44 @@ function FloatingPaths({ position }: { position: number }) {
   }));
 
   return (
-    <div className="absolute inset-0 pointer-events-none">
-      <svg
-        className="w-full h-full text-slate-950 dark:text-white"
-        viewBox="0 0 696 316"
-        fill="none"
-        preserveAspectRatio="xMidYMid slice"
-      >
-        <title>Background Paths</title>
-        {paths.map((path) => (
-          <motion.path
-            key={path.id}
-            d={path.d}
-            stroke="currentColor"
-            strokeWidth={path.width}
-            strokeOpacity={0.1 + path.id * 0.03}
-            initial={{ pathLength: 0.3, opacity: 0.6 }}
-            animate={{
-              pathLength: 1,
-              opacity: [0.3, 0.6, 0.3],
-              pathOffset: [0, 1, 0],
-            }}
-            transition={{
-              duration: 20 + Math.random() * 10,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-          />
-        ))}
-      </svg>
-    </div>
+    <svg
+      className="w-full h-full text-slate-950 dark:text-white"
+      viewBox="0 0 696 316"
+      fill="none"
+      preserveAspectRatio="xMidYMid slice"
+    >
+      <title>Background Paths</title>
+      {paths.map((path) => (
+        <motion.path
+          key={path.id}
+          d={path.d}
+          stroke="currentColor"
+          strokeWidth={path.width}
+          strokeOpacity={0.1 + path.id * 0.03}
+          initial={{ pathLength: 0.3, opacity: 0.6 }}
+          animate={{
+            pathLength: 1,
+            opacity: [0.3, 0.6, 0.3],
+            pathOffset: [0, 1, 0],
+          }}
+          transition={{
+            duration: 20 + Math.random() * 10,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+        />
+      ))}
+    </svg>
   );
 }
 
 export default function FloatingPathsBackground() {
   return (
-    <div className="absolute inset-0 overflow-hidden">
+    <div
+      className="fixed inset-0 overflow-hidden pointer-events-none"
+      style={{ zIndex: 0 }}
+      aria-hidden="true"
+    >
       <FloatingPaths position={1} />
       <FloatingPaths position={-1} />
     </div>

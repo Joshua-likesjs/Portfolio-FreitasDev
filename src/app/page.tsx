@@ -1,6 +1,7 @@
 'use client';
 
 import PortfolioHero from "@/components/ui/portfolio-hero";
+import FloatingPathsBackground from "@/components/ui/floating-paths";
 import ScrollProgress from "@/components/ui/scroll-progress";
 import AboutSection from "@/components/ui/about-section";
 import StatsSection from "@/components/ui/stats-section";
@@ -33,13 +34,15 @@ import PricingSection from "@/components/ui/pricing-section";
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col">
-      <CursorGlow />
-      <CommandPalette />
-      <AvailabilityBanner />
-      <ScrollProgress />
-      <PortfolioHero />
-      <div className="flex-1">
+    <div className="min-h-screen flex flex-col relative">
+      <FloatingPathsBackground />
+      <div className="relative z-10 flex flex-col min-h-screen">
+        <CursorGlow />
+        <CommandPalette />
+        <AvailabilityBanner />
+        <ScrollProgress />
+        <PortfolioHero />
+        <div className="flex-1">
         <AboutSection />
         <SectionDivider />
         <SkillsRadarSection />
@@ -74,9 +77,10 @@ export default function Home() {
         <SectionDivider />
         <NewsletterSection />
         <ContactSection />
+        </div>
+        <Footer />
+        <BackToTop />
       </div>
-      <Footer />
-      <BackToTop />
     </div>
   );
 }

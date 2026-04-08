@@ -3,7 +3,6 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback, useSyncExternalStore } from "react";
 import { Menu, X, ChevronDown, Download, Sun, Moon, Search } from "lucide-react";
 import Image from "next/image";
-import FloatingPathsBackground from "@/components/ui/floating-paths";
 
 // BlurText animation component
 interface BlurTextProps {
@@ -273,14 +272,12 @@ export default function PortfolioHero() {
   return (
     <div
       id="home"
-      className="min-h-screen text-foreground transition-colors relative overflow-hidden"
+      className="min-h-screen text-foreground transition-colors relative"
       style={{
-        backgroundColor: isDark ? "hsl(0 0% 0%)" : "hsl(0 0% 98%)",
         color: isDark ? "hsl(0 0% 100%)" : "hsl(0 0% 10%)",
       }}
     >
-      {/* Floating Paths Background Animation */}
-      <FloatingPathsBackground />
+
 
       {/* Header */}
       <header

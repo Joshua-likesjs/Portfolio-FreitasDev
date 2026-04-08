@@ -935,3 +935,41 @@ Verification Results:
 - ✅ Mobile responsive: tested at 375x812, zero errors
 - ✅ Theme toggle: dark ↔ light working smoothly
 - ✅ Zero console errors
+
+---
+Task ID: 9
+Agent: Main Agent
+Task: Extend FloatingPaths background lines to cover entire site (not just hero)
+
+Work Log:
+- Read floating-paths.tsx, portfolio-hero.tsx, page.tsx, and layout.tsx to understand current structure
+- Identified that FloatingPathsBackground was inside the hero's `div.min-h-screen.overflow-hidden`, so paths were clipped to hero area only
+- Modified floating-paths.tsx: Changed wrapper from `absolute inset-0` to `fixed inset-0` with `z-index: 0` and `pointer-events: none`, added `aria-hidden="true"`
+- Removed FloatingPathsBackground import and usage from portfolio-hero.tsx
+- Removed solid `backgroundColor` from hero wrapper div (was `hsl(0 0% 0%)`/`hsl(0 0% 98%)`) so paths show through
+- Removed `overflow-hidden` from hero wrapper (no longer needed since paths are fixed, not absolute)
+- Added FloatingPathsBackground to page.tsx as first child of root wrapper
+- Wrapped all page content (CursorGlow, CommandPalette, AvailabilityBanner, ScrollProgress, PortfolioHero, sections, Footer, BackToTop) in `div.relative.z-10.flex.flex-col.min-h-screen` to ensure content renders above the fixed paths
+- ESLint: 0 errors (1 pre-existing font warning)
+- QA with agent-browser:
+  - Desktop light mode: zero errors, paths visible
+  - Desktop dark mode: zero errors, paths visible
+  - Mobile (375x812): zero errors, paths visible
+  - Scrolled to mid-page and bottom: paths extend throughout
+  - Verified: fixed element exists in DOM (1 element at z-index 0)
+  - Verified: z-10 content wrapper exists
+  - Verified: 330 SVG paths rendering (72 FloatingPaths + other section SVGs)
+
+Files Modified:
+| File | Status | Description |
+|------|--------|-------------|
+| `src/components/ui/floating-paths.tsx` | Modified | Changed wrapper to `fixed inset-0 z-0 pointer-events-none`, removed inner `div.absolute.inset-0` from FloatingPaths component, added `aria-hidden` |
+| `src/components/ui/portfolio-hero.tsx` | Modified | Removed FloatingPathsBackground import, removed solid backgroundColor, removed overflow-hidden from hero wrapper |
+| `src/app/page.tsx` | Modified | Added FloatingPathsBackground at page root, wrapped all content in relative z-10 container |
+
+Stage Summary:
+- FloatingPaths animated SVG lines now cover the entire site as a fixed background
+- Paths are visible behind the hero section (which no longer has a solid background) and persist as the user scrolls through the entire page
+- All content renders above the paths via z-index stacking (paths at z-0, content at z-10)
+- The body's `bg-background` color provides the base, with paths layered on top and content above
+- Zero compilation errors, zero runtime errors, zero console errors across all viewports and themes

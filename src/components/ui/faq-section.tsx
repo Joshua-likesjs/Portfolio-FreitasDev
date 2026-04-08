@@ -3,6 +3,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, Minus } from "lucide-react";
+import ScrollReveal from "@/components/ui/scroll-reveal";
 
 const faqs = [
   {
@@ -138,6 +139,7 @@ export default function FAQSection() {
           Common questions about working together. Can&apos;t find what you&apos;re looking for? Reach out directly.
         </p>
 
+        <ScrollReveal>
         <div className="space-y-3">
           {faqs.map((faq, index) => (
             <FAQItem
@@ -149,6 +151,7 @@ export default function FAQSection() {
             />
           ))}
         </div>
+        </ScrollReveal>
       </div>
     </section>
   );

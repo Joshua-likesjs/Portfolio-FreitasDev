@@ -3,6 +3,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { GraduationCap, BookOpen } from "lucide-react";
+import ScrollReveal from "@/components/ui/scroll-reveal";
 
 const education = [
   {
@@ -75,6 +76,7 @@ export default function EducationSection() {
       <div className="max-w-4xl mx-auto">
         <AnimatedHeading text="EDUCATION" />
 
+        <ScrollReveal>
         <div className="relative">
           {/* Vertical Timeline Line */}
           <div
@@ -153,6 +155,7 @@ export default function EducationSection() {
             ))}
           </div>
         </div>
+        </ScrollReveal>
       </div>
     </section>
   );

@@ -973,3 +973,37 @@ Stage Summary:
 - All content renders above the paths via z-index stacking (paths at z-0, content at z-10)
 - The body's `bg-background` color provides the base, with paths layered on top and content above
 - Zero compilation errors, zero runtime errors, zero console errors across all viewports and themes
+
+---
+Task ID: 10
+Agent: Main Agent
+Task: Fix FloatingPaths to extend to the very bottom of the entire site
+
+Work Log:
+- Identified the issue: FloatingPathsBackground used `position: fixed inset-0` which only covers the viewport. When scrolling, sections with opaque backgrounds cover the lines, making them invisible past the hero.
+- Redesigned floating-paths.tsx:
+  - Changed from `fixed` to `absolute` positioning on the background wrapper
+  - Increased SVG viewBox height from 316 to 3600 (to match full page proportions)
+  - Redesigned path generation: 40 paths with Y coordinates spread across 0-3600 range using `yOffset = (i / 40) * 2400`
+  - Each path now draws a curve from yOffset to yOffset + 1200, spread evenly across the tall SVG
+  - Reduced stroke opacity slightly (0.06 + 0.012 per path) for subtlety across long page
+  - Increased animation duration (25 + random * 15 seconds) for smoother long-path animations
+- page.tsx structure already correct: outer `relative` div + `absolute inset-0` background + `relative z-10` content wrapper
+
+Verification:
+- ESLint: 0 errors
+- Desktop (1280x900): background height = 22,630px (matches page height 22,630px exactly)
+- Mobile (375x812): background height = 30,575px (matches page height 30,576px exactly)
+- Screenshots taken at top, middle, and bottom of page — lines visible throughout
+- Zero console errors across all viewports
+
+Files Modified:
+| File | Status | Description |
+|------|--------|-------------|
+| `src/components/ui/floating-paths.tsx` | Rewritten | absolute positioning, tall viewBox (3600), 40 paths spread vertically |
+
+Stage Summary:
+- FloatingPaths lines now extend from the very top to the very bottom of the entire site
+- Background element is absolutely positioned to match the full document height
+- SVG viewBox is tall (3600 units) so paths are distributed across the entire page when rendered
+- The paths scale with page length — longer pages (mobile with more wrapping) still show lines throughout

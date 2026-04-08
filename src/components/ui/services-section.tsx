@@ -3,6 +3,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Palette, Code2, Smartphone, Globe, BarChart3, Zap } from "lucide-react";
+import ScrollReveal from "@/components/ui/scroll-reveal";
 
 const services = [
   {
@@ -93,6 +94,7 @@ export default function ServicesSection() {
           I bring ideas to life through design and code. Here&apos;s how I can help you build something great.
         </p>
 
+        <ScrollReveal>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service, index) => (
             <motion.div
@@ -153,6 +155,7 @@ export default function ServicesSection() {
             </motion.div>
           ))}
         </div>
+        </ScrollReveal>
       </div>
     </section>
   );

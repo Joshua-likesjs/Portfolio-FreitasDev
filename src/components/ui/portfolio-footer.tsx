@@ -1,7 +1,7 @@
 'use client';
 
 import React from "react";
-import { Heart, Github, Linkedin, Twitter, Mail, ArrowUp } from "lucide-react";
+import { Heart, Github, Linkedin, Twitter, Mail, ArrowUp, Code2 } from "lucide-react";
 
 const navLinks = [
   { label: "Home", href: "#home" },
@@ -36,12 +36,76 @@ export default function PortfolioFooter() {
     }
   };
 
-  return (
-    <footer className="py-16 px-4 dark:bg-[hsl(0,0%,3%)] bg-[hsl(0,0%,98%)] transition-colors relative overflow-hidden">
-      {/* Decorative top gradient border */}
-      <div className="gradient-line absolute top-0 left-0 right-0" />
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
-      <div className="max-w-6xl mx-auto relative z-10">
+  return (
+    <footer
+      className="relative overflow-hidden transition-colors border-t border-[#C3E41D]/10 dark:from-[#0a0a0a] dark:to-[#111111] from-[#f8f8f8] to-[#f0f0f0] dark:bg-gradient-to-b bg-gradient-to-b"
+      style={{ paddingTop: 0 }}
+    >
+      {/* ========== Animated SVG Wave Divider ========== */}
+      <div className="relative w-full -mt-px" aria-hidden="true">
+        <svg
+          className="relative block w-full h-[60px] sm:h-[70px] md:h-[80px]"
+          viewBox="0 0 1440 80"
+          preserveAspectRatio="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          {/* Layer 1 — back wave, subtle */}
+          <path
+            d="M0,40 C240,80 480,0 720,40 C960,80 1200,0 1440,40 L1440,80 L0,80 Z"
+            className="fill-neutral-200/60 dark:fill-white/[0.03]"
+          >
+            <animate
+              attributeName="d"
+              dur="8s"
+              repeatCount="indefinite"
+              values="
+                M0,40 C240,80 480,0 720,40 C960,80 1200,0 1440,40 L1440,80 L0,80 Z;
+                M0,50 C240,10 480,70 720,30 C960,60 1200,10 1440,50 L1440,80 L0,80 Z;
+                M0,40 C240,80 480,0 720,40 C960,80 1200,0 1440,40 L1440,80 L0,80 Z
+              "
+            />
+          </path>
+          {/* Layer 2 — middle wave */}
+          <path
+            d="M0,50 C360,10 720,70 1080,30 C1260,15 1380,55 1440,45 L1440,80 L0,80 Z"
+            className="fill-neutral-300/50 dark:fill-white/[0.05]"
+          >
+            <animate
+              attributeName="d"
+              dur="6s"
+              repeatCount="indefinite"
+              values="
+                M0,50 C360,10 720,70 1080,30 C1260,15 1380,55 1440,45 L1440,80 L0,80 Z;
+                M0,30 C360,65 720,15 1080,55 C1260,65 1380,20 1440,35 L1440,80 L0,80 Z;
+                M0,50 C360,10 720,70 1080,30 C1260,15 1380,55 1440,45 L1440,80 L0,80 Z
+              "
+            />
+          </path>
+          {/* Layer 3 — front wave, strongest */}
+          <path
+            d="M0,55 C180,35 360,65 540,45 C720,25 900,60 1080,40 C1260,20 1380,50 1440,35 L1440,80 L0,80 Z"
+            className="fill-neutral-100 dark:fill-[#0a0a0a]"
+          >
+            <animate
+              attributeName="d"
+              dur="7s"
+              repeatCount="indefinite"
+              values="
+                M0,55 C180,35 360,65 540,45 C720,25 900,60 1080,40 C1260,20 1380,50 1440,35 L1440,80 L0,80 Z;
+                M0,35 C180,60 360,25 540,55 C720,65 900,30 1080,50 C1260,60 1380,25 1440,45 L1440,80 L0,80 Z;
+                M0,55 C180,35 360,65 540,45 C720,25 900,60 1080,40 C1260,20 1380,50 1440,35 L1440,80 L0,80 Z
+              "
+            />
+          </path>
+        </svg>
+      </div>
+
+      {/* ========== Footer Content ========== */}
+      <div className="max-w-6xl mx-auto relative z-10 px-4 py-16">
         {/* Top section with CTA */}
         <div className="text-center mb-12">
           <p
@@ -75,12 +139,12 @@ export default function PortfolioFooter() {
         <div className="gradient-line mb-10" />
 
         {/* Nav links */}
-        <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-8">
+        <div className="flex flex-wrap justify-center gap-x-6 gap-y-3 mb-8">
           {navLinks.map((link) => (
             <button
               key={link.label}
               onClick={() => handleClick(link.href)}
-              className="text-xs uppercase tracking-widest dark:text-neutral-500 text-neutral-400 hover:text-[#C3E41D] dark:hover:text-[#C3E41D] transition-colors cursor-pointer"
+              className="link-underline text-xs uppercase tracking-widest dark:text-neutral-500 text-neutral-400 hover:text-[#C3E41D] dark:hover:text-[#C3E41D] transition-colors duration-300 cursor-pointer"
               style={{ fontFamily: "'Fira Code', monospace" }}
             >
               {link.label}
@@ -93,11 +157,27 @@ export default function PortfolioFooter() {
 
         {/* Bottom row */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p style={{ fontFamily: "'Fira Code', monospace" }} className="text-xs uppercase tracking-wider dark:text-neutral-500 text-neutral-400">
-            &copy; {new Date().getFullYear()} Freitas. All rights reserved.
-          </p>
+          {/* Copyright + Back to top */}
+          <div className="flex items-center gap-3">
+            <p
+              style={{ fontFamily: "'Fira Code', monospace" }}
+              className="text-xs uppercase tracking-wider dark:text-neutral-500 text-neutral-400"
+            >
+              &copy; {new Date().getFullYear()} Freitas. All rights reserved.
+            </p>
+            <span className="dark:text-neutral-700 text-neutral-300">|</span>
+            <button
+              onClick={scrollToTop}
+              className="inline-flex items-center gap-1 text-xs uppercase tracking-wider dark:text-neutral-500 text-neutral-400 hover:text-[#C3E41D] dark:hover:text-[#C3E41D] transition-colors duration-300 cursor-pointer"
+              style={{ fontFamily: "'Fira Code', monospace" }}
+              aria-label="Back to top"
+            >
+              <ArrowUp className="w-3 h-3" />
+              Top
+            </button>
+          </div>
 
-          {/* Social Icons */}
+          {/* Social Icons — hover scale + color */}
           <div className="flex gap-3">
             {socialLinks.map(({ icon: Icon, href, label }) => (
               <a
@@ -105,7 +185,7 @@ export default function PortfolioFooter() {
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 rounded-lg dark:text-neutral-500 text-neutral-400 hover:text-[#C3E41D] dark:hover:text-[#C3E41D] transition-all duration-300 hover:-translate-y-0.5"
+                className="p-2 rounded-lg dark:text-neutral-500 text-neutral-400 text-[#C3E41D] transition-all duration-300 hover:scale-110 hover:-translate-y-0.5 hover:drop-shadow-[0_0_6px_rgba(195,228,29,0.3)]"
                 aria-label={label}
               >
                 <Icon className="w-4 h-4" />
@@ -113,8 +193,15 @@ export default function PortfolioFooter() {
             ))}
           </div>
 
-          <p className="flex items-center gap-1.5 text-xs dark:text-neutral-600 text-neutral-400" style={{ fontFamily: "'Antic', sans-serif" }}>
-            Built with <Heart className="w-3 h-3 text-[#C3E41D] fill-[#C3E41D]" /> and passion
+          {/* Made with section */}
+          <p
+            className="flex items-center gap-1.5 text-xs dark:text-neutral-600 text-neutral-400"
+            style={{ fontFamily: "'Antic', sans-serif" }}
+          >
+            Made with
+            <Heart className="w-3 h-3 text-[#C3E41D] fill-[#C3E41D] animate-pulse" />
+            and
+            <Code2 className="w-3 h-3 text-[#C3E41D]" />
           </p>
         </div>
       </div>

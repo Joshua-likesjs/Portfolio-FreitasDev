@@ -416,6 +416,8 @@ export default function PortfolioHero() {
                   className="w-full h-full object-cover"
                   width={400}
                   height={400}
+                  loading="eager"
+                  priority
                 />
               </div>
             </div>

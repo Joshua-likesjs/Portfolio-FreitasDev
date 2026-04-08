@@ -4,6 +4,7 @@ import React, { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
+import ScrollReveal from "@/components/ui/scroll-reveal";
 import { BookOpen, Code2, Palette, Database } from "lucide-react";
 
 const skillCategories = [
@@ -150,6 +151,7 @@ export default function AboutSection() {
           A creative developer and designer based in San Francisco, crafting digital experiences that matter.
         </p>
 
+        <ScrollReveal>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-start">
           {/* Left: Bio + Headshot */}
           <motion.div
@@ -263,6 +265,7 @@ export default function AboutSection() {
             ))}
           </motion.div>
         </div>
+        </ScrollReveal>
       </div>
     </section>
   );

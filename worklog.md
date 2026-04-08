@@ -642,6 +642,58 @@ The portfolio is a **fully-featured, production-quality single-page portfolio we
 6. **No i18n support** — Currently English only
 7. **Many CSS utilities unused** — `.link-underline`, `.glass-card`, `.icon-glow`, `.section-glow` are defined but not yet applied to components
 
+7. **Low**: Deploy and test production build
+
+---
+Task ID: 13-d
+Agent: Main Agent
+Task: Global Styling Polish — Image Adaptation, Card Hover Micro-interactions, Scroll Animations
+
+Work Log:
+- Read worklog.md and all target component files for full project context
+- ESLint: 0 errors (1 pre-existing font warning)
+
+Part 1 — Dark/Light Image Adaptation:
+- Added `.img-adapt` CSS utility to globals.css — applies `brightness(0.9) contrast(1.1)` in dark mode with 0.4s ease transition
+- Applied `className="img-adapt"` to Next.js `<Image>` components in:
+  - `portfolio-hero.tsx` — profile image (line 432)
+  - `about-section.tsx` — headshot image (line 173)
+  - `projects-section.tsx` — modal header image (line 166) + all project card images (line 357)
+- `featured-articles-section.tsx` — no images present (text-only article cards), no changes needed
+
+Part 2 — Card Hover Micro-interactions:
+Added new CSS utilities at end of globals.css:
+- `.card-tilt` — 3D transform + perspective for JS-driven tilt effects
+- `.heading-glow:hover` — subtle text-shadow glow (#C3E41D at 0.15 opacity)
+- `.img-reveal` / `.img-reveal.revealed` — clip-path scroll reveal animation (0.8s cubic-bezier)
+- `.stagger-1` through `.stagger-5` — animation delay utilities (0.1s–0.5s)
+- `*:focus-visible` — accent color (#C3E41D) focus ring (2px solid, 2px offset)
+- `:not(.dark) ::selection` — light mode text selection color (rgba(195,228,29,0.3))
+- `@keyframes dot-pulse` / `.dot-pulse` — pulsing box-shadow ring for timeline dots
+- `.card-glow-line::before` — 3px #C3E41D left-edge line that scales in on hover (scaleY 0→1)
+
+Part 3 — Experience Section Card Enhancements:
+Rewrote `experience-section.tsx` with:
+1. **Timeline dot pulse**: Each dot uses IntersectionObserver to conditionally add `.dot-pulse` class when in viewport; enhanced box-shadow when active
+2. **Card content stagger**: Extracted `ExperienceCard` component using Framer Motion `staggerContainer` + `staggerItem` variants — children (title+period, meta info, bullet list) animate in with 0.08s stagger per child
+3. **Hover glow line**: Added `.card-glow-line` class to content card div — thin #C3E41D line scales from top on hover
+4. **Calendar icon**: Added `Calendar` lucide icon next to period text for visual consistency
+5. **Heading glow**: Added `.heading-glow` to role title for subtle hover text-shadow
+
+Files Modified:
+| File | Status | Description |
+|------|--------|-------------|
+| `src/app/globals.css` | Modified | Added img-adapt, card-tilt, heading-glow, img-reveal, stagger delays, focus-visible, selection, dot-pulse, card-glow-line utilities |
+| `src/components/ui/portfolio-hero.tsx` | Modified | Added img-adapt to profile Image |
+| `src/components/ui/about-section.tsx` | Modified | Added img-adapt to headshot Image |
+| `src/components/ui/projects-section.tsx` | Modified | Added img-adapt to modal + card Images |
+| `src/components/ui/experience-section.tsx` | Rewritten | Dot pulse, stagger animations, hover glow line, Calendar icon, heading glow |
+
+Verification Results:
+- ✅ ESLint: 0 errors (1 pre-existing font warning)
+- ✅ All existing functionality preserved
+- ✅ New CSS utilities available for use across all components
+
 ### Recommended Next Phase Priority
 1. **Medium**: Connect Writing section to MDX files for real blog content
 2. **Medium**: Add a blog post detail view / reading page
@@ -1545,3 +1597,224 @@ The portfolio is a **fully-featured, production-quality single-page portfolio we
 4. **Low**: Add scroll-triggered stagger animations to remaining sections (FAQ, Achievements, Tools)
 5. **Low**: Admin panel for contact messages + newsletter subscribers
 6. **Low**: Deploy and test production build
+
+---
+Task ID: 13-c
+Agent: Main Agent
+Task: Keyboard Shortcuts Info Panel + Copy-to-Clipboard on Code Blocks
+
+Work Log:
+- Read worklog.md to understand project context (30+ section components, 2 API routes, command palette already exists)
+- Read existing command-palette.tsx, back-to-top.tsx, portfolio-hero.tsx, and globals.css for patterns
+
+Part 1 — Keyboard Shortcuts Panel:
+- Created `keyboard-shortcuts-panel.tsx` — Fixed position bottom-20 right-6 (above back-to-top button)
+- Small info button (Info icon from lucide-react in a circle) always visible
+- Panel slides up with Framer Motion AnimatePresence on click or pressing `?` key
+- Shortcuts list using existing `kbd` CSS class from globals.css:
+  - ⌘K / Ctrl+K — Command Palette
+  - ? — Toggle Shortcuts
+  - T — Toggle Theme
+  - H — Scroll to Home
+  - ↑ / ↓ — Navigate Sections
+- Panel styling: glass-card, rounded-xl, p-4, max-w-xs, shadow-xl
+- Click outside to close (mousedown listener with refs)
+- Escape key closes panel
+- useEffect with keyboard listener, properly removes on unmount
+- All keyboard listeners skip when input/textarea/contentEditable is focused
+- Export: `export default function KeyboardShortcutsPanel()`
+
+Part 2 — Integration into page.tsx:
+- Added import for KeyboardShortcutsPanel
+- Placed as sibling to BackToTop inside the z-10 container
+
+Part 3 — Theme Toggle Shortcut:
+- Added `showThemeToast` state to portfolio-hero.tsx
+- Added useEffect keyboard listener for `T` key (without modifiers) after toggleTheme declaration
+- Calls existing `toggleTheme()` function
+- Shows brief toast notification "Theme toggled" (CSS transition fade in/out, 1.5s duration)
+- Toast positioned fixed top-20 center with z-[200], pointer-events-none
+- Dark/light aware styling (inline styles for bg/border/color)
+
+Files Modified/Created:
+| File | Status | Description |
+|------|--------|-------------|
+| `src/components/ui/keyboard-shortcuts-panel.tsx` | Created | Keyboard shortcuts floating panel |
+| `src/app/page.tsx` | Modified | Added KeyboardShortcutsPanel import + render |
+| `src/components/ui/portfolio-hero.tsx` | Modified | Added T key shortcut + theme toast |
+
+Verification Results:
+- ✅ ESLint: 0 errors (1 pre-existing font warning)
+- ✅ No other components modified
+
+---
+Task ID: 13-a
+Agent: Main Agent
+Task: Integrate MusicPlayerWidget into page + Enhance About Section
+
+Work Log:
+- Read worklog.md and existing files for context (page.tsx, about-section.tsx, music-player-widget.tsx, globals.css)
+- ESLint baseline: 0 errors (1 pre-existing font warning)
+
+Part 1 — MusicPlayerWidget Integration:
+- Added `<MusicPlayerWidget />` to page.tsx after `<NowSection />` and before `<SectionDivider />` preceding QuoteSection
+- Wrapped in centered container: `<div className="flex justify-center py-8">`
+- MusicPlayerWidget component was NOT modified (already existed at src/components/ui/music-player-widget.tsx)
+
+Part 2 — About Section Enhancement:
+1. Interactive Skill Progress Bars:
+   - Added hover tooltip overlay on each bar showing exact percentage (positioned above bar with CSS arrow)
+   - Added shimmer animation on bar fill when entering viewport (one-shot animation, 2s ease-in-out after 0.8s delay)
+   - Applied gradient to bar fill: `linear-gradient(90deg, #9ab016 0%, #C3E41D 60%, #d4f045 100%)` (left darker, right lighter)
+
+2. Status Indicators:
+   - Added "Currently" subsection below skills area with 3 status items:
+     - 🟢 Available for freelance — "Open to new projects"
+     - 📍 San Francisco, CA — "Open to remote work worldwide"
+     - ⚡ Usually responds — "Within 24h"
+   - Each item: flex row with emoji, label (Fira Code bold), description (Antic font), rounded-xl card with subtle border and hover effects
+
+3. Animated Section Entrance:
+   - Replaced ScrollReveal with Framer Motion whileInView using staggerChildren (0.1s base stagger)
+   - Staggered delays: Bio text 0s, Headshot 0.1s, Skills 0.2s, Status indicators 0.3s
+   - Used containerVariants + fadeUpVariants with custom delay props
+
+4. Decorative Elements:
+   - Added accent-colored dot pattern behind skills area using radial-gradient (#C3E41D dots, 20px grid, very low opacity 0.03/0.04)
+   - Added animated "Available" badge next to section heading with pulsing green dot (animate-ping + static green dot), green-tinted background, Fira Code font
+
+Files Modified:
+| File | Status | Description |
+|------|--------|-------------|
+| `src/app/page.tsx` | Modified | Added MusicPlayerWidget after NowSection, before SectionDivider→QuoteSection |
+| `src/components/ui/about-section.tsx` | Rewritten | Enhanced with interactive skill bars, status indicators, staggered animations, decorative elements |
+
+Verification Results:
+- ✅ ESLint: 0 errors (1 pre-existing font warning)
+- ✅ MusicPlayerWidget: rendered in page between NowSection and QuoteSection
+- ✅ About section: gradient skill bars, hover tooltips, shimmer animation, status indicators, dot pattern, Available badge
+- ✅ All existing content and layout preserved
+- ✅ No other files modified
+
+---
+Task ID: 13-b
+Agent: Main Agent
+Task: Enhance FAQ, Achievements, and Tools Sections with Stagger Animations + Interactivity
+
+Work Log:
+- Read worklog.md and assessed project context (20+ sections, dark/light theme, Framer Motion, accent #C3E41D)
+- Read all 3 target files: faq-section.tsx, achievements-section.tsx, tools-section.tsx
+- Read scroll-reveal.tsx for ScrollReveal component pattern reference
+
+Part 1 — FAQ Section (`faq-section.tsx`):
+- Added staggered entrance: each FAQ item animates with 0.08s delay between items via `whileInView` transition delay
+- Added number indicators: "01"–"06" displayed to the left of each question in Fira Code, opacity 0.3, transitions to #C3E41D when open
+- Improved smooth expand: kept AnimatePresence with refined cubic-bezier easing `[0.4, 0, 0.2, 1]` for open/close, added `initial={false}`
+- Added hover glow: left border glow (#C3E41D with box-shadow) appears on hover for closed items via absolutely-positioned div
+- Changed open state to use 3px solid #C3E41D left border
+- Removed ScrollReveal wrapper from FAQ list (stagger is now handled per-item)
+- Restructured layout: number label + question/title in a flex row with gap
+
+Part 2 — Achievements Section (`achievements-section.tsx`):
+- Updated stagger delay from 0.08s to 0.1s per card
+- Added hover sweep gradient overlay: linear-gradient sweeps left-to-right using translate-x animation (-100% → 0%) on hover
+- Added category filter pills: "All", "Certification", "Award", "Milestone" with icons (Star, GraduationCap, Award)
+- Added filterCategory field to each achievement data object mapping to filter types
+- Added AnimatePresence with mode="popLayout" for smooth filter transitions
+- Created useCountUp custom hook for animated year counter (counts from 2000 to target year with ease-out cubic)
+- AnimatedYear component uses IntersectionObserver to trigger count-up when visible
+- Filter pills styled: Fira Code, rounded-full, active state with #C3E41D bg tint + border
+
+Part 3 — Tools Section (`tools-section.tsx`):
+- Updated stagger delay to 0.05s per tool card
+- Added collapsible categories: clicking category header toggles tool cards with AnimatePresence height animation
+- Added chevron icon (ChevronRight) that rotates 90° when expanded
+- Added search filter input: rounded-full, Fira Code, #C3E41D focus border, Search icon, ESC dismiss button
+- Search filters tools by name, auto-expands matching categories, hides empty categories
+- Added hover glow: onMouseEnter/Leave events set border-color and box-shadow with green glow
+- Added emoji bounce: motion.span with whileHover scale 1.1, spring animation (stiffness: 400, damping: 10)
+- Added tool count label per category ("N tools")
+
+Files Modified:
+| File | Status | Description |
+|------|--------|-------------|
+| `src/components/ui/faq-section.tsx` | Modified | Stagger animations, number indicators, hover glow, smooth expand |
+| `src/components/ui/achievements-section.tsx` | Modified | Stagger, category filter pills, sweep gradient, year counter animation |
+| `src/components/ui/tools-section.tsx` | Modified | Stagger, collapsible categories, search filter, hover glow + emoji bounce |
+
+Verification Results:
+- ✅ ESLint: 0 errors (1 pre-existing font warning)
+- ✅ All existing data, layouts, content preserved
+- ✅ Dev server: compilation successful (port 3000 already in use — already running)
+
+---
+Task ID: 13
+Agent: Main Agent (webDevReview cron #10)
+Task: QA, music player integration, section enhancements, keyboard shortcuts, image adaptation
+
+Work Log:
+- Reviewed worklog.md — 22 sections, stable, 0 errors
+- ESLint: 0 errors (1 pre-existing font warning)
+- Full QA with agent-browser: zero console errors, all sections, mobile + desktop, both themes
+- Launched 4 parallel subagents
+
+New Features (Subagent 13-a):
+- **MusicPlayerWidget integrated** into page.tsx (after NowSection, centered container)
+- **About section enhanced**: Interactive skill progress bars with hover tooltips showing exact %, shimmer animation on viewport enter, gradient fill on bars (dark→light accent), "Currently" status subsection (3 items: availability, location, response time), staggered Framer Motion entrance (bio→headshot→skills→status), decorative dot pattern behind skills, animated "Available" badge with pulsing green dot next to heading
+
+New Features (Subagent 13-b):
+- **FAQ section enhanced**: Staggered entrance (0.08s/item), number indicators ("01"-"06") in Fira Code with accent color when open, smooth AnimatePresence expand, left border glow on hover
+- **Achievements section enhanced**: Staggered entrance (0.1s/card), gradient sweep overlay on hover, category filter pills (All/Certification/Award/Milestone), animated year counter (count-up from 2000 to target year)
+- **Tools section enhanced**: Staggered entrance (0.05s/card), collapsible categories with rotating chevron, search input filter (rounded-full, ESC to clear), hover glow + emoji bounce
+
+New Features (Subagent 13-c):
+- **Keyboard shortcuts panel**: Floating info button (bottom-right), panel slides up on click or `?` key, 5 shortcuts listed (⌘K, ?, T, H, ↑↓), glass-card styling, click outside + Escape to close, skips when input focused
+- **Theme toggle shortcut**: Press `T` to toggle dark/light theme, brief "Theme toggled" toast notification (1.5s fade)
+
+Styling Enhancements (Subagent 13-d):
+- **Image adaptation**: `.img-adapt` class (brightness/contrast in dark mode) applied to 7 images across hero, about, and projects sections
+- **New CSS utilities**: `.card-tilt`, `.heading-glow`, `.img-reveal`, `.stagger-1`–`.stagger-5`, `*:focus-visible` accent ring, light mode selection color, `.dot-pulse`, `.card-glow-line`
+- **Experience section enhanced**: Timeline dot pulse animation (IntersectionObserver), card content stagger (title→meta→bullets at 0.08s), hover glow line on left edge
+
+Files Modified/Created:
+| File | Status | Description |
+|------|--------|-------------|
+| `src/components/ui/keyboard-shortcuts-panel.tsx` | Created | Floating shortcuts panel with 5 shortcuts |
+| `src/components/ui/about-section.tsx` | Modified | Skill tooltips, shimmer, status items, stagger, available badge |
+| `src/components/ui/faq-section.tsx` | Modified | Stagger, numbers, smooth expand, hover glow |
+| `src/components/ui/achievements-section.tsx` | Modified | Stagger, gradient sweep, category filter, year counter |
+| `src/components/ui/tools-section.tsx` | Modified | Stagger, collapsible categories, search filter, emoji bounce |
+| `src/components/ui/experience-section.tsx` | Modified | Dot pulse, content stagger, hover glow line |
+| `src/components/ui/portfolio-hero.tsx` | Modified | T key theme shortcut, toast notification |
+| `src/components/ui/projects-section.tsx` | Modified | img-adapt class on images |
+| `src/app/globals.css` | Modified | img-adapt, card-tilt, heading-glow, img-reveal, stagger utilities, dot-pulse, card-glow-line |
+| `src/app/page.tsx` | Modified | MusicPlayerWidget + KeyboardShortcutsPanel added |
+
+Verification Results:
+- ✅ ESLint: 0 errors (1 pre-existing font warning)
+- ✅ Dev server: clean compilation
+- ✅ Agent-browser QA: all 22 sections rendering
+- ✅ Music player: renders at scroll ~23K (after NowSection)
+- ✅ Keyboard shortcuts: panel present with kbd elements
+- ✅ Image adaptation: 7 images with img-adapt class
+- ✅ Zero console errors
+
+---
+## Handover Document
+
+### Current Project Status / Assessment
+The portfolio is a **fully-featured, production-rich single-page portfolio website** for "Freitas". Current state:
+- **22 sections** with extensive interactivity: Hero (gradient ring + magnetic buttons), About (skill tooltips + status), Trusted Brands, Skills Radar, Stats, Services (expand case studies), Process (progress rings), Tech Stack, Projects (filter tabs), Experience (stagger + glow), Education, Featured Articles (carousel), Testimonials (progress + shuffle), FAQ (numbers + filter), Pricing (toggle), Achievements (category filter + year counter), Tools (search + collapsible), Contribution Graph, Timeline Journey, Now, Quote, Music Player, Newsletter, Contact
+- **Keyboard shortcuts**: ⌘K (command palette), T (theme), ? (shortcuts), H (home), ↑↓ (navigate)
+- **Floating paths**: Fixed viewport background, 36 animated SVG paths
+- **Music player**: Integrated, visible after Now section
+- **Dark/Light theme**: Smooth transition, T key shortcut, image adaptation
+- **Zero compilation errors**, zero runtime errors, zero console errors
+
+### Recommended Next Phase Priority
+1. **Medium**: Add real audio playback to music player (Web Audio API or HTML5 audio)
+2. **Medium**: Add contact form admin dashboard (list messages, mark read)
+3. **Medium**: Add newsletter subscriber management
+4. **Low**: Add blog post detail view for Featured Articles
+5. **Low**: Add 3D tilt effect on project/hover cards (using card-tilt utility)
+6. **Low**: Performance audit — lazy load below-fold sections with dynamic imports

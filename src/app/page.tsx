@@ -32,6 +32,7 @@ import QuoteSection from "@/components/ui/quote-section";
 import MusicPlayerWidget from "@/components/ui/music-player-widget";
 import CommandPalette from "@/components/ui/command-palette";
 import PricingSection from "@/components/ui/pricing-section";
+import KeyboardShortcutsPanel from "@/components/ui/keyboard-shortcuts-panel";
 
 export default function Home() {
   return (
@@ -75,6 +76,7 @@ export default function Home() {
         <TimelineJourneySection />
         <SectionDivider />
         <NowSection />
+        <div className="flex justify-center py-8"><MusicPlayerWidget /></div>
         <SectionDivider />
         <QuoteSection />
         <SectionDivider />
@@ -83,6 +85,7 @@ export default function Home() {
         </div>
         <Footer />
         <BackToTop />
+        <KeyboardShortcutsPanel />
       </div>
     </div>
   );

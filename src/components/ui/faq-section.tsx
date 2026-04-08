@@ -67,56 +67,90 @@ function AnimatedHeading({ text }: { text: string }) {
   );
 }
 
-function FAQItem({ question, answer, isOpen, onToggle }: { question: string; answer: string; isOpen: boolean; onToggle: () => void }) {
+function FAQItem({ question, answer, isOpen, onToggle, index }: { question: string; answer: string; isOpen: boolean; onToggle: () => void; index: number }) {
+  const numberLabel = String(index + 1).padStart(2, '0');
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.4 }}
+      transition={{ duration: 0.45, delay: index * 0.08, ease: [0.25, 0.4, 0.25, 1] }}
     >
       <button
         onClick={onToggle}
-        className="w-full text-left p-5 md:p-6 rounded-xl dark:bg-[hsl(0,0%,10%)] bg-white dark:border-neutral-800 border-neutral-200 border dark:hover:border-[#C3E41D]/30 hover:border-[#C3E41D]/50 transition-all duration-300 group"
+        className="w-full text-left p-5 md:p-6 rounded-xl dark:bg-[hsl(0,0%,10%)] bg-white dark:border-neutral-800 border-neutral-200 border transition-all duration-300 group relative"
+        style={{
+          borderLeft: isOpen
+            ? '3px solid #C3E41D'
+            : '3px solid transparent',
+        }}
       >
-        <div className="flex items-center justify-between gap-4">
-          <h3
-            className="text-base md:text-lg font-semibold dark:text-neutral-200 text-neutral-800 group-hover:text-[#C3E41D] transition-colors duration-300"
-            style={{ fontFamily: "'Fira Code', monospace" }}
-          >
-            {question}
-          </h3>
+        {/* Hover glow on left border (only when closed) */}
+        {!isOpen && (
           <div
-            className="shrink-0 w-8 h-8 rounded-full flex items-center justify-center dark:bg-neutral-800 bg-neutral-100 transition-colors duration-300 group-hover:bg-[#C3E41D20]"
+            className="absolute left-0 top-0 bottom-0 w-[3px] rounded-l-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            style={{
+              background: '#C3E41D',
+              boxShadow: '0 0 12px rgba(195,228,29,0.4), 0 0 4px rgba(195,228,29,0.6)',
+            }}
+          />
+        )}
+
+        <div className="flex items-start gap-4">
+          {/* Number indicator */}
+          <span
+            className="shrink-0 text-sm md:text-base font-bold transition-colors duration-300 select-none mt-0.5"
+            style={{
+              fontFamily: "'Fira Code', monospace",
+              color: isOpen ? '#C3E41D' : 'currentColor',
+              opacity: isOpen ? 1 : 0.3,
+            }}
           >
-            {isOpen ? (
-              <Minus className="w-4 h-4" style={{ color: "#C3E41D" }} />
-            ) : (
-              <Plus className="w-4 h-4 dark:text-neutral-500 text-neutral-400 group-hover:text-[#C3E41D] transition-colors" />
-            )}
+            {numberLabel}
+          </span>
+
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center justify-between gap-4">
+              <h3
+                className="text-base md:text-lg font-semibold dark:text-neutral-200 text-neutral-800 group-hover:text-[#C3E41D] transition-colors duration-300"
+                style={{ fontFamily: "'Fira Code', monospace" }}
+              >
+                {question}
+              </h3>
+              <div
+                className="shrink-0 w-8 h-8 rounded-full flex items-center justify-center dark:bg-neutral-800 bg-neutral-100 transition-colors duration-300 group-hover:bg-[#C3E41D20]"
+              >
+                {isOpen ? (
+                  <Minus className="w-4 h-4" style={{ color: "#C3E41D" }} />
+                ) : (
+                  <Plus className="w-4 h-4 dark:text-neutral-500 text-neutral-400 group-hover:text-[#C3E41D] transition-colors" />
+                )}
+              </div>
+            </div>
+
+            <AnimatePresence initial={false}>
+              {isOpen && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
+                  className="overflow-hidden"
+                >
+                  <div className="pt-4 mt-4 border-t dark:border-neutral-800 border-neutral-200">
+                    <p
+                      className="text-sm md:text-base dark:text-neutral-400 text-neutral-600 leading-relaxed"
+                      style={{ fontFamily: "'Antic', sans-serif" }}
+                    >
+                      {answer}
+                    </p>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
-
-        <AnimatePresence>
-          {isOpen && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="overflow-hidden"
-            >
-              <div className="pt-4 mt-4 border-t dark:border-neutral-800 border-neutral-200">
-                <p
-                  className="text-sm md:text-base dark:text-neutral-400 text-neutral-600 leading-relaxed"
-                  style={{ fontFamily: "'Antic', sans-serif" }}
-                >
-                  {answer}
-                </p>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </button>
     </motion.div>
   );
@@ -139,7 +173,6 @@ export default function FAQSection() {
           Common questions about working together. Can&apos;t find what you&apos;re looking for? Reach out directly.
         </p>
 
-        <ScrollReveal>
         <div className="space-y-3">
           {faqs.map((faq, index) => (
             <FAQItem
@@ -148,10 +181,10 @@ export default function FAQSection() {
               answer={faq.answer}
               isOpen={openIndex === index}
               onToggle={() => setOpenIndex(openIndex === index ? null : index)}
+              index={index}
             />
           ))}
         </div>
-        </ScrollReveal>
       </div>
     </section>
   );

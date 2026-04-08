@@ -168,6 +168,7 @@ export default function PortfolioHero() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [isScrolled, setIsScrolled] = useState(false);
+  const [showThemeToast, setShowThemeToast] = useState(false);
   const mountedRef = useRef(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -250,6 +251,30 @@ export default function PortfolioHero() {
     }, 500);
   }, [isDark]);
 
+  // Theme toggle keyboard shortcut (T key without modifier)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement;
+      if (
+        target.tagName === 'INPUT' ||
+        target.tagName === 'TEXTAREA' ||
+        target.isContentEditable
+      ) {
+        return;
+      }
+      if (e.key === 't' || e.key === 'T') {
+        if (!e.metaKey && !e.ctrlKey && !e.altKey && !e.shiftKey) {
+          e.preventDefault();
+          toggleTheme();
+          setShowThemeToast(true);
+          setTimeout(() => setShowThemeToast(false), 1500);
+        }
+      }
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [toggleTheme]);
+
   const handleNavClick = useCallback((href: string) => {
     setIsMenuOpen(false);
     const id = href.replace("#", "");
@@ -278,6 +303,26 @@ export default function PortfolioHero() {
       }}
     >
 
+
+      {/* Theme toggle toast notification */}
+      <div
+        className="fixed top-20 left-1/2 -translate-x-1/2 z-[200] pointer-events-none"
+      >
+        <div
+          className="px-4 py-2 rounded-lg shadow-lg text-sm font-medium"
+          style={{
+            fontFamily: "'Fira Code', monospace",
+            backgroundColor: isDark ? 'hsl(0, 0%, 12%)' : 'hsl(0, 0%, 95%)',
+            border: `1px solid ${isDark ? 'hsl(0, 0%, 20%)' : 'hsl(0, 0%, 85%)'}`,
+            color: isDark ? 'hsl(0, 0%, 80%)' : 'hsl(0, 0%, 30%)',
+            opacity: showThemeToast ? 1 : 0,
+            transform: showThemeToast ? 'translateY(0)' : 'translateY(-10px)',
+            transition: 'opacity 0.3s ease, transform 0.3s ease',
+          }}
+        >
+          Theme toggled
+        </div>
+      </div>
 
       {/* Header */}
       <header
@@ -429,7 +474,7 @@ export default function PortfolioHero() {
                   <Image
                     src="https://i.postimg.cc/y8DnKLyK/albert-dera-ILip77-Sbm-OE-unsplash.jpg"
                     alt="Profile"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover img-adapt"
                     width={400}
                     height={400}
                     loading="eager"

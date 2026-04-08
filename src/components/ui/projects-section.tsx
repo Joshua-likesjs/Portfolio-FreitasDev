@@ -163,7 +163,7 @@ function ProjectModal({ project, onClose }: { project: typeof projects[0]; onClo
           <Image
             src={project.image}
             alt={project.name}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover img-adapt"
             width={600}
             height={400}
           />
@@ -354,7 +354,7 @@ export default function ProjectsSection() {
                     <Image
                       src={project.image}
                       alt={project.name}
-                      className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-105"
+                      className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-105 img-adapt"
                       width={600}
                       height={400}
                     />

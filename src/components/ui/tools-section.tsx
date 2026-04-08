@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useRef, useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-import { Code2, Palette, Server, Cloud, Monitor } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Code2, Palette, Server, Cloud, Monitor, Search, ChevronDown, ChevronRight } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
 interface Tool {
@@ -105,17 +105,36 @@ function AnimatedHeading({ text }: { text: string }) {
   );
 }
 
-function ToolCard({ tool, index }: { tool: Tool; index: number }) {
+function ToolCard({ tool, index, baseDelay }: { tool: Tool; index: number; baseDelay: number }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.4, delay: index * 0.06 }}
-      className="px-3 py-2 rounded-xl dark:bg-[hsl(0,0%,8%)] bg-white dark:border-neutral-800 border-neutral-200 border hover:dark:border-[#C3E41D]/40 hover:border-[#C3E41D]/40 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_4px_20px_rgba(195,228,29,0.08)] cursor-default"
+      transition={{ duration: 0.35, delay: baseDelay + index * 0.05, ease: [0.25, 0.4, 0.25, 1] }}
+      whileHover={{ y: -2 }}
+      className="px-3 py-2 rounded-xl dark:bg-[hsl(0,0%,8%)] bg-white dark:border-neutral-800 border-neutral-200 border transition-all duration-300 cursor-default group/card"
+      style={{
+        boxShadow: 'inset 0 0 0 0 rgba(195,228,29,0)',
+      }}
+      onMouseEnter={(e) => {
+        (e.currentTarget as HTMLElement).style.borderColor = 'rgba(195,228,29,0.4)';
+        (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 24px rgba(195,228,29,0.1)';
+      }}
+      onMouseLeave={(e) => {
+        (e.currentTarget as HTMLElement).style.borderColor = '';
+        (e.currentTarget as HTMLElement).style.boxShadow = '';
+      }}
     >
       <div className="flex items-center gap-2.5">
-        <span className="text-base leading-none shrink-0">{tool.emoji}</span>
+        <motion.span
+          className="text-base leading-none shrink-0 inline-block"
+          whileHover={{ scale: 1.1 }}
+          transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+          animate={{ scale: 1 }}
+        >
+          {tool.emoji}
+        </motion.span>
         <div className="min-w-0">
           <p
             className="text-sm font-medium dark:text-neutral-200 text-neutral-800 truncate"
@@ -135,8 +154,21 @@ function ToolCard({ tool, index }: { tool: Tool; index: number }) {
   );
 }
 
-function CategoryGroup({ category, categoryIndex }: { category: ToolCategory; categoryIndex: number }) {
+function CategoryGroup({ category, categoryIndex, searchQuery }: { category: ToolCategory; categoryIndex: number; searchQuery: string }) {
+  const [isCollapsed, setIsCollapsed] = useState(false);
   const Icon = category.icon;
+
+  const filteredTools = searchQuery
+    ? category.tools.filter((tool) =>
+        tool.name.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    : category.tools;
+
+  // If search is active and no tools match, hide the entire category
+  if (searchQuery && filteredTools.length === 0) return null;
+
+  // If search is active, auto-expand matching categories
+  const displayCollapsed = searchQuery ? false : isCollapsed;
 
   return (
     <motion.div
@@ -145,10 +177,15 @@ function CategoryGroup({ category, categoryIndex }: { category: ToolCategory; ca
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: categoryIndex * 0.1 }}
     >
-      <div className="flex items-center gap-2 mb-4">
-        <Icon className="w-4 h-4 shrink-0" style={{ color: '#C3E41D' }} />
+      {/* Clickable category header */}
+      <button
+        onClick={() => !searchQuery && setIsCollapsed(!isCollapsed)}
+        className={`w-full flex items-center gap-2 mb-4 text-left group/cat ${!searchQuery ? 'cursor-pointer' : 'cursor-default'}`}
+        disabled={!!searchQuery}
+      >
+        <Icon className="w-4 h-4 shrink-0 transition-transform duration-300" style={{ color: '#C3E41D' }} />
         <h3
-          className="text-xs uppercase tracking-widest font-semibold"
+          className="text-xs uppercase tracking-widest font-semibold transition-colors duration-300 group-hover/cat:text-[#C3E41D]"
           style={{
             fontFamily: "'Fira Code', monospace",
             color: '#C3E41D',
@@ -156,17 +193,53 @@ function CategoryGroup({ category, categoryIndex }: { category: ToolCategory; ca
         >
           {category.name}
         </h3>
-      </div>
-      <div className="flex flex-wrap gap-3">
-        {category.tools.map((tool, toolIndex) => (
-          <ToolCard key={tool.name} tool={tool} index={toolIndex} />
-        ))}
-      </div>
+        {!searchQuery && (
+          <motion.div
+            animate={{ rotate: isCollapsed ? 0 : 90 }}
+            transition={{ duration: 0.25 }}
+            className="ml-1"
+          >
+            <ChevronRight className="w-3.5 h-3.5 dark:text-neutral-600 text-neutral-400" />
+          </motion.div>
+        )}
+        <span
+          className="ml-auto text-[10px] dark:text-neutral-600 text-neutral-400 tabular-nums"
+          style={{ fontFamily: "'Fira Code', monospace" }}
+        >
+          {filteredTools.length} tools
+        </span>
+      </button>
+
+      {/* Collapsible tool cards */}
+      <AnimatePresence initial={false}>
+        {!displayCollapsed && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
+            className="overflow-hidden"
+          >
+            <div className="flex flex-wrap gap-3 pb-2">
+              {filteredTools.map((tool, toolIndex) => (
+                <ToolCard
+                  key={tool.name}
+                  tool={tool}
+                  index={toolIndex}
+                  baseDelay={0}
+                />
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 }
 
 export default function ToolsSection() {
+  const [searchQuery, setSearchQuery] = useState('');
+
   return (
     <section
       id="tools"
@@ -175,16 +248,42 @@ export default function ToolsSection() {
       <div className="max-w-6xl mx-auto">
         <AnimatedHeading text="TOOLS & SETUP" />
         <p
-          className="text-base md:text-lg dark:text-neutral-400 text-neutral-500 mb-12 md:mb-16 max-w-2xl"
+          className="text-base md:text-lg dark:text-neutral-400 text-neutral-500 mb-8 md:mb-12 max-w-2xl"
           style={{ fontFamily: "'Antic', sans-serif" }}
         >
           The hardware, software, and tools I use daily to build great products.
         </p>
 
+        {/* Search Input */}
+        <div className="relative mb-10 md:mb-14 max-w-md">
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 dark:text-neutral-500 text-neutral-400 pointer-events-none" />
+          <input
+            type="text"
+            placeholder="Search tools..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full pl-11 pr-4 py-2.5 rounded-full text-sm dark:bg-[hsl(0,0%,8%)] bg-white dark:border-neutral-800 border-neutral-200 border outline-none transition-all duration-300 focus:shadow-[0_0_0_2px_rgba(195,228,29,0.3)] focus:border-[#C3E41D] dark:text-neutral-200 text-neutral-800 placeholder:dark:text-neutral-600 placeholder:text-neutral-400"
+            style={{ fontFamily: "'Fira Code', monospace" }}
+          />
+          {searchQuery && (
+            <button
+              onClick={() => setSearchQuery('')}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-xs dark:text-neutral-500 text-neutral-400 hover:text-[#C3E41D] transition-colors"
+              style={{ fontFamily: "'Fira Code', monospace" }}
+            >
+              ESC
+            </button>
+          )}
+        </div>
+
         <div className="space-y-10">
           {categories.map((category, index) => (
             <React.Fragment key={category.name}>
-              <CategoryGroup category={category} categoryIndex={index} />
+              <CategoryGroup
+                category={category}
+                categoryIndex={index}
+                searchQuery={searchQuery}
+              />
               {index < categories.length - 1 && (
                 <div className="dark:border-neutral-800 border-neutral-200 border-t" />
               )}

@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useRef, useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import React, { useRef, useEffect, useState, useCallback } from "react";
+import { motion, useInView } from "framer-motion";
 import { Briefcase, Calendar, MapPin } from "lucide-react";
 
 const experiences = [
@@ -78,6 +78,133 @@ function AnimatedHeading({ text }: { text: string }) {
   );
 }
 
+/* Stagger animation container */
+const staggerContainer = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.08,
+    },
+  },
+};
+
+/* Individual stagger item fade-in from left */
+const staggerItem = {
+  hidden: { opacity: 0, x: -16 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] },
+  },
+};
+
+function ExperienceCard({
+  exp,
+  index,
+}: {
+  exp: (typeof experiences)[0];
+  index: number;
+}) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const dotRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(cardRef, { once: true, amount: 0.3 });
+  const [dotVisible, setDotVisible] = useState(false);
+
+  /* Observe the timeline dot for pulse animation */
+  useEffect(() => {
+    const el = dotRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setDotVisible(entry.isIntersecting);
+      },
+      { threshold: 0.5 }
+    );
+    observer.observe(el);
+    return () => observer.unobserve(el);
+  }, []);
+
+  return (
+    <motion.div
+      ref={cardRef}
+      initial={{ opacity: 0, x: -30 }}
+      animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
+      transition={{ duration: 0.5, delay: index * 0.15, ease: [0.16, 1, 0.3, 1] }}
+      className="relative pl-12 md:pl-20"
+    >
+      {/* Timeline Dot with pulse */}
+      <div
+        ref={dotRef}
+        className={`absolute left-4 md:left-8 top-1.5 w-3 h-3 rounded-full -translate-x-1/2 z-10 transition-shadow duration-300 ${dotVisible ? "dot-pulse" : ""}`}
+        style={{
+          backgroundColor: "#C3E41D",
+          boxShadow: dotVisible
+            ? "0 0 12px rgba(195, 228, 29, 0.4), 0 0 24px rgba(195, 228, 29, 0.15)"
+            : "0 0 8px rgba(195, 228, 29, 0.2)",
+        }}
+      />
+
+      {/* Content Card with glow line + stagger */}
+      <div className="dark:bg-[hsl(0,0%,10%)] bg-white dark:border-neutral-800 border-neutral-200 border rounded-xl p-5 md:p-6 hover:dark:border-[#C3E41D]/30 hover:border-[#C3E41D]/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-[rgba(195,228,29,0.05)] card-glow-line">
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+        >
+          {/* Role & Company */}
+          <motion.div
+            variants={staggerItem}
+            className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-3"
+          >
+            <h3
+              className="text-lg md:text-xl font-bold dark:text-white text-neutral-900 heading-glow"
+              style={{ fontFamily: "'Fira Code', monospace" }}
+            >
+              {exp.role}
+            </h3>
+            <span
+              className="text-xs uppercase tracking-widest dark:text-[#C3E41D] text-[#8a9d17] font-medium flex items-center gap-1.5"
+              style={{ fontFamily: "'Fira Code', monospace" }}
+            >
+              <Calendar className="w-3.5 h-3.5" />
+              {exp.period}
+            </span>
+          </motion.div>
+
+          {/* Meta info */}
+          <motion.div
+            variants={staggerItem}
+            className="flex flex-wrap gap-4 mb-4 text-sm dark:text-neutral-400 text-neutral-500"
+          >
+            <div className="flex items-center gap-1.5">
+              <Briefcase className="w-4 h-4" />
+              <span style={{ fontFamily: "'Antic', sans-serif" }}>{exp.company}</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <MapPin className="w-4 h-4" />
+              <span style={{ fontFamily: "'Antic', sans-serif" }}>{exp.location}</span>
+            </div>
+          </motion.div>
+
+          {/* Bullet Points */}
+          <motion.ul variants={staggerItem} className="space-y-2">
+            {exp.bullets.map((bullet, i) => (
+              <li
+                key={i}
+                className="flex items-start gap-2 text-sm dark:text-neutral-300 text-neutral-600"
+                style={{ fontFamily: "'Antic', sans-serif", fontSize: "0.95rem" }}
+              >
+                <span className="mt-1.5 w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: "#C3E41D", opacity: 0.7 }} />
+                {bullet}
+              </li>
+            ))}
+          </motion.ul>
+        </motion.div>
+      </div>
+    </motion.div>
+  );
+}
+
 export default function ExperienceSection() {
   return (
     <section
@@ -96,72 +223,7 @@ export default function ExperienceSection() {
 
           <div className="space-y-12 md:space-y-16">
             {experiences.map((exp, index) => (
-              <motion.div
-                key={exp.company}
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.5, delay: index * 0.15 }}
-                className="relative pl-12 md:pl-20"
-              >
-                {/* Timeline Dot */}
-                <div
-                  className="absolute left-4 md:left-8 top-1.5 w-3 h-3 rounded-full -translate-x-1/2 z-10"
-                  style={{
-                    backgroundColor: "#C3E41D",
-                    boxShadow: "0 0 12px rgba(195, 228, 29, 0.4)",
-                  }}
-                />
-
-                {/* Content Card */}
-                <div className="dark:bg-[hsl(0,0%,10%)] bg-white dark:border-neutral-800 border-neutral-200 border rounded-xl p-5 md:p-6 hover:dark:border-[#C3E41D]/30 hover:border-[#C3E41D]/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-[rgba(195,228,29,0.05)]">
-                  {/* Role & Company */}
-                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-3">
-                    <h3
-                      className="text-lg md:text-xl font-bold dark:text-white text-neutral-900"
-                      style={{ fontFamily: "'Fira Code', monospace" }}
-                    >
-                      {exp.role}
-                    </h3>
-                    <span
-                      className="text-xs uppercase tracking-widest dark:text-[#C3E41D] text-[#8a9d17] font-medium"
-                      style={{ fontFamily: "'Fira Code', monospace" }}
-                    >
-                      {exp.period}
-                    </span>
-                  </div>
-
-                  {/* Meta info */}
-                  <div className="flex flex-wrap gap-4 mb-4 text-sm dark:text-neutral-400 text-neutral-500">
-                    <div className="flex items-center gap-1.5">
-                      <Briefcase className="w-4 h-4" />
-                      <span>{exp.company}</span>
-                    </div>
-                    <div className="flex items-center gap-1.5">
-                      <MapPin className="w-4 h-4" />
-                      <span>{exp.location}</span>
-                    </div>
-                  </div>
-
-                  {/* Bullet Points */}
-                  <ul className="space-y-2">
-                    {exp.bullets.map((bullet, i) => (
-                      <motion.li
-                        key={i}
-                        initial={{ opacity: 0, x: -10 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.3, delay: index * 0.15 + i * 0.08 }}
-                        className="flex items-start gap-2 text-sm dark:text-neutral-300 text-neutral-600"
-                        style={{ fontFamily: "'Antic', sans-serif", fontSize: "0.95rem" }}
-                      >
-                        <span className="mt-1.5 w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: "#C3E41D", opacity: 0.7 }} />
-                        {bullet}
-                      </motion.li>
-                    ))}
-                  </ul>
-                </div>
-              </motion.div>
+              <ExperienceCard key={exp.company} exp={exp} index={index} />
             ))}
           </div>
         </div>

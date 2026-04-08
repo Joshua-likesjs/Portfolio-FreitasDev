@@ -635,3 +635,83 @@ html.theme-transitioning *::after {
 .animate-rotate-ring {
   animation: rotate-ring 6s linear infinite;
 }
+
+/* Image adaptation for dark/light themes */
+.dark .img-adapt {
+  filter: brightness(0.9) contrast(1.1);
+}
+.img-adapt {
+  transition: filter 0.4s ease;
+}
+
+/* Card tilt hover effect (applied via JS) */
+.card-tilt {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+/* Subtle text glow for headings on hover */
+.heading-glow:hover {
+  text-shadow: 0 0 30px rgba(195, 228, 29, 0.15);
+  transition: text-shadow 0.3s ease;
+}
+
+/* Smooth image reveal on scroll */
+.img-reveal {
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.img-reveal.revealed {
+  clip-path: inset(0 0 0 0);
+}
+
+/* Stagger delay utility */
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
+
+/* Focus ring accent */
+*:focus-visible {
+  outline: 2px solid #C3E41D;
+  outline-offset: 2px;
+}
+
+/* Selection color in light mode */
+:not(.dark) ::selection {
+  background: rgba(195, 228, 29, 0.3);
+  color: inherit;
+}
+
+/* Timeline dot pulse animation */
+@keyframes dot-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(195, 228, 29, 0.4); }
+  50% { box-shadow: 0 0 0 6px rgba(195, 228, 29, 0); }
+}
+.dot-pulse {
+  animation: dot-pulse 2s ease-in-out infinite;
+}
+
+/* Card hover glow line on left edge */
+.card-glow-line {
+  position: relative;
+  overflow: hidden;
+}
+.card-glow-line::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: #C3E41D;
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 0 2px 2px 0;
+  z-index: 1;
+}
+.card-glow-line:hover::before {
+  transform: scaleY(1);
+}

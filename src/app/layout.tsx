@@ -40,6 +40,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('portfolio-theme');if(t==='light'){document.documentElement.classList.remove('dark')}else{document.documentElement.classList.add('dark')}}catch(e){document.documentElement.classList.add('dark')}})()`,
+          }}
+        />
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@700&family=Antic&display=swap"

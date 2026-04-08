@@ -198,3 +198,99 @@ The portfolio is a **fully-featured, production-quality single-page portfolio we
 6. **Medium**: Add a blog post detail view / reading page
 7. **Low**: Admin panel for viewing contact messages
 8. **Low**: Deploy and test production build
+
+---
+Task ID: 6
+Agent: Main Agent (webDevReview cron #5)
+Task: Bug fixes, scroll progress bar, glassmorphism header, FAQ section, Process section, section dividers
+
+Work Log:
+- Read worklog.md and assessed full project state (15 section components, API route, DB schema)
+- ESLint: 0 errors (1 pre-existing font warning)
+- Dev server: clean compilation, all 200s
+- Full QA with agent-browser: zero console errors, all sections rendering, mobile responsive
+
+Bug Fixes:
+- Fixed tech marquee array mutation: Replaced `.reverse()` with `[...technologies].reverse()` using spread operator to avoid mutating the original array
+- Fixed dark mode FOUC (Flash of Unstyled Content): Added inline `<script>` in layout.tsx `<head>` that reads localStorage before React hydrates and sets the `dark` class immediately
+- Fixed navigation dropdown: Added glassmorphism backdrop blur + border to dropdown menu
+
+New Features:
+- Created `scroll-progress.tsx` — Thin progress bar at top of viewport (3px) with gradient color and glow effect, tracks scroll position via passive scroll listener
+- Created `faq-section.tsx` — FAQ accordion with 6 questions, Plus/Minus toggle icons, AnimatePresence height animation, hover effects on questions, section heading with blur entrance animation
+- Created `process-section.tsx` — "How I Work" section with 4 step cards (Discovery, Research & Strategy, Design & Prototype, Build & Launch), each with number overlay, icon, description, and bullet list of deliverables; connector arrows between steps on desktop
+- Created `section-divider.tsx` — Animated line divider with scale-in from left/right and center dot, used between major sections for visual rhythm
+
+Styling Improvements:
+- Glassmorphism header on scroll: Header gains `backdrop-filter: blur(20px) saturate(180%)` + semi-transparent background + bottom border after 50px scroll, with smooth transition
+- Glassmorphism dropdown: Nav dropdown now has semi-transparent background with backdrop blur
+- Section dividers between major sections (About↔Stats, Stats↔Services, Services↔Process, Process↔Tech, Tech↔Projects, Projects↔Experience↔Education, Education↔Writing↔Testimonials, Testimonials↔FAQ) for visual rhythm
+- Updated navigation menu: Replaced EDUCATION/TESTIMONIALS with FAQ to keep nav items concise (7 items)
+- Updated footer navigation to match
+
+Files Modified/Created:
+| File | Status | Description |
+|------|--------|-------------|
+| `src/components/ui/scroll-progress.tsx` | Created | Scroll progress bar with gradient |
+| `src/components/ui/faq-section.tsx` | Created | FAQ accordion with 6 items |
+| `src/components/ui/process-section.tsx` | Created | How I Work - 4 process steps |
+| `src/components/ui/section-divider.tsx` | Created | Animated line divider component |
+| `src/components/ui/portfolio-hero.tsx` | Modified | Scroll-based glassmorphism header, glassmorphism dropdown, isScrolled state, updated nav items |
+| `src/components/ui/tech-marquee-section.tsx` | Modified | Fixed array mutation with spread operator |
+| `src/components/ui/portfolio-footer.tsx` | Modified | Updated nav links (FAQ replaces Testimonials) |
+| `src/app/layout.tsx` | Modified | Dark mode FOUC prevention script |
+| `src/app/page.tsx` | Modified | Added ScrollProgress, ProcessSection, FAQSection, SectionDivider |
+
+Verification Results:
+- ✅ ESLint: 0 errors (1 pre-existing font warning)
+- ✅ Dev server: clean compilation
+- ✅ Agent-browser QA: all sections rendering correctly
+- ✅ FAQ accordion: opens/closes with smooth animation
+- ✅ Scroll progress bar: visible and tracks scroll position
+- ✅ Glassmorphism header: appears on scroll, transparent at top
+- ✅ Process section: 4 cards with connector arrows
+- ✅ Section dividers: animated between sections
+- ✅ Zero console errors
+
+---
+## Handover Document
+
+### Current Project Status / Assessment
+The portfolio is a **fully-featured, production-quality single-page portfolio website** for "Freitas". Current state:
+- **16 sections**: Hero (particles + CTA + glassmorphism header), About (skill bars + subtitle), Stats (animated counters + light mode), Services (6 cards), Process (4 steps with connectors), Tech Stack (dual marquee, fixed mutation), Projects (modals with Escape), Experience (timeline), Education (timeline), Writing (featured + grid), Testimonials (carousel with keyboard), FAQ (6-item accordion), Contact (DB-persisted form), Footer (CTA + nav + social), Back-to-Top, Scroll Progress Bar
+- **Backend API**: Contact form POST/GET endpoint with Zod validation and SQLite persistence
+- **Dark/Light theme** with smooth transition animation, localStorage persistence, and FOUC prevention
+- **Canvas particle network** in hero with mouse interaction
+- **Glassmorphism header** that activates on scroll with backdrop blur
+- **Scroll progress indicator** bar at top of page
+- **Active section tracking** in navigation via IntersectionObserver
+- **Keyboard accessibility**: Escape closes modals, Arrow keys navigate testimonials
+- **Animated section dividers** between major sections
+- **Responsive** across mobile (375px) to desktop (1920px)
+- **Zero compilation errors**, zero runtime errors, zero console errors
+
+### Architecture Summary
+- **Framework**: Next.js 16 App Router with `'use client'` components
+- **Styling**: Tailwind CSS 4 + shadcn/ui components + inline styles for accent colors
+- **Animations**: Framer Motion (entrance, counters, carousel, modals, accordion) + Canvas API (particles)
+- **State**: useSyncExternalStore for theme, useState for component state, localStorage for persistence
+- **Backend**: Next.js API route + Prisma ORM + SQLite
+- **Fonts**: Fira Code (monospace), Antic (sans-serif), Brush Script MT (signature) via Google Fonts
+- **FOUC Prevention**: Inline script in `<head>` reads localStorage before React hydrates
+
+### Unresolved Issues / Risks & Next Phase Recommendations
+1. **External images not optimized** — Using `<img>` tags instead of Next.js `Image`. Should add `remotePatterns` to next.config.ts.
+2. **No SEO structured data** — Could add JSON-LD for Person schema.
+3. **No loading skeletons** — Could add skeleton loaders for images and sections.
+4. **Writing articles are static** — Could connect to MDX files or a CMS.
+5. **Contact form has no admin UI** — Messages persist to DB but no management interface.
+6. **Resume button doesn't have a real file** — Currently navigates to Projects section.
+
+### Recommended Next Phase Priority
+1. **High**: Add Next.js Image optimization with `remotePatterns`
+2. **High**: Add loading skeleton states for images and async sections
+3. **Medium**: Add JSON-LD structured data for SEO
+4. **Medium**: Connect Writing section to MDX files
+5. **Medium**: Add a blog post detail view
+6. **Low**: Admin panel for contact messages
+7. **Low**: Deploy and test production build

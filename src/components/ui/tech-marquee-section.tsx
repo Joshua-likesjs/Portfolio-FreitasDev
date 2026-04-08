@@ -24,8 +24,10 @@ const technologies = [
   { name: "D3.js", category: "Visualization" },
 ];
 
-// Duplicate for seamless loop
-const marqueeItems = [...technologies, ...technologies];
+// Row 1 items
+const marqueeItemsRow1 = [...technologies, ...technologies];
+// Row 2 items (reversed, using spread to avoid mutating original)
+const marqueeItemsRow2 = [...[...technologies].reverse(), ...[...technologies].reverse()];
 
 function AnimatedHeading({ text }: { text: string }) {
   const ref = useRef<HTMLHeadingElement>(null);
@@ -98,7 +100,7 @@ export default function TechMarqueeSection() {
               },
             }}
           >
-            {marqueeItems.map((tech, i) => (
+            {marqueeItemsRow1.map((tech, i) => (
               <div
                 key={`row1-${i}`}
                 className="flex items-center gap-3 px-5 py-3 rounded-full dark:bg-[hsl(0,0%,10%)] bg-white dark:border-neutral-800 border-neutral-200 border shrink-0 hover:dark:border-[#C3E41D]/40 hover:border-[#C3E41D]/60 transition-colors duration-300 cursor-default"
@@ -134,7 +136,7 @@ export default function TechMarqueeSection() {
               },
             }}
           >
-            {marqueeItems.reverse().map((tech, i) => (
+            {marqueeItemsRow2.map((tech, i) => (
               <div
                 key={`row2-${i}`}
                 className="flex items-center gap-3 px-5 py-3 rounded-full dark:bg-[hsl(0,0%,10%)] bg-white dark:border-neutral-800 border-neutral-200 border shrink-0 hover:dark:border-[#C3E41D]/40 hover:border-[#C3E41D]/60 transition-colors duration-300 cursor-default"

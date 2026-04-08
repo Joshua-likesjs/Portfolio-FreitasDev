@@ -84,9 +84,17 @@ export default function PortfolioHero() {
   const isDark = useSyncExternalStore(subscribeToTheme, getStoredTheme, () => true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
+  const [isScrolled, setIsScrolled] = useState(false);
   const mountedRef = useRef(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
+
+  // Track scroll for header glassmorphism
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Sync DOM class with isDark state
   useEffect(() => {
@@ -103,7 +111,7 @@ export default function PortfolioHero() {
 
   // Active section tracking via IntersectionObserver
   useEffect(() => {
-    const sectionIds = ["home", "about", "projects", "experience", "education", "writing", "testimonials", "contact"];
+    const sectionIds = ["home", "about", "projects", "experience", "education", "writing", "testimonials", "faq", "contact"];
     const observers: IntersectionObserver[] = [];
 
     sectionIds.forEach((id) => {
@@ -172,9 +180,8 @@ export default function PortfolioHero() {
     { label: "ABOUT", href: "#about" },
     { label: "PROJECTS", href: "#projects" },
     { label: "EXPERIENCE", href: "#experience" },
-    { label: "EDUCATION", href: "#education" },
     { label: "WRITING", href: "#writing" },
-    { label: "TESTIMONIALS", href: "#testimonials" },
+    { label: "FAQ", href: "#faq" },
     { label: "CONTACT", href: "#contact" },
   ];
 
@@ -216,7 +223,18 @@ export default function PortfolioHero() {
       </div>
 
       {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 px-6 py-6">
+      <header
+        className="fixed top-0 left-0 right-0 z-50 px-6 py-4 transition-all duration-300"
+        style={{
+          backgroundColor: isScrolled
+            ? (isDark ? "hsla(0, 0%, 0%, 0.8)" : "hsla(0, 0%, 98%, 0.8)")
+            : "transparent",
+          backdropFilter: isScrolled ? "blur(20px) saturate(180%)" : "none",
+          borderBottom: isScrolled
+            ? `1px solid ${isDark ? "hsl(0 0% 12%)" : "hsl(0 0% 90%)"}`
+            : "1px solid transparent",
+        }}
+      >
         <nav className="flex items-center justify-between max-w-screen-2xl mx-auto">
           {/* Menu Button */}
           <div className="relative">
@@ -237,9 +255,10 @@ export default function PortfolioHero() {
             {isMenuOpen && (
               <div
                 ref={menuRef}
-                className="absolute top-full left-0 w-[200px] md:w-[240px] border-none shadow-2xl mt-2 ml-4 p-4 rounded-lg z-[100]"
+                className="absolute top-full left-0 w-[200px] md:w-[240px] shadow-2xl mt-2 ml-4 p-4 rounded-xl z-[100] dark:border-neutral-800 border-neutral-200 border"
                 style={{
-                  backgroundColor: isDark ? "hsl(0 0% 5%)" : "hsl(0 0% 98%)",
+                  backgroundColor: isDark ? "hsla(0, 0%, 5%, 0.9)" : "hsla(0, 0%, 98%, 0.9)",
+                  backdropFilter: "blur(20px) saturate(180%)",
                 }}
               >
                 {menuItems.map((item) => {

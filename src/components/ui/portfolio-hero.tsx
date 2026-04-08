@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef, useMemo } from "react";
+import React, { useState, useEffect, useRef, useMemo, useCallback, useSyncExternalStore } from "react";
 import { Menu, X, ChevronDown } from "lucide-react";
 
 // BlurText animation component
@@ -27,21 +27,13 @@ const BlurText: React.FC<BlurTextProps> = ({
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-        }
+        if (entry.isIntersecting) setInView(true);
       },
       { threshold: 0.1 }
     );
-
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
+    if (ref.current) observer.observe(ref.current);
     return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
-      }
+      if (ref.current) observer.unobserve(ref.current);
     };
   }, []);
 
@@ -70,16 +62,68 @@ const BlurText: React.FC<BlurTextProps> = ({
   );
 };
 
+function getStoredTheme(): boolean {
+  if (typeof window === "undefined") return true;
+  const saved = localStorage.getItem("portfolio-theme");
+  if (saved !== null) return saved === "dark";
+  return window.matchMedia("(prefers-color-scheme: dark)").matches;
+}
+
+function subscribeToTheme(callback: () => void) {
+ window.addEventListener("storage", callback);
+ const mq = window.matchMedia("(prefers-color-scheme: dark)");
+ mq.addEventListener("change", callback);
+ return () => {
+    window.removeEventListener("storage", callback);
+    mq.removeEventListener("change", callback);
+  };
+}
+
 export default function PortfolioHero() {
-  const [isDark, setIsDark] = useState(true);
+  const isDark = useSyncExternalStore(subscribeToTheme, getStoredTheme, () => true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
+  const mountedRef = useRef(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
+  // Sync DOM class with isDark state
   useEffect(() => {
-    document.documentElement.classList.add("dark");
+    if (!mountedRef.current) {
+ mountedRef.current = true;
+ } else {
+      if (isDark) {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+    }
+  }, [isDark]);
+
+  // Active section tracking via IntersectionObserver
+  useEffect(() => {
+    const sectionIds = ["home", "about", "projects", "experience", "education", "writing", "contact"];
+    const observers: IntersectionObserver[] = [];
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setActiveSection(id);
+          }
+        },
+        { threshold: 0.3, rootMargin: "-80px 0px -40% 0px" }
+      );
+      observer.observe(el);
+      observers.push(observer);
+    });
+
+    return () => observers.forEach((obs) => obs.disconnect());
   }, []);
 
+  // Close menu on click outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -92,31 +136,32 @@ export default function PortfolioHero() {
         setIsMenuOpen(false);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isMenuOpen]);
 
-  const toggleTheme = () => {
+  const toggleTheme = useCallback(() => {
     const newTheme = !isDark;
-    setIsDark(newTheme);
+    localStorage.setItem("portfolio-theme", newTheme ? "dark" : "light");
     if (newTheme) {
       document.documentElement.classList.add("dark");
     } else {
       document.documentElement.classList.remove("dark");
     }
-  };
+    // Force re-render by dispatching storage event
+    window.dispatchEvent(new Event("storage"));
+  }, [isDark]);
 
-  const handleNavClick = (href: string) => {
+  const handleNavClick = useCallback((href: string) => {
     setIsMenuOpen(false);
+    const id = href.replace("#", "");
+    setActiveSection(id);
     const el = document.querySelector(href);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+  }, []);
 
   const menuItems = [
-    { label: "HOME", href: "#home", highlight: true },
+    { label: "HOME", href: "#home" },
     { label: "ABOUT", href: "#about" },
     { label: "PROJECTS", href: "#projects" },
     { label: "EXPERIENCE", href: "#experience" },
@@ -128,12 +173,37 @@ export default function PortfolioHero() {
   return (
     <div
       id="home"
-      className="min-h-screen text-foreground transition-colors"
+      className="min-h-screen text-foreground transition-colors relative overflow-hidden"
       style={{
         backgroundColor: isDark ? "hsl(0 0% 0%)" : "hsl(0 0% 98%)",
         color: isDark ? "hsl(0 0% 100%)" : "hsl(0 0% 10%)",
       }}
     >
+      {/* Animated gradient glow orbs */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div
+          className="absolute -top-1/4 -left-1/4 w-[600px] h-[600px] rounded-full opacity-[0.07] animate-pulse"
+          style={{
+            background: "radial-gradient(circle, #C3E41D 0%, transparent 70%)",
+            animationDuration: "8s",
+          }}
+        />
+        <div
+          className="absolute -bottom-1/4 -right-1/4 w-[500px] h-[500px] rounded-full opacity-[0.05] animate-pulse"
+          style={{
+            background: "radial-gradient(circle, #C3E41D 0%, transparent 70%)",
+            animationDuration: "10s",
+            animationDelay: "4s",
+          }}
+        />
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] rounded-full opacity-[0.03]"
+          style={{
+            background: "radial-gradient(ellipse, #C3E41D 0%, transparent 70%)",
+          }}
+        />
+      </div>
+
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 px-6 py-6">
         <nav className="flex items-center justify-between max-w-screen-2xl mx-auto">
@@ -158,31 +228,36 @@ export default function PortfolioHero() {
                 ref={menuRef}
                 className="absolute top-full left-0 w-[200px] md:w-[240px] border-none shadow-2xl mt-2 ml-4 p-4 rounded-lg z-[100]"
                 style={{
-                  backgroundColor: isDark ? "hsl(0 0% 0%)" : "hsl(0 0% 98%)",
+                  backgroundColor: isDark ? "hsl(0 0% 5%)" : "hsl(0 0% 98%)",
                 }}
               >
-                {menuItems.map((item) => (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    className="block text-lg md:text-xl font-bold tracking-tight py-1.5 px-2 cursor-pointer transition-colors duration-300"
-                    style={{
-                      color: item.highlight ? "#C3E41D" : isDark ? "hsl(0 0% 100%)" : "hsl(0 0% 10%)",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.color = "#C3E41D";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.color = item.highlight ? "#C3E41D" : (isDark ? "hsl(0 0% 100%)" : "hsl(0 0% 10%)");
-                    }}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleNavClick(item.href);
-                    }}
-                  >
-                    {item.label}
-                  </a>
-                ))}
+                {menuItems.map((item) => {
+                  const sectionId = item.href.replace("#", "");
+                  const isActive = activeSection === sectionId;
+                  return (
+                    <a
+                      key={item.label}
+                      href={item.href}
+                      className="block text-lg md:text-xl font-bold tracking-tight py-1.5 px-2 cursor-pointer transition-colors duration-300 rounded"
+                      style={{
+                        color: isActive ? "#C3E41D" : isDark ? "hsl(0 0% 100%)" : "hsl(0 0% 10%)",
+                        backgroundColor: isActive ? (isDark ? "hsl(0 0% 10%)" : "hsl(0 0% 93%)") : "transparent",
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.color = "#C3E41D";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.color = isActive ? "#C3E41D" : (isDark ? "hsl(0 0% 100%)" : "hsl(0 0% 10%)");
+                      }}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleNavClick(item.href);
+                      }}
+                    >
+                      {item.label}
+                    </a>
+                  );
+                })}
               </div>
             )}
           </div>
@@ -213,7 +288,7 @@ export default function PortfolioHero() {
 
       {/* Hero Section */}
       <main className="relative min-h-screen flex flex-col">
-        {/* Centered Main Name - Always Perfectly Centered */}
+        {/* Centered Main Name */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full px-4">
           <div className="relative text-center">
             <div>
@@ -237,9 +312,21 @@ export default function PortfolioHero() {
               />
             </div>
 
+            {/* Role subtitle */}
+            <div className="mt-4">
+              <BlurText
+                text="Creative Developer & Designer"
+                delay={60}
+                animateBy="words"
+                direction="top"
+                className="text-sm sm:text-base md:text-lg tracking-[0.3em] uppercase justify-center text-neutral-500"
+                style={{ fontFamily: "'Fira Code', monospace" }}
+              />
+            </div>
+
             {/* Profile Picture */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
-              <div className="w-[65px] h-[110px] sm:w-[90px] sm:h-[152px] md:w-[110px] md:h-[185px] lg:w-[129px] lg:h-[218px] rounded-full overflow-hidden shadow-2xl transition-transform duration-300 hover:scale-110 cursor-pointer">
+              <div className="w-[65px] h-[110px] sm:w-[90px] sm:h-[152px] md:w-[110px] md:h-[185px] lg:w-[129px] lg:h-[218px] rounded-full overflow-hidden shadow-2xl transition-transform duration-300 hover:scale-110 cursor-pointer ring-4 ring-transparent hover:ring-[#C3E41D]/30">
                 <img
                   src="https://i.postimg.cc/y8DnKLyK/albert-dera-ILip77-Sbm-OE-unsplash.jpg"
                   alt="Profile"
@@ -250,7 +337,7 @@ export default function PortfolioHero() {
           </div>
         </div>
 
-        {/* Tagline - Proper Distance Below Hero */}
+        {/* Tagline */}
         <div className="absolute bottom-16 sm:bottom-20 md:bottom-24 lg:bottom-32 xl:bottom-36 left-1/2 -translate-x-1/2 w-full px-6">
           <div className="flex justify-center">
             <BlurText

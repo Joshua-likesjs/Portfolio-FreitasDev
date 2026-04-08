@@ -166,7 +166,7 @@ export default function AboutSection() {
                   style={{ border: "3px solid #C3E41D" }}
                 >
                   <Image
-                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face"
+                    src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face"
                     alt="Freitas headshot"
                     className="w-full h-full object-cover"
                     width={400}

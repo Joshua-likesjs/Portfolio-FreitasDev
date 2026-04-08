@@ -30,7 +30,7 @@ const testimonials = [
   {
     name: "David Kim",
     role: "Founder, EcoTrack",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
+    avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&h=100&fit=crop&crop=face",
     quote: "Alex took our vague vision and turned it into a stunning, data-rich dashboard. His communication throughout the project was excellent — always proactive, always clear.",
     rating: 5,
   },

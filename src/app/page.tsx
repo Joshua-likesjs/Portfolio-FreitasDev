@@ -14,6 +14,8 @@ import WritingSection from "@/components/ui/writing-section";
 import TestimonialsSection from "@/components/ui/testimonials-section";
 import FAQSection from "@/components/ui/faq-section";
 import AchievementsSection from "@/components/ui/achievements-section";
+import SkillsRadarSection from "@/components/ui/skills-radar-section";
+import NowSection from "@/components/ui/now-section";
 import NewsletterSection from "@/components/ui/newsletter-section";
 import ContactSection from "@/components/ui/contact-section";
 import Footer from "@/components/ui/portfolio-footer";
@@ -33,6 +35,7 @@ export default function Home() {
       <div className="flex-1">
         <AboutSection />
         <SectionDivider />
+        <SkillsRadarSection />
         <StatsSection />
         <ServicesSection />
         <SectionDivider />
@@ -51,6 +54,8 @@ export default function Home() {
         <AchievementsSection />
         <SectionDivider />
         <ToolsSection />
+        <SectionDivider />
+        <NowSection />
         <SectionDivider />
         <NewsletterSection />
         <ContactSection />

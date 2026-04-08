@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, useCallback, useSyncExternalStore } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
@@ -8,9 +8,26 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Star, X, Github, Globe } from "lucide-react";
 
+function getStoredTheme(): boolean {
+  if (typeof window === "undefined") return true;
+  const saved = localStorage.getItem("portfolio-theme");
+  if (saved !== null) return saved === "dark";
+  return window.matchMedia("(prefers-color-scheme: dark)").matches;
+}
+
+function subscribeToTheme(callback: () => void) {
+  window.addEventListener("storage", callback);
+  return () => window.removeEventListener("storage", callback);
+}
+
+const categories = ["All", "Frontend", "Full-Stack", "Creative", "Data"] as const;
+
+type Category = (typeof categories)[number];
+
 const projects = [
   {
     name: "DesignFlow",
+    category: "Creative" as Category,
     description:
       "An AI-powered design tool that helps teams generate, iterate, and refine UI designs in real-time using natural language prompts and smart suggestions.",
     fullDescription: "DesignFlow uses state-of-the-art machine learning models to understand design intent from natural language. Teams can describe what they want, and the AI generates multiple design variants that can be refined through an intuitive interface. Features include real-time collaboration, version history, design token extraction, and automatic responsive layout generation.",
@@ -23,6 +40,7 @@ const projects = [
   },
   {
     name: "CloudSync",
+    category: "Full-Stack" as Category,
     description:
       "A real-time collaboration platform enabling distributed teams to work on documents, designs, and code simultaneously with seamless syncing.",
     fullDescription: "CloudSync provides a zero-latency collaboration experience through operational transformation algorithms and WebSocket connections. It supports rich text editing, code collaboration with syntax highlighting, design file commenting, and video conferencing integration. Built to scale to thousands of concurrent users.",
@@ -35,6 +53,7 @@ const projects = [
   },
   {
     name: "PixelArt Studio",
+    category: "Creative" as Category,
     description:
       "A creative pixel art editor built with the Canvas API, featuring layers, animation timeline, custom palettes, and export to sprite sheets.",
     fullDescription: "PixelArt Studio is a browser-based pixel art editor designed for game developers and digital artists. It features a layer system with blend modes, an animation timeline with onion skinning, custom color palettes, tilemap editing, and export to sprite sheets, GIF animations, and PNG sequences. All processing happens client-side for instant feedback.",
@@ -47,6 +66,7 @@ const projects = [
   },
   {
     name: "EcoTrack",
+    category: "Data" as Category,
     description:
       "A sustainability dashboard that visualizes environmental impact data, tracks carbon footprints, and provides actionable insights.",
     fullDescription: "EcoTrack helps organizations measure, track, and reduce their environmental impact. The dashboard visualizes carbon emissions across scopes, tracks sustainability goals, benchmarks against industry standards, and provides AI-powered recommendations for reduction strategies. Integrates with popular carbon accounting APIs and IoT sensor data.",
@@ -56,6 +76,32 @@ const projects = [
     link: "#",
     github: "#",
     highlights: ["Scope 1/2/3 emissions tracking", "AI-powered recommendations", "Industry benchmarking", "IoT sensor integration"],
+  },
+  {
+    name: "NoteFlow",
+    category: "Frontend" as Category,
+    description:
+      "A beautiful markdown note-taking app with real-time preview, syntax highlighting, and cloud sync. Minimalist design meets powerful features.",
+    fullDescription: "NoteFlow is a markdown-first note-taking application with a split-pane editor and live preview. It features syntax highlighting for 50+ languages, keyboard shortcuts for power users, tagging and search, and real-time cloud sync across devices. The UI is designed for focus mode with distraction-free editing.",
+    tags: ["React", "MDX", "IndexedDB"],
+    image: "https://images.unsplash.com/photo-1517842645767-c639042777db?w=600&h=400&fit=crop",
+    featured: false,
+    link: "#",
+    github: "#",
+    highlights: ["Split-pane markdown editor", "50+ language syntax highlight", "Cloud sync across devices", "Focus mode with minimal UI"],
+  },
+  {
+    name: "ShopStream",
+    category: "Full-Stack" as Category,
+    description:
+      "A modern e-commerce platform with live streaming shopping, real-time inventory management, and integrated payment processing.",
+    fullDescription: "ShopStream combines live video shopping with a full e-commerce backend. Features include stream scheduling, real-time chat during streams, instant purchase buttons, inventory management dashboard, analytics, and Stripe payment integration. Built for creators who want to monetize their audience.",
+    tags: ["Next.js", "Stripe", "WebRTC"],
+    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop",
+    featured: false,
+    link: "#",
+    github: "#",
+    highlights: ["Live video shopping", "Real-time inventory sync", "Stripe payment processing", "Creator analytics dashboard"],
   },
 ];
 
@@ -202,6 +248,12 @@ function ProjectModal({ project, onClose }: { project: typeof projects[0]; onClo
 
 export default function ProjectsSection() {
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
+  const [activeCategory, setActiveCategory] = useState<Category>("All");
+  const isDark = useSyncExternalStore(subscribeToTheme, getStoredTheme, () => true);
+
+  const filteredProjects = activeCategory === "All"
+    ? projects
+    : projects.filter((p) => p.category === activeCategory);
 
   // Close modal on Escape key
   useEffect(() => {
@@ -228,8 +280,38 @@ export default function ProjectsSection() {
           A selection of projects I&apos;ve built — from AI-powered tools to real-time collaboration platforms.
         </p>
 
+        {/* Category Filter Tabs */}
+        <div className="flex flex-wrap gap-2 mb-10 md:mb-12">
+          {categories.map((category) => {
+            const isActive = activeCategory === category;
+            const count = category === "All" ? projects.length : projects.filter((p) => p.category === category).length;
+            return (
+              <motion.button
+                key={category}
+                onClick={() => setActiveCategory(category)}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                className="relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300"
+                style={{
+                  fontFamily: "'Fira Code', monospace",
+                  backgroundColor: isActive ? "#C3E41D" : "transparent",
+                  color: isActive ? "black" : isDark ? "hsl(0 0% 70%)" : "hsl(0 0% 40%)",
+                  border: isActive ? "1px solid #C3E41D" : isDark ? "1px solid hsl(0 0% 20%)" : "1px solid hsl(0 0% 82%)",
+                }}
+              >
+                {category}
+                <span
+                  className="ml-1.5 text-xs opacity-60"
+                >
+                  ({count})
+                </span>
+              </motion.button>
+            );
+          })}
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {projects.map((project, index) => (
+          {filteredProjects.map((project, index) => (
             <motion.div
               key={project.name}
               initial={{ opacity: 0, y: 40 }}

@@ -750,3 +750,31 @@ Stage Summary:
 - All 8 external images across 5 component files migrated from `<img>` to Next.js `<Image>`
 - Images now benefit from Next.js automatic optimization (lazy loading, format conversion, size optimization)
 - No visual or behavioral changes — all existing classNames and styles preserved
+
+---
+Task ID: 8b
+Agent: full-stack-developer
+Task: Create 'Now' status widget section
+
+Work Log:
+- Created now-section.tsx with real-time status card
+- 5 activity items with emoji icons and descriptions
+- Pulsing LIVE badge, staggered Framer Motion entrance
+- Dark/light mode, responsive grid layout
+
+Stage Summary:
+- New interactive "Right Now" status widget section
+
+---
+Task ID: 8a
+Agent: full-stack-developer
+Task: Create Skills Radar Chart section
+
+Work Log:
+- Created skills-radar-section.tsx with SVG spider/radar chart
+- 6 skill axes: Frontend, Backend, Design, DevOps, Mobile, Data Viz
+- Animated polygon entrance, interactive tooltips on hover
+- Dark/light mode support, responsive layout
+
+Stage Summary:
+- New interactive radar chart visualization section

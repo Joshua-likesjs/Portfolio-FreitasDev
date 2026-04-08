@@ -346,3 +346,43 @@ html.theme-transitioning *::after {
   pointer-events: none;
   z-index: 0;
 }
+
+/* Typewriter cursor blink animation */
+@keyframes blink-cursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Smooth transition for all cards */
+.card-transition {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), 
+              box-shadow 0.3s ease, 
+              border-color 0.3s ease,
+              background-color 0.3s ease;
+}
+
+/* Text shadow glow for accent text */
+.text-glow-accent {
+  text-shadow: 0 0 20px rgba(195, 228, 29, 0.3), 0 0 40px rgba(195, 228, 29, 0.1);
+}
+
+/* Subtle breathing animation for decorative elements */
+@keyframes breathe {
+  0%, 100% { opacity: 0.05; transform: scale(1); }
+  50% { opacity: 0.08; transform: scale(1.05); }
+}
+.animate-breathe {
+  animation: breathe 6s ease-in-out infinite;
+}
+
+/* Gradient line separator */
+.gradient-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(195, 228, 29, 0.3) 50%, transparent 100%);
+}
+
+/* Reveal animation for list items */
+@keyframes reveal-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef, useMemo, useCallback, useSyncExternalStore } from "react";
-import { Menu, X, ChevronDown, Download } from "lucide-react";
+import { Menu, X, ChevronDown, Download, Sun, Moon } from "lucide-react";
 import Image from "next/image";
 import ParticleNetwork from "@/components/ui/particle-network";
 
@@ -64,6 +64,89 @@ const BlurText: React.FC<BlurTextProps> = ({
   );
 };
 
+// Typewriter rotating text component
+interface TypewriterTextProps {
+  phrases: string[];
+  typeSpeed?: number;
+  deleteSpeed?: number;
+  pauseTime?: number;
+  style?: React.CSSProperties;
+}
+
+const TypewriterText: React.FC<TypewriterTextProps> = ({
+  phrases,
+  typeSpeed = 50,
+  deleteSpeed = 30,
+  pauseTime = 2000,
+  style,
+}) => {
+  const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
+  const [displayText, setDisplayText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [isStarted, setIsStarted] = useState(false);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Start after initial blur animation completes
+  useEffect(() => {
+    const startTimer = setTimeout(() => setIsStarted(true), 2200);
+    return () => clearTimeout(startTimer);
+  }, []);
+
+  useEffect(() => {
+    if (!isStarted) return;
+
+    const currentPhrase = phrases[currentPhraseIndex];
+
+    if (!isDeleting) {
+      // Typing
+      if (displayText.length < currentPhrase.length) {
+        timeoutRef.current = setTimeout(() => {
+          setDisplayText(currentPhrase.substring(0, displayText.length + 1));
+        }, typeSpeed);
+      } else {
+        // Pause at full text
+        timeoutRef.current = setTimeout(() => {
+          setIsDeleting(true);
+        }, pauseTime);
+      }
+    } else {
+      // Deleting
+      if (displayText.length > 0) {
+        timeoutRef.current = setTimeout(() => {
+          setDisplayText(displayText.substring(0, displayText.length - 1));
+        }, deleteSpeed);
+      } else {
+        // Move to next phrase
+        timeoutRef.current = setTimeout(() => {
+          setIsDeleting(false);
+          setCurrentPhraseIndex((prev) => (prev + 1) % phrases.length);
+        }, 300);
+      }
+    }
+
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, [displayText, isDeleting, currentPhraseIndex, phrases, typeSpeed, deleteSpeed, pauseTime, isStarted]);
+
+  return (
+    <p
+      className="text-[15px] sm:text-[18px] md:text-[20px] lg:text-[22px] text-center text-neutral-500 transition-colors duration-300 hover:text-black dark:hover:text-white inline-flex items-center"
+      style={style}
+    >
+      {displayText}
+      <span
+        className="inline-block w-[2px] h-[1em] ml-1 align-middle"
+        style={{
+          backgroundColor: "#C3E41D",
+          animation: "blink-cursor 1s step-end infinite",
+          opacity: isStarted ? 1 : 0,
+        }}
+      />
+    </p>
+  );
+};
+
 function getStoredTheme(): boolean {
   if (typeof window === "undefined") return true;
   const saved = localStorage.getItem("portfolio-theme");
@@ -112,7 +195,7 @@ export default function PortfolioHero() {
 
   // Active section tracking via IntersectionObserver
   useEffect(() => {
-    const sectionIds = ["home", "about", "projects", "experience", "education", "writing", "testimonials", "faq", "achievements", "tools", "newsletter", "contact"];
+    const sectionIds = ["home", "about", "projects", "experience", "education", "writing", "testimonials", "faq", "achievements", "tools", "skills-radar", "now", "newsletter", "contact"];
     const observers: IntersectionObserver[] = [];
 
     sectionIds.forEach((id) => {
@@ -302,17 +385,23 @@ export default function PortfolioHero() {
           <button
             type="button"
             onClick={toggleTheme}
-            className="relative w-16 h-8 rounded-full hover:opacity-80 transition-opacity"
-            style={{ backgroundColor: isDark ? "hsl(0 0% 15%)" : "hsl(0 0% 90%)" }}
+            className="relative w-16 h-8 rounded-full transition-all duration-300 hover:shadow-[0_0_12px_rgba(195,228,29,0.2)]"
+            style={{ backgroundColor: isDark ? "hsl(0 0% 15%)" : "hsl(0 0% 88%)" }}
             aria-label="Toggle theme"
           >
             <div
-              className="absolute top-1 left-1 w-6 h-6 rounded-full transition-transform duration-300"
+              className="absolute top-1 left-1 w-6 h-6 rounded-full flex items-center justify-center transition-all duration-300"
               style={{
-                backgroundColor: isDark ? "hsl(0 0% 100%)" : "hsl(0 0% 10%)",
+                backgroundColor: isDark ? "#C3E41D" : "hsl(0 0% 10%)",
                 transform: isDark ? "translateX(2rem)" : "translateX(0)",
               }}
-            />
+            >
+              {isDark ? (
+                <Moon className="w-3.5 h-3.5 text-black" />
+              ) : (
+                <Sun className="w-3.5 h-3.5 text-yellow-500" />
+              )}
+            </div>
           </button>
         </nav>
       </header>
@@ -400,15 +489,17 @@ export default function PortfolioHero() {
           </div>
         </div>
 
-        {/* Tagline */}
+        {/* Tagline - Typewriter rotating text */}
         <div className="absolute bottom-16 sm:bottom-20 md:bottom-24 lg:bottom-28 xl:bottom-32 left-1/2 -translate-x-1/2 w-full px-6">
           <div className="flex justify-center">
-            <BlurText
-              text="Designing human experiences in code."
-              delay={150}
-              animateBy="words"
-              direction="top"
-              className="text-[15px] sm:text-[18px] md:text-[20px] lg:text-[22px] text-center transition-colors duration-300 text-neutral-500 hover:text-black dark:hover:text-white"
+            <TypewriterText
+              phrases={[
+                "Designing human experiences in code.",
+                "Building products people love.",
+                "Turning ideas into interactive reality.",
+                "Crafting interfaces that feel alive.",
+                "Where design meets engineering.",
+              ]}
               style={{ fontFamily: "'Antic', sans-serif" }}
             />
           </div>

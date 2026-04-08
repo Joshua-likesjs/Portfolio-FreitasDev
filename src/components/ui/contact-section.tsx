@@ -90,9 +90,15 @@ export default function ContactSection() {
   return (
     <section
       id="contact"
-      className="py-20 md:py-32 px-4 dark:bg-[hsl(0,0%,4%)] bg-[hsl(0,0%,96%)] transition-colors"
+      className="py-20 md:py-32 px-4 dark:bg-[hsl(0,0%,4%)] bg-[hsl(0,0%,96%)] transition-colors relative overflow-hidden"
     >
-      <div className="max-w-4xl mx-auto">
+      {/* Decorative glow */}
+      <div
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] rounded-full blur-[160px] pointer-events-none"
+        style={{ backgroundColor: "#C3E41D", opacity: 0.03 }}
+      />
+
+      <div className="max-w-4xl mx-auto relative z-10">
         <AnimatedHeading text="GET IN TOUCH" />
         <p
           className="text-base md:text-lg dark:text-neutral-400 text-neutral-500 mb-12 md:mb-16 max-w-xl"

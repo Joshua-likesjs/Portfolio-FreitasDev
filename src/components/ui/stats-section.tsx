@@ -49,10 +49,10 @@ function StatCounter({ icon: Icon, value, suffix, label, delay }: StatItemProps)
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: delay / 1000 }}
-      className="text-center group"
+      className="text-center group p-6 rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-lg dark:bg-[hsl(0,0%,8%)] bg-white/60 dark:border-neutral-800/50 border-neutral-200/50 border backdrop-blur-sm"
     >
       <div
-        className="inline-flex p-4 rounded-2xl mb-4 transition-transform duration-300 group-hover:scale-110"
+        className="inline-flex p-4 rounded-2xl mb-4 transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(195,228,29,0.15)]"
         style={{ backgroundColor: "#C3E41D12" }}
       >
         <Icon className="w-6 h-6" style={{ color: "#C3E41D" }} />
@@ -60,7 +60,7 @@ function StatCounter({ icon: Icon, value, suffix, label, delay }: StatItemProps)
       <div className="text-3xl sm:text-4xl md:text-5xl font-bold dark:text-white text-neutral-900 mb-1">
         <motion.span style={{ fontFamily: "'Fira Code', monospace" }}>
           <motion.span>{rounded}</motion.span>
-          <span>{suffix}</span>
+          <span className="text-gradient-accent">{suffix}</span>
         </motion.span>
       </div>
       <p

@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback, useSyncExternalStore } from "react";
 import { Menu, X, ChevronDown, Download, Sun, Moon, Search } from "lucide-react";
 import Image from "next/image";
-import ParticleNetwork from "@/components/ui/particle-network";
+import FloatingPathsBackground from "@/components/ui/floating-paths";
 
 // BlurText animation component
 interface BlurTextProps {
@@ -278,33 +278,8 @@ export default function PortfolioHero() {
         color: isDark ? "hsl(0 0% 100%)" : "hsl(0 0% 10%)",
       }}
     >
-      {/* Particle Network Animation */}
-      <ParticleNetwork isDark={isDark} />
-
-      {/* Animated gradient glow orbs */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div
-          className="absolute -top-1/4 -left-1/4 w-[600px] h-[600px] rounded-full animate-breathe"
-          style={{
-            background: "radial-gradient(circle, #C3E41D 0%, transparent 70%)",
-            opacity: 0.07,
-          }}
-        />
-        <div
-          className="absolute -bottom-1/4 -right-1/4 w-[500px] h-[500px] rounded-full animate-breathe"
-          style={{
-            background: "radial-gradient(circle, #C3E41D 0%, transparent 70%)",
-            opacity: 0.05,
-            animationDelay: "3s",
-          }}
-        />
-        <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] rounded-full opacity-[0.03]"
-          style={{
-            background: "radial-gradient(ellipse, #C3E41D 0%, transparent 70%)",
-          }}
-        />
-      </div>
+      {/* Floating Paths Background Animation */}
+      <FloatingPathsBackground />
 
       {/* Header */}
       <header

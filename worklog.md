@@ -855,3 +855,35 @@ Stage Summary:
 - New music-player-widget.tsx created at `/src/components/ui/music-player-widget.tsx`
 - Spotify-inspired compact widget with glass morphism, animated equalizer, play/pause with icon swap, progress bar with seek, track cycling, dark/light mode
 - Ready for integration into the "Now" section or used as a standalone widget
+
+---
+Task ID: 9
+Agent: Main Agent
+Task: Replace hero background with FloatingPaths animated SVG background
+
+Work Log:
+- Read worklog.md and assessed full project state (25+ section components, 2 API routes, DB schema with 4 models)
+- Created `floating-paths.tsx` component based on user-provided code (FloatingPaths with 36 animated SVG paths using Framer Motion pathLength/pathOffset animations)
+- Replaced ParticleNetwork canvas + gradient glow orbs in hero with FloatingPathsBackground
+- ESLint: 0 errors (1 pre-existing font warning)
+- Dev server: clean compilation, all routes 200
+- Full QA with agent-browser: zero console errors, both desktop and mobile tested
+
+Files Modified/Created:
+| File | Status | Description |
+|------|--------|-------------|
+| `src/components/ui/floating-paths.tsx` | Created | FloatingPaths animated SVG background (36 paths, Framer Motion pathLength/pathOffset animation, dual layer) |
+| `src/components/ui/portfolio-hero.tsx` | Modified | Replaced ParticleNetwork + gradient orbs with FloatingPathsBackground |
+
+Verification Results:
+- ✅ ESLint: 0 errors (1 pre-existing font warning)
+- ✅ Dev server: clean compilation, all routes 200
+- ✅ Agent-browser QA: FloatingPaths SVGs rendering correctly (2 background layers)
+- ✅ Mobile responsive: tested at 375x812
+- ✅ Zero console errors on both desktop and mobile
+
+Stage Summary:
+- Hero background changed from Canvas particle network + gradient orbs to animated SVG floating paths
+- The new background uses Framer Motion pathLength and pathOffset animations for a flowing line effect
+- SVG uses `text-slate-950 dark:text-white` for automatic theme adaptation
+- All other hero content (name, profile pic, CTA buttons, typewriter, navigation) remains unchanged

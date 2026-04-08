@@ -3,22 +3,6 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import { Menu, X, ChevronDown } from "lucide-react";
 
-// Inline Button component
-const Button = React.forwardRef<HTMLButtonElement, React.ButtonHTMLAttributes<HTMLButtonElement>>(
-  ({ className = "", children, ...props }, ref) => {
-    return (
-      <button
-        ref={ref}
-        className={`inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors ${className}`}
-        {...props}
-      >
-        {children}
-      </button>
-    );
-  }
-);
-Button.displayName = "Button";
-
 // BlurText animation component
 interface BlurTextProps {
   text: string;
@@ -86,7 +70,7 @@ const BlurText: React.FC<BlurTextProps> = ({
   );
 };
 
-export default function Component() {
+export default function PortfolioHero() {
   const [isDark, setIsDark] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -123,18 +107,26 @@ export default function Component() {
     }
   };
 
+  const handleNavClick = (href: string) => {
+    setIsMenuOpen(false);
+    const el = document.querySelector(href);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   const menuItems = [
-    { label: "HOME", href: "#", highlight: true },
-    { label: "ABOUT", href: "#" },
-    { label: "PROJECTS", href: "#" },
-    { label: "EXPERIENCE", href: "#" },
-    { label: "EDUCATION", href: "#" },
-    { label: "WRITING", href: "#" },
-    { label: "CONTACT", href: "#" },
+    { label: "HOME", href: "#home", highlight: true },
+    { label: "ABOUT", href: "#about" },
+    { label: "PROJECTS", href: "#projects" },
+    { label: "EXPERIENCE", href: "#experience" },
+    { label: "EDUCATION", href: "#education" },
+    { label: "CONTACT", href: "#contact" },
   ];
 
   return (
     <div
+      id="home"
       className="min-h-screen text-foreground transition-colors"
       style={{
         backgroundColor: isDark ? "hsl(0 0% 0%)" : "hsl(0 0% 98%)",
@@ -182,7 +174,10 @@ export default function Component() {
                     onMouseLeave={(e) => {
                       e.currentTarget.style.color = item.highlight ? "#C3E41D" : (isDark ? "hsl(0 0% 100%)" : "hsl(0 0% 10%)");
                     }}
-                    onClick={() => setIsMenuOpen(false)}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNavClick(item.href);
+                    }}
                   >
                     {item.label}
                   </a>
@@ -271,8 +266,9 @@ export default function Component() {
         {/* Scroll Indicator */}
         <button
           type="button"
-          className="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 transition-colors duration-300"
+          className="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 animate-bounce-slow transition-colors duration-300"
           aria-label="Scroll down"
+          onClick={() => handleNavClick("#about")}
         >
           <ChevronDown className="w-5 h-5 md:w-8 md:h-8 text-neutral-500 hover:text-black dark:hover:text-white transition-colors duration-300" />
         </button>

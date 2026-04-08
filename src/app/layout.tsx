@@ -49,6 +49,25 @@ export default function RootLayout({
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@700&family=Antic&display=swap"
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              "name": "Freitas",
+              "url": "https://freitas.dev",
+              "jobTitle": "Creative Developer & Designer",
+              "description": "Designing human experiences in code. Full-stack developer and UI/UX designer with 7+ years of experience.",
+              "sameAs": [
+                "https://github.com/freitas",
+                "https://linkedin.com/in/freitas",
+                "https://twitter.com/freitas",
+              ],
+              "knowsAbout": ["React", "Next.js", "TypeScript", "UI/UX Design", "Framer Motion", "Tailwind CSS", "Node.js", "Python", "PostgreSQL", "Figma"],
+            }),
+          }}
+        />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}

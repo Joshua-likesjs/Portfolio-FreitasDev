@@ -95,7 +95,7 @@ export default function ProcessSection() {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="relative"
             >
-              <div className="h-full p-6 rounded-2xl dark:bg-[hsl(0,0%,10%)] bg-white dark:border-neutral-800 border-neutral-200 border group hover:dark:border-[#C3E41D]/40 hover:border-[#C3E41D]/60 transition-all duration-300">
+              <div className="h-full p-6 rounded-2xl dark:bg-[hsl(0,0%,10%)] bg-white dark:border-neutral-800 border-neutral-200 border group hover:dark:border-[#C3E41D]/40 hover:border-[#C3E41D]/60 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-[rgba(195,228,29,0.05)] relative overflow-hidden">
                 {/* Step number */}
                 <div
                   className="text-5xl font-black mb-4 leading-none select-none"
@@ -107,6 +107,14 @@ export default function ProcessSection() {
                 >
                   {step.number}
                 </div>
+
+                {/* Subtle gradient on hover */}
+                <div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                  style={{
+                    background: "radial-gradient(circle at 30% 30%, rgba(195, 228, 29, 0.04) 0%, transparent 60%)",
+                  }}
+                />
 
                 {/* Icon */}
                 <div

@@ -133,7 +133,7 @@ export default function TestimonialsSection() {
               transition={{ duration: 0.4, ease: "easeInOut" }}
               className="absolute inset-0"
             >
-              <div className="dark:bg-[hsl(0,0%,10%)] bg-white dark:border-neutral-800 border-neutral-200 border rounded-2xl p-6 md:p-10 h-full flex flex-col justify-between">
+              <div className="dark:bg-[hsl(0,0%,10%)] bg-white dark:border-neutral-800 border-neutral-200 border rounded-2xl p-6 md:p-10 h-full flex flex-col justify-between hover:dark:border-[#C3E41D]/20 hover:border-[#C3E41D]/30 transition-all duration-300 relative overflow-hidden">
                 {/* Quote Icon */}
                 <div className="mb-6">
                   <Quote className="w-8 h-8" style={{ color: "#C3E41D", opacity: 0.5 }} />

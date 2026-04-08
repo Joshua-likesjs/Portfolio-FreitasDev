@@ -99,7 +99,7 @@ export default function WritingSection() {
           className="mb-12"
         >
           <article className="group cursor-pointer">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 dark:bg-[hsl(0,0%,8%)] bg-white dark:border-neutral-800 border-neutral-200 border rounded-2xl overflow-hidden dark:hover:border-[#C3E41D]/40 hover:border-[#C3E41D]/60 transition-all duration-300">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 dark:bg-[hsl(0,0%,8%)] bg-white dark:border-neutral-800 border-neutral-200 border rounded-2xl overflow-hidden dark:hover:border-[#C3E41D]/40 hover:border-[#C3E41D]/60 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-[rgba(195,228,29,0.08)]">
               <div className="relative overflow-hidden h-48 md:h-full">
                 <img
                   src={articles[0].image}
@@ -156,7 +156,7 @@ export default function WritingSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group cursor-pointer dark:bg-[hsl(0,0%,8%)] bg-white dark:border-neutral-800 border-neutral-200 border rounded-xl overflow-hidden dark:hover:border-[#C3E41D]/40 hover:border-[#C3E41D]/60 transition-all duration-300"
+              className="group cursor-pointer dark:bg-[hsl(0,0%,8%)] bg-white dark:border-neutral-800 border-neutral-200 border rounded-xl overflow-hidden dark:hover:border-[#C3E41D]/40 hover:border-[#C3E41D]/60 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-[rgba(195,228,29,0.05)]"
             >
               <div className="relative h-40 overflow-hidden">
                 <img

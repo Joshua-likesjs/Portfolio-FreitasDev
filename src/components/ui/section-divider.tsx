@@ -20,7 +20,7 @@ export default function SectionDivider() {
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.3 }}
         >
-          <div className="w-2 h-2 rounded-full" style={{ backgroundColor: "#C3E41D", opacity: 0.4 }} />
+          <div className="w-2 h-2 rounded-full animate-glow-pulse" style={{ backgroundColor: "#C3E41D" }} />
         </motion.div>
         <motion.div
           className="flex-1 h-px dark:bg-neutral-800 bg-neutral-200"

@@ -195,7 +195,7 @@ export default function PortfolioHero() {
 
   // Active section tracking via IntersectionObserver
   useEffect(() => {
-    const sectionIds = ["home", "about", "projects", "experience", "education", "writing", "testimonials", "faq", "achievements", "tools", "skills-radar", "contribution-graph", "timeline-journey", "now", "quotes", "newsletter", "contact"];
+    const sectionIds = ["home", "about", "projects", "experience", "education", "writing", "testimonials", "faq", "pricing", "achievements", "tools", "skills-radar", "contribution-graph", "timeline-journey", "now", "quotes", "newsletter", "contact"];
     const observers: IntersectionObserver[] = [];
 
     sectionIds.forEach((id) => {
@@ -265,6 +265,7 @@ export default function PortfolioHero() {
     { label: "PROJECTS", href: "#projects" },
     { label: "EXPERIENCE", href: "#experience" },
     { label: "ACHIEVEMENTS", href: "#achievements" },
+    { label: "PRICING", href: "#pricing" },
     { label: "FAQ", href: "#faq" },
     { label: "CONTACT", href: "#contact" },
   ];

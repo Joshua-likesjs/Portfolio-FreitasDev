@@ -16,6 +16,7 @@ const navLinks = [
   { label: "Quotes", href: "#quotes" },
   { label: "Now", href: "#now" },
   { label: "Newsletter", href: "#newsletter" },
+  { label: "Pricing", href: "#pricing" },
   { label: "FAQ", href: "#faq" },
   { label: "Contact", href: "#contact" },
 ];

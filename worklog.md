@@ -887,3 +887,51 @@ Stage Summary:
 - The new background uses Framer Motion pathLength and pathOffset animations for a flowing line effect
 - SVG uses `text-slate-950 dark:text-white` for automatic theme adaptation
 - All other hero content (name, profile pic, CTA buttons, typewriter, navigation) remains unchanged
+
+---
+Task ID: 10
+Agent: Main Agent (webDevReview cron #8)
+Task: Add Pricing section, navigation updates, QA verification
+
+Work Log:
+- Read worklog.md and assessed full project state (25+ section components, 2 API routes, DB schema with 4 models)
+- ESLint: 0 errors (1 pre-existing font warning)
+- Dev server: clean compilation, all 200s
+- Full QA with agent-browser: zero console errors across all sections, mobile responsive at 375x812
+
+New Features:
+- Created `pricing-section.tsx` — "INVESTMENT" section with 3 pricing tiers (Starter $2,500, Professional $5,000, Enterprise Custom)
+  - Glassmorphism card design with dark/light mode support
+  - "Most Popular" badge on Professional tier with Sparkles icon
+  - Feature lists with Check icons, not-included items shown as struck-through
+  - CTA buttons with hover glow effects (filled for popular, outlined for others)
+  - Animated gradient divider between price and features
+  - Bottom note with link to contact section
+  - Staggered Framer Motion entrance animations
+  - Responsive 1/3 column grid layout
+  - Subtle radial gradient background glow
+  - Hover lift (-translate-y-1) on all cards
+  - Glow shadow on popular card hover
+
+Navigation & Integration:
+- Updated hero nav menu: Added PRICING (8 items: Home, About, Projects, Experience, Achievements, Pricing, FAQ, Contact)
+- Updated hero IntersectionObserver sectionIds to include "pricing"
+- Updated footer nav links: Added Pricing (15 items total)
+- Updated page.tsx: Added PricingSection between FAQ and Achievements with SectionDivider
+
+Files Modified/Created:
+| File | Status | Description |
+|------|--------|-------------|
+| `src/components/ui/pricing-section.tsx` | Created | 3-tier pricing section with glassmorphism cards |
+| `src/components/ui/portfolio-hero.tsx` | Modified | Added pricing to nav menu + sectionIds |
+| `src/components/ui/portfolio-footer.tsx` | Modified | Added Pricing nav link |
+| `src/app/page.tsx` | Modified | Added PricingSection with SectionDivider |
+
+Verification Results:
+- ✅ ESLint: 0 errors (1 pre-existing font warning)
+- ✅ Dev server: clean compilation, all routes 200
+- ✅ Agent-browser QA: all 26 sections rendering correctly
+- ✅ Pricing section: 3 tiers with features, popular badge, CTA buttons
+- ✅ Mobile responsive: tested at 375x812, zero errors
+- ✅ Theme toggle: dark ↔ light working smoothly
+- ✅ Zero console errors

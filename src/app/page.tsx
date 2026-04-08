@@ -29,6 +29,7 @@ import TimelineJourneySection from "@/components/ui/timeline-journey-section";
 import QuoteSection from "@/components/ui/quote-section";
 import MusicPlayerWidget from "@/components/ui/music-player-widget";
 import CommandPalette from "@/components/ui/command-palette";
+import PricingSection from "@/components/ui/pricing-section";
 
 export default function Home() {
   return (
@@ -56,6 +57,8 @@ export default function Home() {
         <TestimonialsSection />
         <SectionDivider />
         <FAQSection />
+        <SectionDivider />
+        <PricingSection />
         <SectionDivider />
         <AchievementsSection />
         <SectionDivider />

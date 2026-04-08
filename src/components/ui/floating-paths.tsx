@@ -19,9 +19,9 @@ function FloatingPaths({ position }: { position: number }) {
     return (
         <svg
             className="w-full h-full text-slate-950 dark:text-white"
-            viewBox="0 0 696 316"
+            viewBox="-600 -450 1400 1400"
             fill="none"
-            preserveAspectRatio="none"
+            preserveAspectRatio="xMidYMid slice"
         >
             <title>Background Paths</title>
             {paths.map((path) => (
@@ -51,7 +51,7 @@ function FloatingPaths({ position }: { position: number }) {
 export default function FloatingPathsBackground() {
     return (
         <div
-            className="absolute inset-0 overflow-hidden pointer-events-none"
+            className="fixed inset-0 overflow-hidden pointer-events-none"
             style={{ zIndex: 0 }}
             aria-hidden="true"
         >

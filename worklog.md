@@ -1007,3 +1007,42 @@ Stage Summary:
 - Background element is absolutely positioned to match the full document height
 - SVG viewBox is tall (3600 units) so paths are distributed across the entire page when rendered
 - The paths scale with page length — longer pages (mobile with more wrapping) still show lines throughout
+
+---
+Task ID: 9
+Agent: Main Agent
+Task: Fix FloatingPaths background visibility — lines not visible on site
+
+Work Log:
+- User reported: "as linhas do fundo não estão visiveis" (background lines not visible)
+- Diagnosed root cause: Previous implementation used `absolute inset-0` positioning with `viewBox="0 0 696 316"` and `preserveAspectRatio="none"`. The SVG was being stretched to fill a 20,000+ px tall page, making the thin paths essentially invisible
+- Additionally, path coordinates extended far beyond the viewBox (paths range from -380 to 875 on Y, but viewBox only covered 0-316), causing most path geometry to be clipped
+- Fixed with two key changes:
+  1. Changed container from `absolute inset-0` to `fixed inset-0` — background now covers viewport and stays visible as user scrolls
+  2. Updated viewBox from `"0 0 696 316"` to `"-600 -450 1400 1400"` to properly encompass all 36 path coordinates
+  3. Added `preserveAspectRatio="xMidYMid slice"` so SVG covers viewport like CSS `object-fit: cover`
+- Kept user's original FloatingPaths code intact (36 paths, position prop, framer-motion animations)
+- Removed `preserveAspectRatio="none"` which was causing path distortion
+- QA verified with VLM analysis (z-ai vision):
+  - Dark mode: ✅ "thin, light-colored curving lines that create a dynamic visual effect"
+  - Light mode: ✅ "light-colored grayish lines visible behind content"
+  - Scrolled (mid-page): ✅ "faint, flowing curved lines visible in background behind content cards"
+
+Files Modified:
+| File | Status | Description |
+|------|--------|-------------|
+| `src/components/ui/floating-paths.tsx` | Modified | Fixed positioning + corrected viewBox + preserveAspectRatio |
+
+Verification Results:
+- ✅ ESLint: 0 errors
+- ✅ SVG renders at viewport size (1272x900 in test)
+- ✅ 36 paths present and rendering
+- ✅ Fixed positioning confirmed (container has .fixed class)
+- ✅ VLM confirms paths visible in dark mode, light mode, and when scrolled
+- ✅ Dev server: clean compilation, no errors
+
+Stage Summary:
+- FloatingPaths background is now visible across the entire site using fixed viewport positioning
+- The animated flowing lines are visible in both dark and light themes
+- Lines remain visible at all scroll positions since they use fixed positioning
+- WebDevReview cron job created (ID: 73026) — runs every 15 minutes

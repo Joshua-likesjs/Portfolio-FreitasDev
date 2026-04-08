@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef, useMemo, useCallback, useSyncExternalStore } from "react";
-import { Menu, X, ChevronDown, Download, Sun, Moon } from "lucide-react";
+import { Menu, X, ChevronDown, Download, Sun, Moon, Search } from "lucide-react";
 import Image from "next/image";
 import ParticleNetwork from "@/components/ui/particle-network";
 
@@ -195,7 +195,7 @@ export default function PortfolioHero() {
 
   // Active section tracking via IntersectionObserver
   useEffect(() => {
-    const sectionIds = ["home", "about", "projects", "experience", "education", "writing", "testimonials", "faq", "achievements", "tools", "skills-radar", "contribution-graph", "journey", "now", "newsletter", "contact"];
+    const sectionIds = ["home", "about", "projects", "experience", "education", "writing", "testimonials", "faq", "achievements", "tools", "skills-radar", "contribution-graph", "timeline-journey", "now", "quotes", "newsletter", "contact"];
     const observers: IntersectionObserver[] = [];
 
     sectionIds.forEach((id) => {
@@ -505,15 +505,26 @@ export default function PortfolioHero() {
           </div>
         </div>
 
-        {/* Scroll Indicator */}
-        <button
-          type="button"
-          className="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 animate-bounce-slow transition-colors duration-300"
-          aria-label="Scroll down"
-          onClick={() => handleNavClick("#about")}
-        >
-          <ChevronDown className="w-5 h-5 md:w-8 md:h-8 text-neutral-500 hover:text-black dark:hover:text-white transition-colors duration-300" />
-        </button>
+        {/* Scroll Indicator + Cmd+K hint */}
+        <div className="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3">
+          <button
+            type="button"
+            onClick={() => handleNavClick("#about")}
+            className="animate-bounce-slow transition-colors duration-300"
+            aria-label="Scroll down"
+          >
+            <ChevronDown className="w-5 h-5 md:w-8 md:h-8 text-neutral-500 hover:text-black dark:hover:text-white transition-colors duration-300" />
+          </button>
+          <button
+            type="button"
+            className="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-md dark:bg-white/5 bg-black/5 dark:text-neutral-500 text-neutral-400 text-[10px] uppercase tracking-widest hover:dark:bg-white/10 hover:bg-black/10 hover:dark:text-neutral-300 hover:text-neutral-600 transition-colors"
+            style={{ fontFamily: "'Fira Code', monospace" }}
+            aria-label="Open command palette (Ctrl+K)"
+          >
+            <Search className="w-3 h-3" />
+            <span>⌘K</span>
+          </button>
+        </div>
       </main>
     </div>
   );

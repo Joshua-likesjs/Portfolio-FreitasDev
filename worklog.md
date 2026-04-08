@@ -778,3 +778,80 @@ Work Log:
 
 Stage Summary:
 - New interactive radar chart visualization section
+
+---
+Task ID: 9b
+Agent: full-stack-developer
+Task: Create Animated Quote Section
+
+Work Log:
+- Read worklog.md to understand project context (20+ sections, Framer Motion animations, accent color #C3E41D)
+- Read testimonials-section.tsx and faq-section.tsx to understand AnimatedHeading pattern and carousel/animation conventions
+- Created `/src/components/ui/quote-section.tsx` with all required features:
+  - Section id="quotes" with dark:bg-[hsl(0,0%,4%)] bg-[hsl(0,0%,96%)] background
+  - AnimatedHeading "WORDS I LIVE BY" with IntersectionObserver + blur entrance animation (matching existing pattern)
+  - 6 developer/design/creative philosophy quotes (Steve Jobs, Alan Kay, Leonardo da Vinci, Joe Sparano, Various, Don Draper)
+  - Each quote includes text, author name (Fira Code, accent color), and subtle role/title (Antic font)
+  - Auto-advance every 6 seconds via setInterval with useCallback for stable reference
+  - Manual navigation with prev/next ChevronLeft/ChevronRight buttons matching testimonials pattern
+  - Dot indicators for direct navigation to any quote
+  - Framer Motion AnimatePresence crossfade animation (directional slide + opacity)
+  - Staggered author reveal animation (delayed 0.2s after quote appears)
+  - Large decorative opening quote mark ("") in accent color #C3E41D at 12% opacity (120px/180px responsive)
+  - Decorative closing quote mark ("") at 8% opacity below content
+  - Quote text in text-xl md:text-2xl lg:text-3xl with Antic font
+  - Keyboard navigation (ArrowLeft/ArrowRight)
+  - Full dark/light mode support with proper Tailwind classes
+  - 'use client' directive
+- Ran ESLint: 0 errors (1 pre-existing font warning)
+- Verified dev server: clean compilation
+
+Stage Summary:
+- Created quote-section.tsx — "WORDS I LIVE BY" section with 6 rotating philosophy quotes
+- Features: AnimatedHeading, crossfade transitions, auto-advance (6s), manual prev/next navigation, dot indicators, keyboard navigation, decorative quote marks, dark/light mode, responsive text sizing
+
+---
+Task ID: 9c
+Agent: full-stack-developer
+Task: Create Music Player Widget
+
+Work Log:
+- Read worklog.md to understand project context (portfolio for "Freitas", 20+ sections, Fira Code/Antic fonts, #C3E41D accent, glass-card utility, Framer Motion animations)
+- Read now-section.tsx to understand the "Currently listening" pattern (Live badge with pulsing green dot, card grid layout, AnimatedHeading)
+- Read skills-radar-section.tsx for additional styling patterns (dot pattern backgrounds, gradient glows, IntersectionObserver animations)
+- Verified .glass-card CSS class in globals.css (backdrop-blur + semi-transparent bg with dark/light variants)
+- Created music-player-widget.tsx with all requested features
+
+Component Features:
+- **Playlist**: 5 hardcoded tracks (Bohemian Rhapsody/Queen, Strobe/Deadmau5, Time/Pink Floyd, Digital Love/Daft Punk, Midnight City/M83)
+- **Album art**: Unique gradient placeholder per track (5 distinct linear-gradient backgrounds), vinyl grooves overlay with spinning conic-gradient animation when playing
+- **Track info**: Song title in Fira Code monospace, artist name in Antic sans-serif, both truncated with min-w-0
+- **Equalizer bars**: 5 animated bars using Framer Motion (height keyframes with staggered delays: 0s, 0.15s, 0.3s, 0.1s, 0.25s; different max heights: 60%, 90%, 45%, 75%, 55%); bars collapse to 15% when paused
+- **Play/pause button**: #C3E41D accent circle with AnimatePresence icon swap (scale + rotate entrance/exit animations), hover glow shadow
+- **Progress bar**: Clickable slider with #C3E41D fill, spring-animated layout transitions, hover thumb reveal, current time / total time display (tabular-nums in Fira Code)
+- **Playback simulation**: useEffect-based setInterval (200ms) that advances progress, auto-advances to next track at 100%, supports seek via click
+- **Skip controls**: Previous/Next buttons with Framer Motion whileHover/whileTap scale animations
+- **Currently listening label**: "Currently listening" text in Fira Code with uppercase tracking, pulsing green dot (animate-ping with animationPlayState tied to isPlaying)
+- **Glass morphism**: Uses .glass-card class with rounded-2xl, subtle #C3E41D radial gradient glow in background
+- **Volume indicator**: Decorative Volume2 icon + 72% mini volume bar (visual only)
+- **Track counter**: Music2 icon + "N/M" counter in Fira Code
+- **Dark/light mode**: Full support via dark: Tailwind prefixes throughout
+- **Entrance animation**: Framer Motion motion.div with opacity + translateY + scale entrance
+- **Track change animations**: AnimatePresence mode="wait" for title/artist crossfade, album art scale-in per track
+- **Accessibility**: aria-label on buttons, role="slider" on progress bar, aria-valuenow/min/max, tabIndex=0, keyboard focusable
+- **Compact design**: max-w-md, p-5 padding, no external dependencies beyond existing framer-motion and lucide-react
+- **Fonts**: Fira Code for song title, timestamps, labels, counter; Antic for artist name
+- **No existing files modified**: Only created the new component file
+
+Bug Fixes:
+- Fixed react-hooks/set-state-in-effect lint error: Replaced useState + useEffect pattern for trackKey with derived value from currentTrackIndex
+
+Verification Results:
+- ✅ ESLint: 0 errors (1 pre-existing font warning)
+- ✅ Dev server: clean compilation, all routes 200
+- ✅ No existing files modified
+
+Stage Summary:
+- New music-player-widget.tsx created at `/src/components/ui/music-player-widget.tsx`
+- Spotify-inspired compact widget with glass morphism, animated equalizer, play/pause with icon swap, progress bar with seek, track cycling, dark/light mode
+- Ready for integration into the "Now" section or used as a standalone widget

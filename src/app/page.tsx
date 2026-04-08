@@ -26,11 +26,15 @@ import AvailabilityBanner from "@/components/ui/availability-banner";
 import ToolsSection from "@/components/ui/tools-section";
 import ContributionGraphSection from "@/components/ui/contribution-graph-section";
 import TimelineJourneySection from "@/components/ui/timeline-journey-section";
+import QuoteSection from "@/components/ui/quote-section";
+import MusicPlayerWidget from "@/components/ui/music-player-widget";
+import CommandPalette from "@/components/ui/command-palette";
 
 export default function Home() {
   return (
     <div className="min-h-screen flex flex-col">
       <CursorGlow />
+      <CommandPalette />
       <AvailabilityBanner />
       <ScrollProgress />
       <PortfolioHero />
@@ -62,6 +66,8 @@ export default function Home() {
         <TimelineJourneySection />
         <SectionDivider />
         <NowSection />
+        <SectionDivider />
+        <QuoteSection />
         <SectionDivider />
         <NewsletterSection />
         <ContactSection />

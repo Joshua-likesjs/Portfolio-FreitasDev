@@ -121,6 +121,7 @@ export default function PortfolioHero() {
     { label: "PROJECTS", href: "#projects" },
     { label: "EXPERIENCE", href: "#experience" },
     { label: "EDUCATION", href: "#education" },
+    { label: "WRITING", href: "#writing" },
     { label: "CONTACT", href: "#contact" },
   ];
 

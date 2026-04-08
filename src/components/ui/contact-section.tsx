@@ -2,11 +2,11 @@
 
 import React, { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { toast } from "@/hooks/use-toast";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { toast } from "@/hooks/use-toast";
-import { Github, Linkedin, Twitter, Send, Mail, User, MessageSquare } from "lucide-react";
+import { Github, Linkedin, Twitter, Send, Mail, User, MessageSquare, CheckCircle2 } from "lucide-react";
 
 function AnimatedHeading({ text }: { text: string }) {
   const ref = useRef<HTMLHeadingElement>(null);
@@ -28,7 +28,7 @@ function AnimatedHeading({ text }: { text: string }) {
   return (
     <h2
       ref={ref}
-      className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-12 md:mb-16"
+      className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4 md:mb-6"
       style={{
         fontFamily: "'Fira Code', monospace",
         color: "#C3E41D",
@@ -46,20 +46,45 @@ function AnimatedHeading({ text }: { text: string }) {
 export default function ContactSection() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setIsSuccess(false);
 
-    // Simulate submission
-    setTimeout(() => {
-      toast({
-        title: "Message sent!",
-        description: "Thanks for reaching out. I'll get back to you soon.",
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
       });
-      setFormData({ name: "", email: "", message: "" });
+
+      if (res.ok) {
+        toast({
+          title: "Message sent!",
+          description: "Thanks for reaching out. I'll get back to you soon.",
+        });
+        setFormData({ name: "", email: "", message: "" });
+        setIsSuccess(true);
+        setTimeout(() => setIsSuccess(false), 3000);
+      } else {
+        const data = await res.json();
+        toast({
+          title: "Error",
+          description: data.error || "Something went wrong. Please try again.",
+          variant: "destructive",
+        });
+      }
+    } catch {
+      toast({
+        title: "Network error",
+        description: "Please check your connection and try again.",
+        variant: "destructive",
+      });
+    } finally {
       setIsSubmitting(false);
-    }, 800);
+    }
   };
 
   return (
@@ -69,6 +94,12 @@ export default function ContactSection() {
     >
       <div className="max-w-4xl mx-auto">
         <AnimatedHeading text="GET IN TOUCH" />
+        <p
+          className="text-base md:text-lg dark:text-neutral-400 text-neutral-500 mb-12 md:mb-16 max-w-xl"
+          style={{ fontFamily: "'Antic', sans-serif" }}
+        >
+          Have a project in mind or just want to say hello? I&apos;d love to hear from you.
+        </p>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16">
           {/* Contact Info */}
@@ -78,40 +109,61 @@ export default function ContactSection() {
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <p
-              className="text-base md:text-lg leading-relaxed dark:text-neutral-300 text-neutral-700 mb-8"
-              style={{ fontFamily: "'Antic', sans-serif" }}
-            >
-              I&apos;m always open to discussing new projects, creative ideas, or
-              opportunities to be part of your vision. Feel free to reach out!
-            </p>
-
-            {/* Social Links */}
-            <div className="flex gap-4 mb-8">
-              {[
-                { icon: Github, label: "GitHub", href: "https://github.com" },
-                { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com" },
-                { icon: Twitter, label: "Twitter", href: "https://twitter.com" },
-              ].map(({ icon: Icon, label, href }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-3 rounded-lg dark:bg-[hsl(0,0%,12%)] bg-white dark:border-neutral-800 border-neutral-200 border dark:hover:border-[#C3E41D]/50 hover:border-[#C3E41D]/60 dark:hover:text-[#C3E41D] hover:text-[#8a9d17] dark:text-neutral-400 text-neutral-500 transition-all duration-300"
-                  aria-label={label}
+            <div className="space-y-8">
+              {/* Email */}
+              <div className="flex items-center gap-4">
+                <div
+                  className="p-3 rounded-xl"
+                  style={{ backgroundColor: "#C3E41D15" }}
                 >
-                  <Icon className="w-5 h-5" />
-                </a>
-              ))}
-            </div>
+                  <Mail className="w-5 h-5" style={{ color: "#C3E41D" }} />
+                </div>
+                <div>
+                  <p className="text-xs uppercase tracking-widest dark:text-neutral-500 text-neutral-500 mb-0.5" style={{ fontFamily: "'Fira Code', monospace" }}>Email</p>
+                  <span className="text-sm dark:text-neutral-300 text-neutral-700" style={{ fontFamily: "'Fira Code', monospace" }}>
+                    alex@alexkane.dev
+                  </span>
+                </div>
+              </div>
 
-            {/* Email */}
-            <div className="flex items-center gap-3 text-sm dark:text-neutral-400 text-neutral-600">
-              <Mail className="w-4 h-4" style={{ color: "#C3E41D" }} />
-              <span style={{ fontFamily: "'Fira Code', monospace" }}>
-                alex@alexkane.dev
-              </span>
+              {/* Location */}
+              <div className="flex items-center gap-4">
+                <div
+                  className="p-3 rounded-xl"
+                  style={{ backgroundColor: "#C3E41D15" }}
+                >
+                  <User className="w-5 h-5" style={{ color: "#C3E41D" }} />
+                </div>
+                <div>
+                  <p className="text-xs uppercase tracking-widest dark:text-neutral-500 text-neutral-500 mb-0.5" style={{ fontFamily: "'Fira Code', monospace" }}>Based in</p>
+                  <span className="text-sm dark:text-neutral-300 text-neutral-700" style={{ fontFamily: "'Fira Code', monospace" }}>
+                    San Francisco, CA
+                  </span>
+                </div>
+              </div>
+
+              {/* Social Links */}
+              <div>
+                <p className="text-xs uppercase tracking-widest dark:text-neutral-500 text-neutral-500 mb-3" style={{ fontFamily: "'Fira Code', monospace" }}>Connect</p>
+                <div className="flex gap-3">
+                  {[
+                    { icon: Github, label: "GitHub", href: "https://github.com" },
+                    { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com" },
+                    { icon: Twitter, label: "Twitter", href: "https://twitter.com" },
+                  ].map(({ icon: Icon, label, href }) => (
+                    <a
+                      key={label}
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-3 rounded-xl dark:bg-[hsl(0,0%,12%)] bg-white dark:border-neutral-800 border-neutral-200 border dark:hover:border-[#C3E41D]/50 hover:border-[#C3E41D]/60 dark:hover:text-[#C3E41D] hover:text-[#8a9d17] dark:text-neutral-400 text-neutral-500 transition-all duration-300 hover:-translate-y-0.5"
+                      aria-label={label}
+                    >
+                      <Icon className="w-5 h-5" />
+                    </a>
+                  ))}
+                </div>
+              </div>
             </div>
           </motion.div>
 
@@ -132,7 +184,7 @@ export default function ContactSection() {
                   required
                   value={formData.name}
                   onChange={(e) => setFormData((prev) => ({ ...prev, name: e.target.value }))}
-                  className="pl-10 dark:bg-[hsl(0,0%,10%)] dark:border-neutral-800 dark:text-white dark:placeholder:text-neutral-500"
+                  className="pl-10 dark:bg-[hsl(0,0%,10%)] dark:border-neutral-800 dark:text-white dark:placeholder:text-neutral-500 focus:dark:border-[#C3E41D]/50 focus:border-[#C3E41D]/50 transition-colors"
                 />
               </div>
 
@@ -145,7 +197,7 @@ export default function ContactSection() {
                   required
                   value={formData.email}
                   onChange={(e) => setFormData((prev) => ({ ...prev, email: e.target.value }))}
-                  className="pl-10 dark:bg-[hsl(0,0%,10%)] dark:border-neutral-800 dark:text-white dark:placeholder:text-neutral-500"
+                  className="pl-10 dark:bg-[hsl(0,0%,10%)] dark:border-neutral-800 dark:text-white dark:placeholder:text-neutral-500 focus:dark:border-[#C3E41D]/50 focus:border-[#C3E41D]/50 transition-colors"
                 />
               </div>
 
@@ -158,18 +210,27 @@ export default function ContactSection() {
                   rows={5}
                   value={formData.message}
                   onChange={(e) => setFormData((prev) => ({ ...prev, message: e.target.value }))}
-                  className="pl-10 dark:bg-[hsl(0,0%,10%)] dark:border-neutral-800 dark:text-white dark:placeholder:text-neutral-500"
+                  className="pl-10 dark:bg-[hsl(0,0%,10%)] dark:border-neutral-800 dark:text-white dark:placeholder:text-neutral-500 focus:dark:border-[#C3E41D]/50 focus:border-[#C3E41D]/50 transition-colors resize-none"
                 />
               </div>
 
               {/* Submit Button */}
               <Button
                 type="submit"
-                disabled={isSubmitting}
-                className="w-full h-11 text-sm font-bold uppercase tracking-widest dark:bg-[#C3E41D] dark:text-black dark:hover:bg-[#C3E41D]/90 bg-[#8a9d17] text-white hover:bg-[#C3E41D]/90 transition-colors"
-                style={{ fontFamily: "'Fira Code', monospace" }}
+                disabled={isSubmitting || isSuccess}
+                className="w-full h-12 text-sm font-bold uppercase tracking-widest transition-all duration-300 hover:shadow-lg hover:shadow-[#C3E41D20] disabled:opacity-60"
+                style={{
+                  backgroundColor: isSuccess ? "#16a34a" : "#C3E41D",
+                  color: isSuccess ? "white" : "black",
+                  fontFamily: "'Fira Code', monospace",
+                }}
               >
-                {isSubmitting ? (
+                {isSuccess ? (
+                  <span className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4" />
+                    Sent Successfully!
+                  </span>
+                ) : isSubmitting ? (
                   <span className="flex items-center gap-2">
                     <span className="w-4 h-4 border-2 border-black/30 border-t-black rounded-full animate-spin" />
                     Sending...

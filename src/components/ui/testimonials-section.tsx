@@ -3,7 +3,7 @@
 import React, { useRef, useEffect, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { Quote, ChevronLeft, ChevronRight, Star } from "lucide-react";
+import { Quote, ChevronLeft, ChevronRight, Star, Shuffle } from "lucide-react";
 
 const testimonials = [
   {
@@ -35,6 +35,8 @@ const testimonials = [
     rating: 5,
   },
 ];
+
+const AUTO_ADVANCE_INTERVAL = 6000;
 
 function AnimatedHeading({ text }: { text: string }) {
   const ref = useRef<HTMLHeadingElement>(null);
@@ -74,6 +76,10 @@ function AnimatedHeading({ text }: { text: string }) {
 export default function TestimonialsSection() {
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  const progressBarRef = useRef<HTMLDivElement>(null);
+  const animationFrameRef = useRef<number | null>(null);
 
   const next = useCallback(() => {
     setDirection(1);
@@ -85,11 +91,62 @@ export default function TestimonialsSection() {
     setCurrent((prev) => (prev - 1 + testimonials.length) % testimonials.length);
   }, []);
 
+  const shuffle = useCallback(() => {
+    let newIndex: number;
+    do {
+      newIndex = Math.floor(Math.random() * testimonials.length);
+    } while (newIndex === current && testimonials.length > 1);
+    setDirection(newIndex > current ? 1 : -1);
+    setCurrent(newIndex);
+  }, [current]);
+
+  // Progress bar animation using requestAnimationFrame — direct DOM update to avoid setState in effect
+  useEffect(() => {
+    // Clean up previous animation
+    if (animationFrameRef.current) {
+      cancelAnimationFrame(animationFrameRef.current);
+      animationFrameRef.current = null;
+    }
+
+    // Immediately reset bar width via DOM
+    if (progressBarRef.current) {
+      progressBarRef.current.style.width = "0%";
+    }
+
+    if (isPaused) return;
+
+    const startTimestamp = performance.now();
+
+    const animate = (timestamp: number) => {
+      const elapsed = timestamp - startTimestamp;
+      const newProgress = Math.min((elapsed / AUTO_ADVANCE_INTERVAL) * 100, 100);
+
+      if (progressBarRef.current) {
+        progressBarRef.current.style.width = `${newProgress}%`;
+      }
+
+      if (newProgress < 100) {
+        animationFrameRef.current = requestAnimationFrame(animate);
+      }
+    };
+
+    animationFrameRef.current = requestAnimationFrame(animate);
+
+    return () => {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+        animationFrameRef.current = null;
+      }
+    };
+  }, [current, isPaused]);
+
   // Auto-advance
   useEffect(() => {
-    const timer = setInterval(next, 6000);
+    if (isPaused) return;
+
+    const timer = setInterval(next, AUTO_ADVANCE_INTERVAL);
     return () => clearInterval(timer);
-  }, [next]);
+  }, [next, isPaused]);
 
   // Keyboard navigation
   useEffect(() => {
@@ -107,6 +164,9 @@ export default function TestimonialsSection() {
     exit: (dir: number) => ({ x: dir > 0 ? -100 : 100, opacity: 0 }),
   };
 
+  const navBtnClass =
+    "p-2 rounded-full dark:bg-[hsl(0,0%,10%)] bg-white dark:border-neutral-800 border-neutral-200 border dark:hover:border-[#C3E41D]/50 hover:border-[#C3E41D]/60 dark:text-neutral-400 text-neutral-500 dark:hover:text-[#C3E41D] hover:text-[#C3E41D] transition-colors";
+
   return (
     <section
       id="testimonials"
@@ -122,7 +182,11 @@ export default function TestimonialsSection() {
         </p>
 
         {/* Testimonial Card */}
-        <div className="relative min-h-[300px] md:min-h-[280px]">
+        <div
+          className="relative min-h-[300px] md:min-h-[280px]"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
           <AnimatePresence mode="wait" custom={direction}>
             <motion.div
               key={current}
@@ -190,11 +254,25 @@ export default function TestimonialsSection() {
           </AnimatePresence>
         </div>
 
+        {/* Progress Bar */}
+        <div className="flex justify-center mt-6">
+          <div className="w-full max-w-xs h-[2px] rounded-full dark:bg-neutral-800 bg-neutral-200 overflow-hidden">
+            <div
+              ref={progressBarRef}
+              className="h-full rounded-full"
+              style={{
+                width: "0%",
+                backgroundColor: "#C3E41D",
+              }}
+            />
+          </div>
+        </div>
+
         {/* Navigation */}
-        <div className="flex items-center justify-center gap-4 mt-8">
+        <div className="flex items-center justify-center gap-4 mt-6">
           <button
             onClick={prev}
-            className="p-2 rounded-full dark:bg-[hsl(0,0%,10%)] bg-white dark:border-neutral-800 border-neutral-200 border dark:hover:border-[#C3E41D]/50 hover:border-[#C3E41D]/60 dark:text-neutral-400 text-neutral-500 dark:hover:text-[#C3E41D] hover:text-[#C3E41D] transition-colors"
+            className={navBtnClass}
             aria-label="Previous testimonial"
           >
             <ChevronLeft className="w-5 h-5" />
@@ -220,9 +298,18 @@ export default function TestimonialsSection() {
             ))}
           </div>
 
+          {/* Shuffle Button */}
+          <button
+            onClick={shuffle}
+            className={navBtnClass}
+            aria-label="Random testimonial"
+          >
+            <Shuffle className="w-5 h-5" />
+          </button>
+
           <button
             onClick={next}
-            className="p-2 rounded-full dark:bg-[hsl(0,0%,10%)] bg-white dark:border-neutral-800 border-neutral-200 border dark:hover:border-[#C3E41D]/50 hover:border-[#C3E41D]/60 dark:text-neutral-400 text-neutral-500 dark:hover:text-[#C3E41D] hover:text-[#C3E41D] transition-colors"
+            className={navBtnClass}
             aria-label="Next testimonial"
           >
             <ChevronRight className="w-5 h-5" />

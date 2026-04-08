@@ -16,6 +16,7 @@ import TestimonialsSection from "@/components/ui/testimonials-section";
 import FAQSection from "@/components/ui/faq-section";
 import AchievementsSection from "@/components/ui/achievements-section";
 import SkillsRadarSection from "@/components/ui/skills-radar-section";
+import TrustedBrandsSection from "@/components/ui/trusted-brands-section";
 import NowSection from "@/components/ui/now-section";
 import NewsletterSection from "@/components/ui/newsletter-section";
 import ContactSection from "@/components/ui/contact-section";
@@ -44,6 +45,8 @@ export default function Home() {
         <PortfolioHero />
         <div className="flex-1">
         <AboutSection />
+        <SectionDivider />
+        <TrustedBrandsSection />
         <SectionDivider />
         <SkillsRadarSection />
         <StatsSection />

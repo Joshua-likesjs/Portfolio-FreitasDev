@@ -1,6 +1,6 @@
 'use client';
 
-import React from "react";
+import React, { useRef, useCallback } from "react";
 import { Heart, Github, Linkedin, Twitter, Mail, ArrowUp, Code2 } from "lucide-react";
 
 const navLinks = [
@@ -29,6 +29,8 @@ const socialLinks = [
 ];
 
 export default function PortfolioFooter() {
+  const ctaButtonRef = useRef<HTMLButtonElement>(null);
+
   const handleClick = (href: string) => {
     const el = document.querySelector(href);
     if (el) {
@@ -40,11 +42,38 @@ export default function PortfolioFooter() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const handleCtaMouseMove = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
+    const btn = ctaButtonRef.current;
+    if (!btn) return;
+    const rect = btn.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    const maxOffset = 3;
+    const offsetX = (x / (rect.width / 2)) * maxOffset;
+    const offsetY = (y / (rect.height / 2)) * maxOffset;
+    btn.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+  }, []);
+
+  const handleCtaMouseLeave = useCallback(() => {
+    const btn = ctaButtonRef.current;
+    if (!btn) return;
+    btn.style.transform = "translate(0, 0)";
+  }, []);
+
   return (
     <footer
-      className="relative overflow-hidden transition-colors border-t border-[#C3E41D]/10 dark:from-[#0a0a0a] dark:to-[#111111] from-[#f8f8f8] to-[#f0f0f0] dark:bg-gradient-to-b bg-gradient-to-b"
+      className="relative overflow-hidden transition-colors border-t dark:from-[#0a0a0a] dark:to-[#111111] from-[#f8f8f8] to-[#f0f0f0] dark:bg-gradient-to-b bg-gradient-to-b"
       style={{ paddingTop: 0 }}
     >
+      {/* ========== Animated Gradient Top Border ========== */}
+      <div
+        className="absolute top-0 left-0 right-0 h-px animate-gradient-slide"
+        style={{
+          background: "linear-gradient(90deg, transparent, rgba(195, 228, 29, 0.4), transparent, rgba(195, 228, 29, 0.4), transparent)",
+          backgroundSize: "200% 100%",
+        }}
+      />
+
       {/* ========== Animated SVG Wave Divider ========== */}
       <div className="relative w-full -mt-px" aria-hidden="true">
         <svg
@@ -121,13 +150,17 @@ export default function PortfolioFooter() {
             Have a project in mind? I&apos;d love to hear about it.
           </p>
           <button
+            ref={ctaButtonRef}
+            onMouseMove={handleCtaMouseMove}
+            onMouseLeave={handleCtaMouseLeave}
             onClick={() => handleClick("#contact")}
-            className="glass-button inline-flex items-center gap-2 px-8 py-3 rounded-full text-sm font-bold uppercase tracking-wider hover:shadow-lg hover:shadow-[#C3E41D20] hover:-translate-y-0.5"
+            className="glass-button inline-flex items-center gap-2 px-8 py-3 rounded-full text-sm font-bold uppercase tracking-wider cursor-pointer"
             style={{
               backgroundColor: "#C3E41D",
               color: "black",
               fontFamily: "'Fira Code', monospace",
               border: "none",
+              transition: "transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease",
             }}
           >
             <Mail className="w-4 h-4" />
@@ -177,7 +210,7 @@ export default function PortfolioFooter() {
             </button>
           </div>
 
-          {/* Social Icons — hover scale + color */}
+          {/* Social Icons — subtle bounce on hover */}
           <div className="flex gap-3">
             {socialLinks.map(({ icon: Icon, href, label }) => (
               <a
@@ -185,7 +218,16 @@ export default function PortfolioFooter() {
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 rounded-lg dark:text-neutral-500 text-neutral-400 text-[#C3E41D] transition-all duration-300 hover:scale-110 hover:-translate-y-0.5 hover:drop-shadow-[0_0_6px_rgba(195,228,29,0.3)]"
+                className="p-2 rounded-lg dark:text-neutral-500 text-neutral-400 text-[#C3E41D] transition-all duration-300 hover:drop-shadow-[0_0_6px_rgba(195,228,29,0.3)]"
+                style={{ transition: "transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s ease, color 0.3s ease" }}
+                onMouseEnter={(e) => {
+                  const el = e.currentTarget;
+                  el.style.transform = "translateY(-3px)";
+                }}
+                onMouseLeave={(e) => {
+                  const el = e.currentTarget;
+                  el.style.transform = "translateY(0)";
+                }}
                 aria-label={label}
               >
                 <Icon className="w-4 h-4" />

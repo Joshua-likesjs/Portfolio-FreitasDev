@@ -582,3 +582,56 @@ html.theme-transitioning *::after {
   border-radius: 50%;
   background: #C3E41D;
 }
+
+/* Magnetic hover animation */
+@keyframes magnetic-pulse-subtle {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(195, 228, 29, 0.2); }
+  50% { box-shadow: 0 0 0 4px rgba(195, 228, 29, 0); }
+}
+
+/* Gradient border animation */
+@keyframes gradient-slide {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+.animate-gradient-slide {
+  background-size: 200% 100%;
+  animation: gradient-slide 3s linear infinite;
+}
+
+/* Spin ring animation for back-to-top */
+@keyframes spin-ring {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Soft bounce for social icons */
+@keyframes soft-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+/* Progress bar flash at 100% */
+@keyframes flash-complete {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+/* Scroll-triggered reveal */
+.scroll-reveal-line {
+  transform: scaleX(0);
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.scroll-reveal-line.revealed {
+  transform: scaleX(1);
+}
+
+/* Rotating gradient ring for profile picture */
+@keyframes rotate-ring {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.animate-rotate-ring {
+  animation: rotate-ring 6s linear infinite;
+}

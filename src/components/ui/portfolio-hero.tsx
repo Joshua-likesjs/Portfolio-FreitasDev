@@ -409,16 +409,33 @@ export default function PortfolioHero() {
 
             {/* Profile Picture */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
-              <div className="w-[65px] h-[110px] sm:w-[90px] sm:h-[152px] md:w-[110px] md:h-[185px] lg:w-[129px] lg:h-[218px] rounded-full overflow-hidden shadow-2xl transition-transform duration-300 hover:scale-110 cursor-pointer ring-4 ring-transparent hover:ring-[#C3E41D]/30">
-                <Image
-                  src="https://i.postimg.cc/y8DnKLyK/albert-dera-ILip77-Sbm-OE-unsplash.jpg"
-                  alt="Profile"
-                  className="w-full h-full object-cover"
-                  width={400}
-                  height={400}
-                  loading="eager"
-                  priority
+              <div className="relative">
+                {/* Animated rotating gradient ring */}
+                <div
+                  className="absolute inset-[-6px] rounded-full animate-rotate-ring"
+                  style={{
+                    background: 'conic-gradient(from 0deg, #C3E41D 0%, transparent 25%, transparent 50%, #C3E41D 75%, transparent 100%)',
+                  }}
                 />
+                <div
+                  className="absolute inset-[-6px] rounded-full"
+                  style={{
+                    background: isDark ? 'hsl(0, 0%, 7%)' : 'hsl(0, 0%, 100%)',
+                    inset: '-5px',
+                  }}
+                />
+                {/* Inner image container */}
+                <div className="relative z-10 w-[65px] h-[110px] sm:w-[90px] sm:h-[152px] md:w-[110px] md:h-[185px] lg:w-[129px] lg:h-[218px] rounded-full overflow-hidden shadow-2xl transition-transform duration-300 hover:scale-110 cursor-pointer">
+                  <Image
+                    src="https://i.postimg.cc/y8DnKLyK/albert-dera-ILip77-Sbm-OE-unsplash.jpg"
+                    alt="Profile"
+                    className="w-full h-full object-cover"
+                    width={400}
+                    height={400}
+                    loading="eager"
+                    priority
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -435,6 +452,18 @@ export default function PortfolioHero() {
                 backgroundColor: "#C3E41D",
                 color: "black",
                 fontFamily: "'Fira Code', monospace",
+              }}
+              onMouseMove={(e) => {
+                const rect = e.currentTarget.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                const maxOffset = 4;
+                const clampedX = Math.max(-maxOffset, Math.min(maxOffset, x * 0.3));
+                const clampedY = Math.max(-maxOffset, Math.min(maxOffset, y * 0.3));
+                e.currentTarget.style.transform = `translate(${clampedX}px, ${clampedY}px)`;
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = "translate(0px, 0px)";
               }}
             >
               <span>Get in Touch</span>
@@ -453,9 +482,19 @@ export default function PortfolioHero() {
                 e.currentTarget.style.borderColor = "#C3E41D";
                 e.currentTarget.style.color = "#C3E41D";
               }}
+              onMouseMove={(e) => {
+                const rect = e.currentTarget.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                const maxOffset = 4;
+                const clampedX = Math.max(-maxOffset, Math.min(maxOffset, x * 0.3));
+                const clampedY = Math.max(-maxOffset, Math.min(maxOffset, y * 0.3));
+                e.currentTarget.style.transform = `translate(${clampedX}px, ${clampedY}px)`;
+              }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.borderColor = isDark ? "hsl(0 0% 25%)" : "hsl(0 0% 80%)";
                 e.currentTarget.style.color = isDark ? "hsl(0 0% 90%)" : "hsl(0 0% 20%)";
+                e.currentTarget.style.transform = "translate(0px, 0px)";
               }}
             >
               <Download className="w-4 h-4" />

@@ -155,7 +155,7 @@ export default function AboutSection() {
                 >
                   <img
                     src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face"
-                    alt="Alex Kane headshot"
+                    alt="Freitas headshot"
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -176,7 +176,7 @@ export default function AboutSection() {
                   className="text-base md:text-lg leading-relaxed dark:text-neutral-300 text-neutral-700 mb-4"
                   style={{ fontFamily: "'Antic', sans-serif" }}
                 >
-                  I&apos;m Alex Kane — a creative developer and designer who bridges the gap between
+                  I&apos;m Freitas — a creative developer and designer who bridges the gap between
                   aesthetics and engineering. With 7+ years building digital products, I specialize
                   in crafting interfaces that are beautiful, performant, and accessible.
                 </p>

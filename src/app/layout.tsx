@@ -14,20 +14,20 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Portfolio - Alex Kane",
+  title: "Portfolio - Freitas",
   description: "Designing human experiences in code.",
-  keywords: ["portfolio", "design", "developer", "Alex Kane"],
+  keywords: ["portfolio", "design", "developer", "Freitas"],
   icons: {
     icon: "https://z-cdn.chatglm.cn/z-ai/static/logo.svg",
   },
   openGraph: {
-    title: "Portfolio - Alex Kane",
+    title: "Portfolio - Freitas",
     description: "Designing human experiences in code.",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Portfolio - Alex Kane",
+    title: "Portfolio - Freitas",
     description: "Designing human experiences in code.",
   },
 };

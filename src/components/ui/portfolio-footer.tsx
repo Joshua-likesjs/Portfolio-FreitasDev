@@ -16,7 +16,7 @@ const socialLinks = [
   { icon: Github, href: "https://github.com", label: "GitHub" },
   { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
   { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
-  { icon: Mail, href: "mailto:alex@alexkane.dev", label: "Email" },
+  { icon: Mail, href: "mailto:freitas@freitas.dev", label: "Email" },
 ];
 
 export default function PortfolioFooter() {
@@ -50,7 +50,7 @@ export default function PortfolioFooter() {
         {/* Bottom row */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <p style={{ fontFamily: "'Fira Code', monospace" }} className="text-xs uppercase tracking-wider dark:text-neutral-500 text-neutral-400">
-            &copy; {new Date().getFullYear()} Alex Kane. All rights reserved.
+            &copy; {new Date().getFullYear()} Freitas. All rights reserved.
           </p>
 
           {/* Social Icons */}

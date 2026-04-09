@@ -3,7 +3,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
 import { Code2, Users, Layers, Award } from "lucide-react";
-import ScrollReveal from "@/components/ui/scroll-reveal";
+import ScrollReveal from "@/components/effects/scroll-reveal";
 
 interface StatItemProps {
   icon: React.ElementType;

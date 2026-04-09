@@ -4,7 +4,7 @@ import React, { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
-import ScrollReveal from "@/components/ui/scroll-reveal";
+import ScrollReveal from "@/components/effects/scroll-reveal";
 import { BookOpen, Code2, Palette, Database, MapPin, Zap } from "lucide-react";
 
 const skillCategories = [

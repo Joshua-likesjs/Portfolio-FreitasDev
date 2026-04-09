@@ -1818,3 +1818,78 @@ The portfolio is a **fully-featured, production-rich single-page portfolio websi
 4. **Low**: Add blog post detail view for Featured Articles
 5. **Low**: Add 3D tilt effect on project/hover cards (using card-tilt utility)
 6. **Low**: Performance audit — lazy load below-fold sections with dynamic imports
+
+---
+Task ID: 10
+Agent: Main Agent
+Task: Reorganize component files into clearly-named categorized folder structure
+
+Work Log:
+- Analyzed all 36 custom components previously mixed with ~50 shadcn/ui components in src/components/ui/
+- Identified cross-component dependencies (scroll-reveal used in about, faq, education, stats sections)
+- Created 4 new categorized folders: sections/, features/, effects/, navigation/
+- Moved 25 section components to sections/ (portfolio content blocks visible on page)
+- Moved 3 feature components to features/ (command-palette, music-player-widget, keyboard-shortcuts-panel)
+- Moved 4 effect components to effects/ (floating-paths, cursor-glow, scroll-reveal, particle-network)
+- Moved 4 navigation components to navigation/ (scroll-progress, back-to-top, availability-banner, section-divider)
+- Updated all 33 import references in page.tsx with categorized grouping and descriptive comments
+- Updated 4 cross-component imports (scroll-reveal path changed in about, faq, education, stats sections)
+- Verified layout.tsx and loading.tsx still correctly import shadcn/ui components (toaster, skeleton)
+- ESLint: 0 errors (1 pre-existing font warning)
+- Dev server: clean compilation
+
+New Folder Structure:
+```
+src/components/
+├── sections/          # Page content blocks (25 files)
+│   ├── portfolio-hero.tsx         # Hero banner with photo, name, CTA buttons
+│   ├── about-section.tsx          # Personal bio, headshot, skill progress bars
+│   ├── stats-section.tsx          # Animated counting metrics
+│   ├── services-section.tsx       # Professional services offered (6 cards)
+│   ├── process-section.tsx        # Work process steps (4 steps)
+│   ├── projects-section.tsx       # Portfolio projects showcase with modals
+│   ├── experience-section.tsx     # Work experience timeline
+│   ├── education-section.tsx      # Academic background timeline
+│   ├── skills-radar-section.tsx   # Skills radar chart visualization
+│   ├── tech-marquee-section.tsx   # Technology stack scrolling marquee
+│   ├── trusted-brands-section.tsx # Client/company brand logos
+│   ├── testimonials-section.tsx   # Client testimonials carousel
+│   ├── featured-articles-section.tsx # Blog/writing showcase
+│   ├── faq-section.tsx            # Frequently asked questions accordion
+│   ├── pricing-section.tsx        # Service pricing plans
+│   ├── achievements-section.tsx   # Awards and achievements
+│   ├── tools-section.tsx          # Development tools used (20 tools)
+│   ├── contribution-graph-section.tsx # GitHub contribution graph
+│   ├── timeline-journey-section.tsx   # Career journey timeline
+│   ├── now-section.tsx            # What I'm doing now
+│   ├── quote-section.tsx          # Inspirational quote display
+│   ├── newsletter-section.tsx     # Newsletter subscription form
+│   ├── contact-section.tsx        # Contact form and info
+│   ├── portfolio-footer.tsx       # Site footer with links and social
+│   └── writing-section.tsx        # Writing/blogs section (unused)
+├── features/          # Interactive widgets (3 files)
+│   ├── command-palette.tsx        # Cmd+K command palette overlay
+│   ├── music-player-widget.tsx    # Background music player widget
+│   └── keyboard-shortcuts-panel.tsx # Keyboard shortcuts reference panel
+├── effects/           # Visual effects and animations (4 files)
+│   ├── floating-paths.tsx         # Animated SVG path background
+│   ├── cursor-glow.tsx            # Mouse cursor glow effect
+│   ├── scroll-reveal.tsx          # Scroll-triggered reveal animation wrapper
+│   └── particle-network.tsx       # Interactive particle network canvas
+├── navigation/        # UI navigation utilities (4 files)
+│   ├── scroll-progress.tsx        # Page scroll progress indicator bar
+│   ├── back-to-top.tsx            # Scroll to top floating button
+│   ├── availability-banner.tsx    # Availability status banner (dismissible)
+│   └── section-divider.tsx        # Decorative section separator line
+└── ui/                # shadcn/ui components only (~50 files)
+    ├── button.tsx, card.tsx, dialog.tsx, etc.
+    └── ... (standard shadcn/ui library components)
+```
+
+Stage Summary:
+- Components reorganized from flat 1-folder structure into 4 clearly-named categories
+- Each folder name immediately tells you what type of component lives inside
+- shadcn/ui components remain cleanly isolated in ui/ folder
+- Zero broken imports, zero ESLint errors
+- Dev server compiles cleanly
+

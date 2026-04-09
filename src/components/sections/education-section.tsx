@@ -3,7 +3,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { GraduationCap, BookOpen } from "lucide-react";
-import ScrollReveal from "@/components/ui/scroll-reveal";
+import ScrollReveal from "@/components/effects/scroll-reveal";
 
 const education = [
   {

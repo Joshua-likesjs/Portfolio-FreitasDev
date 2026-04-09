@@ -3,7 +3,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Radio } from "lucide-react";
-import MusicPlayerWidget from "./music-player-widget";
 
 function AnimatedHeading({ text }: { text: string }) {
   const ref = useRef<HTMLHeadingElement>(null);
@@ -207,17 +206,6 @@ export default function NowSection() {
             </motion.div>
           ))}
         </div>
-
-        {/* Music Player Widget */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.85 }}
-          className="mt-10 flex justify-center"
-        >
-          <MusicPlayerWidget />
-        </motion.div>
 
         {/* Last updated */}
         <motion.div

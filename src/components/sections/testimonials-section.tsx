@@ -218,8 +218,7 @@ export default function TestimonialsSection() {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-4">
                     <div
-                      className="w-12 h-12 rounded-full overflow-hidden ring-2"
-                      style={{ ringColor: "#C3E41D" }}
+                      className="w-12 h-12 rounded-full overflow-hidden ring-2 ring-[#C3E41D]"
                     >
                       <Image
                         src={testimonials[current].avatar}

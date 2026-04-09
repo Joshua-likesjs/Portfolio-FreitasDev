@@ -366,7 +366,7 @@ export default function PricingSection() {
                     onMouseLeave={(e) => {
                       if (!plan.popular) {
                         e.currentTarget.style.borderColor = "hsl(0,0%,25%)";
-                        e.currentTarget.style.color = undefined;
+                        e.currentTarget.style.color = "";
                       } else {
                         e.currentTarget.style.boxShadow = "none";
                       }

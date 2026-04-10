@@ -1,16 +1,17 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 
 const STORAGE_KEY = 'availability-banner-dismissed';
 
 export default function AvailabilityBanner() {
-  const [visible, setVisible] = useState(() => {
-    if (typeof window === 'undefined') return false;
-    return !localStorage.getItem(STORAGE_KEY);
-  });
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const dismissed = localStorage.getItem(STORAGE_KEY);
+  if (!dismissed) setVisible(true);  // Só lê localStorage DEPOIS do mount
+  }, []); 
 
   const handleDismiss = useCallback(() => {
     setVisible(false);

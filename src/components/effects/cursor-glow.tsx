@@ -37,7 +37,7 @@ export default function CursorGlow() {
   return (
     <div
       ref={glowRef}
-      className="fixed top-0 left-0 w-[300px] h-[300px] pointer-events-none z-[9999] will-change-transform"
+      className="fixed top-0 left-0 w-300px h-300px pointer-events-none z-9999 will-change-transform"
       style={{
         background: "radial-gradient(circle, rgba(195, 228, 29, 0.06) 0%, rgba(195, 228, 29, 0.02) 40%, transparent 70%)",
         filter: "blur(1px)",

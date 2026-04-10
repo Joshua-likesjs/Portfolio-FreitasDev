@@ -25,7 +25,7 @@ export default function ScrollProgress() {
   }, [isComplete]);
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-[60] h-[3px]">
+    <div className="fixed top-0 left-0 right-0 z-60 h-3px">
       <div
         className="h-full transition-none"
         style={{

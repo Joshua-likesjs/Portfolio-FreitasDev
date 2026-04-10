@@ -67,7 +67,7 @@ export default function AvailabilityBanner() {
           </div>
 
           {/* Mobile-only updated date below */}
-          <div className="sm:hidden mt-1.5 ml-[18px]">
+          <div className="sm:hidden mt-1.5 ml-18px">
             <span
               className="text-xs text-muted-foreground"
               style={{ fontFamily: "'Fira Code', monospace" }}

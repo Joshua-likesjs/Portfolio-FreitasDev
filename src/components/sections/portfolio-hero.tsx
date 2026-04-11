@@ -176,7 +176,7 @@ const ProfileImage: React.FC<{ isDark: boolean }> = ({ isDark }) => {
 
   return (
     <div
-      className="absolute top-11/12 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10"
+      className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10"
       style={{
         opacity,
         transition: "opacity 1.5s ease-out",

@@ -94,7 +94,7 @@ export default function ContactSection() {
     >
       {/* Decorative glow */}
       <div
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] rounded-full blur-[160px] pointer-events-none"
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-150 h-100 rounded-full blur-[160px] pointer-events-none"
         style={{ backgroundColor: "#C3E41D", opacity: 0.03 }}
       />
 

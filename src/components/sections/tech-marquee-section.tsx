@@ -83,8 +83,8 @@ export default function TechMarqueeSection() {
       {/* Scrolling Marquee */}
       <div className="relative">
         {/* Fade edges */}
-        <div className="absolute left-0 top-0 bottom-0 w-24 md:w-40 z-10 dark:bg-gradient-to-r dark:from-[hsl(0,0%,4%)] dark:to-transparent bg-gradient-to-r from-[hsl(0,0%,96%)] to-transparent pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-24 md:w-40 z-10 dark:bg-gradient-to-l dark:from-[hsl(0,0%,4%)] dark:to-transparent bg-gradient-to-l from-[hsl(0,0%,96%)] to-transparent pointer-events-none" />
+        <div className="absolute left-0 top-0 bottom-0 w-24 md:w-40 z-10 dark:bg-linear-to-r dark:from-[hsl(0,0%,4%)] dark:to-transparent bg-linear-to-r from-[hsl(0,0%,96%)] to-transparent pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-24 md:w-40 z-10 dark:bg-linear-to-l dark:from-[hsl(0,0%,4%)] dark:to-transparent bg-linear-to-l from-[hsl(0,0%,96%)] to-transparent pointer-events-none" />
 
         {/* Row 1 - scrolling left */}
         <div className="mb-6 overflow-hidden">

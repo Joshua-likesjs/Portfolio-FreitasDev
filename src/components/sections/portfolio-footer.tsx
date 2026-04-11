@@ -62,7 +62,7 @@ export default function PortfolioFooter() {
 
   return (
     <footer
-      className="relative overflow-hidden transition-colors border-t dark:from-[#0a0a0a] dark:to-[#111111] from-[#f8f8f8] to-[#f0f0f0] dark:bg-gradient-to-b bg-gradient-to-b"
+      className="relative overflow-hidden transition-colors border-t dark:from-[#0a0a0a] dark:to-[#111111] from-[#f8f8f8] to-[#f0f0f0] dark:bg-linear-to-b bg-linear-to-b"
       style={{ paddingTop: 0 }}
     >
       {/* ========== Animated Gradient Top Border ========== */}
@@ -77,7 +77,7 @@ export default function PortfolioFooter() {
       {/* ========== Animated SVG Wave Divider ========== */}
       <div className="relative w-full -mt-px" aria-hidden="true">
         <svg
-          className="relative block w-full h-[60px] sm:h-[70px] md:h-[80px]"
+          className="relative block w-full h-15 sm:h-17.5 md:h-20"
           viewBox="0 0 1440 80"
           preserveAspectRatio="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -85,7 +85,7 @@ export default function PortfolioFooter() {
           {/* Layer 1 — back wave, subtle */}
           <path
             d="M0,40 C240,80 480,0 720,40 C960,80 1200,0 1440,40 L1440,80 L0,80 Z"
-            className="fill-neutral-200/60 dark:fill-white/[0.03]"
+            className="fill-neutral-200/60 dark:fill-white/3"
           >
             <animate
               attributeName="d"
@@ -101,7 +101,7 @@ export default function PortfolioFooter() {
           {/* Layer 2 — middle wave */}
           <path
             d="M0,50 C360,10 720,70 1080,30 C1260,15 1380,55 1440,45 L1440,80 L0,80 Z"
-            className="fill-neutral-300/50 dark:fill-white/[0.05]"
+            className="fill-neutral-300/50 dark:fill-white/5"
           >
             <animate
               attributeName="d"
@@ -218,7 +218,7 @@ export default function PortfolioFooter() {
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 rounded-lg dark:text-neutral-500 text-neutral-400 text-[#C3E41D] transition-all duration-300 hover:drop-shadow-[0_0_6px_rgba(195,228,29,0.3)]"
+                className="p-2 rounded-lg dark:text-neutral-500 text-[#C3E41D] transition-all duration-300 hover:drop-shadow-[0_0_6px_rgba(195,228,29,0.3)]"
                 style={{ transition: "transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s ease, color 0.3s ease" }}
                 onMouseEnter={(e) => {
                   const el = e.currentTarget;

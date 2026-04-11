@@ -273,7 +273,7 @@ export default function FeaturedArticlesSection() {
                     duration: 0.5,
                     delay: index * 0.1,
                   }}
-                  className="glass-card rounded-2xl p-6 min-w-[320px] sm:min-w-[380px] scroll-snap-align-start cursor-pointer group transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:dark:shadow-[0_0_30px_rgba(195,228,29,0.08)] hover:shadow-[0_0_30px_rgba(195,228,29,0.06)] hover:dark:border-[#C3E41D]/20 hover:border-[#C3E41D]/30 flex flex-col justify-between"
+                  className="glass-card rounded-2xl p-6 min-w-[320px] sm:min-w-95 scroll-snap-align-start cursor-pointer group transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:dark:shadow-[0_0_30px_rgba(195,228,29,0.08)] hover:dark:border-[##ffffff]/20 hover:border-[##ffffff]/30 flex flex-col justify-between"
                 >
                   {/* Card number */}
                   <div>
@@ -281,8 +281,8 @@ export default function FeaturedArticlesSection() {
                       className="block text-6xl font-bold leading-none mb-4"
                       style={{
                         fontFamily: "'Fira Code', monospace",
-                        color: "#C3E41D",
-                        opacity: 0.15,
+                        color: "##ffffff",
+                        opacity: 1,
                       }}
                     >
                       {article.number}
@@ -309,7 +309,7 @@ export default function FeaturedArticlesSection() {
 
                     {/* Description */}
                     <p
-                      className="text-sm dark:text-neutral-400 text-neutral-500 leading-relaxed line-clamp-2 mb-6"
+                      className="text-lg dark:text-neutral-100 leading-relaxed line-clamp-6 mb-4 italic font-semibold"
                       style={{ fontFamily: "'Antic', sans-serif" }}
                     >
                       {article.description}
@@ -318,7 +318,7 @@ export default function FeaturedArticlesSection() {
 
                   {/* Footer: reading time + date + read more */}
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4 text-xs dark:text-neutral-500 text-neutral-400">
+                    <div className="flex items-center gap-4 text-xs dark:text-neutral-900 text-neutral-400">
                       <span
                         className="flex items-center gap-1"
                         style={{ fontFamily: "'Fira Code', monospace" }}
@@ -327,7 +327,7 @@ export default function FeaturedArticlesSection() {
                         {article.readTime}
                       </span>
                       <span
-                        className="dark:text-neutral-600 text-neutral-300"
+                        className="dark:text-neutral-900 text-neutral-300"
                         style={{ fontFamily: "'Fira Code', monospace" }}
                       >
                         {article.date}
@@ -359,7 +359,7 @@ export default function FeaturedArticlesSection() {
                   activeDot === dot ? "#C3E41D" : "rgba(195,228,29,0.25)",
               }}
             />
-          ))}
+          ))} 
         </div>
       </div>
     </section>

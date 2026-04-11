@@ -55,12 +55,32 @@ export default function CommandPalette() {
   const toggleTheme = useCallback(() => {
     setOpen(false);
     setTimeout(() => {
-      const isDark = document.documentElement.classList.toggle('dark');
-      localStorage.setItem('theme', isDark ? 'dark' : 'light');
-      document.documentElement.classList.add('theme-transitioning');
-      setTimeout(() => {
-        document.documentElement.classList.remove('theme-transitioning');
-      }, 400);
+      const isCurrentlyDark = document.documentElement.classList.contains('dark');
+      const next = !isCurrentlyDark;
+      localStorage.setItem('portfolio-theme', next ? 'dark' : 'light');
+
+      const applyTheme = () => {
+        document.documentElement.classList.toggle('dark', next);
+      };
+
+      const notifyReact = () => {
+        window.dispatchEvent(new Event('storage'));
+      };
+
+      const doc = document as unknown as {
+        startViewTransition?: (cb: () => void) => { finished: Promise<void> };
+      };
+      if (doc.startViewTransition) {
+        doc.startViewTransition(applyTheme);
+        setTimeout(notifyReact, 100);
+      } else {
+        document.documentElement.classList.add('theme-transitioning');
+        applyTheme();
+        setTimeout(notifyReact, 100);
+        setTimeout(() => {
+          document.documentElement.classList.remove('theme-transitioning');
+        }, 400);
+      }
     }, 100);
   }, []);
 
@@ -132,7 +152,7 @@ export default function CommandPalette() {
               onSelect={item.action}
               className="gap-3 cursor-pointer data-[selected=true]:bg-[#C3E41D]/10 data-[selected=true]:text-[#C3E41D]"
             >
-              <span className="text-muted-foreground data-[selected=true]:text-[#C3E41D] [&[data-selected=true]]:text-[#C3E41D]">
+              <span className="text-muted-foreground data-[selected=true]:text-[#C3E41D]">
                 {item.icon}
               </span>
               <span className="font-['Fira_Code'] text-sm">{item.label}</span>

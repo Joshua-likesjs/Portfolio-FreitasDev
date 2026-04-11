@@ -126,29 +126,31 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Smooth theme transition - only background and border colors */
-html.theme-transitioning,
-html.theme-transitioning *,
-html.theme-transitioning *::before,
-html.theme-transitioning *::after {
-  transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.3s ease !important;
+/* ─── View Transitions API for smooth theme switching (GPU-accelerated) ─── */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.35s;
+  animation-timing-function: ease-in-out;
 }
 
-/* Scrollbar styling */
-::-webkit-scrollbar {
-  width: 8px;
+/* Lightweight fallback for browsers without View Transitions */
+html.theme-transitioning {
+  transition: background-color 0.35s ease, color 0.35s ease;
 }
-::-webkit-scrollbar-track {
-  background: transparent;
+html.theme-transitioning body,
+html.theme-transitioning header,
+html.theme-transitioning main,
+html.theme-transitioning section,
+html.theme-transitioning nav,
+html.theme-transitioning footer,
+html.theme-transitioning [class*="card"],
+html.theme-transitioning [class*="glass"],
+html.theme-transitioning button,
+html.theme-transitioning a,
+html.theme-transitioning input,
+html.theme-transitioning textarea {
+  transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.25s ease;
 }
-::-webkit-scrollbar-thumb {
-  background: #333;
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
-
 /* Bounce animation for scroll indicator */
 @keyframes bounce-slow {
   0%, 100% { transform: translateY(0); }
@@ -304,7 +306,7 @@ html.theme-transitioning *::after {
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 :not(.dark) .glass-card {
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(195, 228, 29);
   border: 1px solid rgba(0, 0, 0, 0.06);
 }
 

@@ -28,16 +28,9 @@ if (typeof document !== "undefined" && !document.getElementById(STYLE_ID)) {
       0%, 100% { opacity: 1; }
       50%      { opacity: 0; }
     }
-    .theme-transitioning,
-    .theme-transitioning *,
-    .theme-transitioning *::before,
-    .theme-transitioning *::after {
-      transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease !important;
-    }
   `;
   document.head.appendChild(sheet);
 }
-
 /* ─── BlurText ─── */
 interface BlurTextProps {
   text: string;
@@ -327,10 +320,27 @@ export default function PortfolioHero() {
   const toggleTheme = useCallback(() => {
     const next = !isDark;
     localStorage.setItem("portfolio-theme", next ? "dark" : "light");
-    document.documentElement.classList.add("theme-transitioning");
-    document.documentElement.classList.toggle("dark", next);
-    window.dispatchEvent(new Event("storage"));
-    setTimeout(() => document.documentElement.classList.remove("theme-transitioning"), 500);
+
+    const applyTheme = () => {
+      document.documentElement.classList.toggle("dark", next);
+    };
+
+    const notifyReact = () => {
+      window.dispatchEvent(new Event("storage"));
+    };
+
+    const doc = document as unknown as {
+      startViewTransition?: (cb: () => void) => { finished: Promise<void> };
+    };
+    if (doc.startViewTransition) {
+      doc.startViewTransition(applyTheme);
+      setTimeout(notifyReact, 100);
+    } else {
+      document.documentElement.classList.add("theme-transitioning");
+      applyTheme();
+      setTimeout(notifyReact, 100);
+      setTimeout(() => document.documentElement.classList.remove("theme-transitioning"), 400);
+    }
   }, [isDark]);
 
   const handleNavClick = useCallback((href: string) => {

@@ -20,7 +20,8 @@ export default function ParticleNetwork({ isDark }: ParticleNetworkProps) {
   const animationRef = useRef<number>(0);
   const particlesRef = useRef<Particle[]>([]);
   const mouseRef = useRef<{ x: number; y: number } | null>(null);
-
+  const isDarkRef = useRef(isDark);
+  isDarkRef.current = isDark;
   const initParticles = useCallback((width: number, height: number) => {
     const count = Math.min(Math.floor((width * height) / 15000), 80);
     const particles: Particle[] = [];
@@ -64,7 +65,8 @@ export default function ParticleNetwork({ isDark }: ParticleNetworkProps) {
     window.addEventListener("mouseleave", handleMouseLeave);
 
     const particleColor = "#C3E41D";
-    const lineColor = isDark ? "rgba(195, 228, 29," : "rgba(138, 157, 23,";
+    const dark = isDarkRef.current;
+    const lineColor = dark ? "rgba(195, 228, 29," : "rgba(138, 157, 23,";
     const maxDist = 150;
 
     const animate = () => {
@@ -106,7 +108,7 @@ export default function ParticleNetwork({ isDark }: ParticleNetworkProps) {
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fillStyle = particleColor;
-        ctx.globalAlpha = p.opacity * (isDark ? 0.4 : 0.25);
+        ctx.globalAlpha = p.opacity * (dark ? 0.4 : 0.25);
         ctx.fill();
 
         // Draw connections
@@ -117,7 +119,7 @@ export default function ParticleNetwork({ isDark }: ParticleNetworkProps) {
           const dist = Math.sqrt(dx * dx + dy * dy);
 
           if (dist < maxDist) {
-            const opacity = (1 - dist / maxDist) * 0.15 * (isDark ? 1 : 0.6);
+            const opacity = (1 - dist / maxDist) * 0.15 * (dark ? 1 : 0.6);
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(p2.x, p2.y);
@@ -158,7 +160,7 @@ export default function ParticleNetwork({ isDark }: ParticleNetworkProps) {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseleave", handleMouseLeave);
     };
-  }, [isDark, initParticles]);
+  }, [initParticles]);
 
   return (
     <canvas

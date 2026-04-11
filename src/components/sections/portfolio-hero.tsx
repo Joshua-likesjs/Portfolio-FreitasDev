@@ -445,7 +445,7 @@ export default function PortfolioHero() {
               fontFamily: "'Brush Script MT', 'Lucida Handwriting', cursive",
             }}
           >
-            A
+            F
           </div>
 
           {/* Theme toggle */}
@@ -476,7 +476,7 @@ export default function PortfolioHero() {
           <div className="relative text-center">
             <BlurText
               text="FREITAS"
-              delay={100}
+              delay={200}
               animateBy="letters"
               direction="top"
               className="font-bold text-[100px] sm:text-[140px] md:text-[180px] lg:text-[210px] leading-[0.75] tracking-tighter uppercase justify-center whitespace-nowrap"

@@ -179,7 +179,7 @@ const ProfileImage: React.FC<{ isDark: boolean }> = ({ isDark }) => {
   }, []);
 
   // Square sizing so rounded-full makes a circle
-  const size = "w-[80px] h-[180px] sm:w-[110px] sm:h-[110px] md:w-[130px] md:h-[130px] lg:w-[100px] lg:h-[200px]";
+  const size = "w-[80px] h-[180px] sm:w-[110px] sm:h-[110px] md:w-[130px] md:h-[130px] lg:w-[100px] lg:h-[250px]";
 
   return (
     <div

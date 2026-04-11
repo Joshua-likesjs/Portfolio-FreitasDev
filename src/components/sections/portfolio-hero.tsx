@@ -172,11 +172,11 @@ const ProfileImage: React.FC<{ isDark: boolean }> = ({ isDark }) => {
   }, []);
 
   // Square sizing so rounded-full makes a circle
-  const size = "w-[80px] h-[180px] sm:w-[110px] sm:h-[110px] md:w-[130px] md:h-[130px] lg:w-[100px] lg:h-[250px]";
+  const size = "w-[80px] h-[180px] sm:w-[110px] sm:h-[110px] md:w-[130px] md:h-[130px] lg:w-[300px] lg:h-[500px]";
 
   return (
     <div
-      className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10"
+      className="absolute top-1 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10"
       style={{
         opacity,
         transition: "opacity 1.5s ease-out",
@@ -184,7 +184,6 @@ const ProfileImage: React.FC<{ isDark: boolean }> = ({ isDark }) => {
       }}
     >
       <div className="relative">
-        {/* Rotating gradient ring */}
   
         {/* Solid background circle to mask inner area */}
         <div

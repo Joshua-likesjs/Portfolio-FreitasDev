@@ -7,6 +7,9 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Star, X, Github, Globe } from "lucide-react";
+import TALON from "../images/TALON.png"
+import incubadora from "../images/incubadora.jpg"
+
 
 function getStoredTheme(): boolean {
   if (typeof window === "undefined") return true;
@@ -20,76 +23,35 @@ function subscribeToTheme(callback: () => void) {
   return () => window.removeEventListener("storage", callback);
 }
 
-const categories = ["All", "Web Apps", "Mobile", "Design", "Open Source"] as const;
+const categories = ["All", "Web Apps", "Mobile", "Design", "Open Source", "Web and Mobile"] as const;
 
 type Category = (typeof categories)[number];
 
 const projects = [
   {
-    name: "DesignFlow",
+    name: ".Talon",
     category: "Web Apps" as Category,
-    description:
-      "An AI-powered design tool that helps teams generate, iterate, and refine UI designs in real-time using natural language prompts and smart suggestions.",
-    fullDescription: "DesignFlow uses state-of-the-art machine learning models to understand design intent from natural language. Teams can describe what they want, and the AI generates multiple design variants that can be refined through an intuitive interface. Features include real-time collaboration, version history, design token extraction, and automatic responsive layout generation.",
-    tags: ["React", "Python", "TensorFlow"],
-    image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&h=400&fit=crop",
-    featured: true,
-    link: "#",
-    github: "#",
-    highlights: ["AI-powered design generation", "Real-time collaboration", "Design token extraction", "Automatic responsive layouts"],
-  },
-  {
-    name: "CloudSync",
-    category: "Web Apps" as Category,
-    description:
-      "A real-time collaboration platform enabling distributed teams to work on documents, designs, and code simultaneously with seamless syncing.",
-    fullDescription: "CloudSync provides a zero-latency collaboration experience through operational transformation algorithms and WebSocket connections. It supports rich text editing, code collaboration with syntax highlighting, design file commenting, and video conferencing integration. Built to scale to thousands of concurrent users.",
-    tags: ["Next.js", "WebSocket", "PostgreSQL"],
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop",
+    description: "A tracking and location observation networky for endangered Brazilian felines, leveraging IoT and embedded technology for wildlife conservation.",
+    fullDescription: "Talon integrates an embedded system with GPS, SIM module, and a dashboard with real-time mapping, including location history and heat map/tracking capabilities, in addition to a geofencing system.",
+    tags: ["Next.js", "OpenStreetMap", "Leaflet"],
+    image: TALON,
     featured: false,
-    link: "#",
-    github: "#",
-    highlights: ["Operational transformation", "Syntax-highlighted code editing", "Video conferencing", "File version management"],
-  },
-  {
-    name: "EcoTrack",
-    category: "Mobile" as Category,
-    description:
-      "A sustainability dashboard that visualizes environmental impact data, tracks carbon footprints, and provides actionable insights.",
-    fullDescription: "EcoTrack helps organizations measure, track, and reduce their environmental impact. The dashboard visualizes carbon emissions across scopes, tracks sustainability goals, benchmarks against industry standards, and provides AI-powered recommendations for reduction strategies. Integrates with popular carbon accounting APIs and IoT sensor data.",
-    tags: ["React", "D3.js", "Node.js"],
-    image: "https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?w=600&h=400&fit=crop",
-    featured: false,
-    link: "#",
-    github: "#",
-    highlights: ["Scope 1/2/3 emissions tracking", "AI-powered recommendations", "Industry benchmarking", "IoT sensor integration"],
-  },
-  {
-    name: "NoteFlow",
-    category: "Open Source" as Category,
-    description:
-      "A beautiful markdown note-taking app with real-time preview, syntax highlighting, and cloud sync. Minimalist design meets powerful features.",
-    fullDescription: "NoteFlow is a markdown-first note-taking application with a split-pane editor and live preview. It features syntax highlighting for 50+ languages, keyboard shortcuts for power users, tagging and search, and real-time cloud sync across devices. The UI is designed for focus mode with distraction-free editing.",
-    tags: ["React", "MDX", "IndexedDB"],
-    image: "https://images.unsplash.com/photo-1517842645767-c639042777db?w=600&h=400&fit=crop",
-    featured: false,
-    link: "#",
-    github: "#",
-    highlights: ["Split-pane markdown editor", "50+ language syntax highlight", "Cloud sync across devices", "Focus mode with minimal UI"],
-  },
-  {
-    name: "ShopStream",
-    category: "Web Apps" as Category,
-    description:
-      "A modern e-commerce platform with live streaming shopping, real-time inventory management, and integrated payment processing.",
-    fullDescription: "ShopStream combines live video shopping with a full e-commerce backend. Features include stream scheduling, real-time chat during streams, instant purchase buttons, inventory management dashboard, analytics, and Stripe payment integration. Built for creators who want to monetize their audience.",
-    tags: ["Next.js", "Stripe", "WebRTC"],
-    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop",
-    featured: false,
-    link: "#",
-    github: "#",
+    link: "https://talon-beta.vercel.app/",
+    github: "https://github.com/Joshua-likesjs/TALON",
     highlights: ["Live video shopping", "Real-time inventory sync", "Stripe payment processing", "Creator analytics dashboard"],
   },
+  {
+    name: ".ChocaSystem",
+    category: "Web and Mobile" as Category,
+    description: "A system for monitoring variables in an egg incubator, with the possibility of controlling heaters and humidifiers, as well as including a presence detector.",
+    fullDescription: "ChocaSystem integrates an embedded system with heaters, humidifiers, and a dashboard in realtime with temperature, presence and humidity capabilities.",
+    tags: ["Next.js", "ESP32", "IoT"],
+    image: incubadora,
+    featured: false,
+    link: "https://incubadora-vpjs.vercel.app/",
+    github: "https://github.com/Joshua-likesjs/Projeto-ChocaSystem",
+    highlights: ["Live video shopping", "Real-time inventory sync", "Stripe payment processing", "Creator analytics dashboard"],
+  }
 ];
 
 function AnimatedHeading({ text }: { text: string }) {
@@ -128,12 +90,26 @@ function AnimatedHeading({ text }: { text: string }) {
 }
 
 function ProjectModal({ project, onClose }: { project: typeof projects[0]; onClose: () => void }) {
+
+   const handleLiveDemo = () => {
+    if (project.link) {
+      window.open(project.link, "_blank", "noopener,noreferrer");
+    }
+  };
+
+  // Função para abrir o GitHub
+  const handleGithub = () => {
+    if (project.github) {
+      window.open(project.github, "_blank", "noopener,noreferrer");
+    }
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[200] flex items-center justify-center p-4"
+      className="fixed inset-0 z-20 flex items-center justify-center p-4"
       onClick={onClose}
     >
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
@@ -150,11 +126,11 @@ function ProjectModal({ project, onClose }: { project: typeof projects[0]; onClo
           <Image
             src={project.image}
             alt={project.name}
-            className="w-full h-full object-cover img-adapt"
+            className="w-full h-full object-cover "
             width={600}
             height={400}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent" />
           <button
             onClick={onClose}
             className="absolute top-4 right-4 p-2 rounded-full bg-black/40 hover:bg-black/60 text-white transition-colors"
@@ -212,16 +188,16 @@ function ProjectModal({ project, onClose }: { project: typeof projects[0]; onClo
               variant="outline"
               size="sm"
               className="dark:border-neutral-700 dark:text-neutral-300 dark:hover:border-[#8A00C4] dark:hover:text-[#8A00C4] border-neutral-300 text-neutral-600 hover:border-[#8A00C4] hover:text-[#8A00C4] transition-colors"
-              onClick={onClose}
+              onClick={handleLiveDemo}
             >
               <Globe className="w-4 h-4 mr-2" />
-              Live Demo
+              Live
             </Button>
             <Button
               variant="outline"
               size="sm"
               className="dark:border-neutral-700 dark:text-neutral-300 dark:hover:border-[#8A00C4] dark:hover:text-[#8A00C4] border-neutral-300 text-neutral-600 hover:border-[#8A00C4] hover:text-[#8A00C4] transition-colors"
-              onClick={onClose}
+              onClick={handleGithub}
             >
               <Github className="w-4 h-4 mr-2" />
               Source Code

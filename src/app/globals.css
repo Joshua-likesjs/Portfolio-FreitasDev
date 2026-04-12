@@ -171,13 +171,13 @@ html.theme-transitioning textarea {
 
 /* Selection color */
 ::selection {
-  background: #C3E41D;
+  background: #8A00C4;
   color: black;
 }
 
 /* Focus visible ring */
 :focus-visible {
-  outline: 2px solid #C3E41D;
+  outline: 2px solid #8A00C4;
   outline-offset: 2px;
   border-radius: 4px;
 }
@@ -244,7 +244,7 @@ html.theme-transitioning textarea {
 
 /* Gradient text utility */
 .text-gradient-accent {
-  background: linear-gradient(135deg, #C3E41D 0%, #a4bf16 50%, #8aaa10 100%);
+  background: linear-gradient(135deg, #8A00C4 0%, #a4bf16 50%, #8aaa10 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -290,7 +290,7 @@ html.theme-transitioning textarea {
   left: 0;
   width: 0;
   height: 2px;
-  background: #C3E41D;
+  background: #8A00C4;
   border-radius: 1px;
   transition: width 0.3s ease;
 }
@@ -306,7 +306,7 @@ html.theme-transitioning textarea {
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 :not(.dark) .glass-card {
-  background: rgba(195, 228, 29);
+  background: rgba(43, 43, 43, 0.277);
   border: 1px solid rgba(0, 0, 0, 0.06);
 }
 
@@ -582,7 +582,7 @@ html.theme-transitioning textarea {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #C3E41D;
+  background: #8A00C4;
 }
 
 /* Magnetic hover animation */
@@ -676,7 +676,7 @@ html.theme-transitioning textarea {
 
 /* Focus ring accent */
 *:focus-visible {
-  outline: 2px solid #C3E41D;
+  outline: 2px solid #8A00C4;
   outline-offset: 2px;
 }
 
@@ -707,7 +707,7 @@ html.theme-transitioning textarea {
   top: 0;
   bottom: 0;
   width: 3px;
-  background: #C3E41D;
+  background: #8A00C4;
   transform: scaleY(0);
   transform-origin: top;
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);

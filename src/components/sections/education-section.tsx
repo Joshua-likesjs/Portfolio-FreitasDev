@@ -7,27 +7,13 @@ import ScrollReveal from "@/components/effects/scroll-reveal";
 
 const education = [
   {
-    degree: "M.S. Computer Science",
-    school: "Stanford University",
-    location: "Stanford, CA",
-    period: "2015 – 2017",
+    degree: "High School",
+    school: "Fundation Matias Machline",
+    location: "Manaus, AM",
+    period: "2024 – 2026",
     bullets: [
-      "Focused on Human-Computer Interaction and Machine Learning",
-      "Published research on adaptive UI systems in ACM CHI",
-      "Teaching assistant for CS 147: Introduction to HCI",
-      "GPA: 3.9 / 4.0",
-    ],
-  },
-  {
-    degree: "B.A. Digital Design",
-    school: "Rhode Island School of Design",
-    location: "Providence, RI",
-    period: "2011 – 2015",
-    bullets: [
-      "Specialized in interactive media and computational design",
-      "Senior thesis: \"Generative Interfaces: Code as a Design Medium\"",
-      "Dean's List all semesters — graduated with honors",
-      "Led the student Design & Technology club",
+      "Developing full-stack web and mobile applications with a focus on Embedded Systems integration",
+      "Architecting a tracking system for endangered Brazilian felines, leveraging IoT and embedded technology for wildlife conservation",
     ],
   },
 ];
@@ -55,7 +41,7 @@ function AnimatedHeading({ text }: { text: string }) {
       className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-12 md:mb-16"
       style={{
         fontFamily: "'Fira Code', monospace",
-        color: "#C3E41D",
+        color: "#8A00C4",
         opacity: inView ? 1 : 0,
         transform: inView ? "translateY(0)" : "translateY(20px)",
         filter: inView ? "blur(0px)" : "blur(8px)",
@@ -81,7 +67,7 @@ export default function EducationSection() {
           {/* Vertical Timeline Line */}
           <div
             className="absolute left-4 md:left-8 top-0 bottom-0 w-px"
-            style={{ backgroundColor: "#C3E41D", opacity: 0.3 }}
+            style={{ backgroundColor: "#8A00C4", opacity: 0.3 }}
           />
 
           <div className="space-y-12 md:space-y-16">
@@ -98,13 +84,13 @@ export default function EducationSection() {
                 <div
                   className="absolute left-4 md:left-8 top-1.5 w-3 h-3 rounded-full -translate-x-1/2 z-10"
                   style={{
-                    backgroundColor: "#C3E41D",
+                    backgroundColor: "#8A00C4",
                     boxShadow: "0 0 12px rgba(195, 228, 29, 0.4)",
                   }}
                 />
 
                 {/* Content Card */}
-                <div className="dark:bg-[hsl(0,0%,12%)] bg-white dark:border-neutral-800 border-neutral-200 border rounded-xl p-5 md:p-6 hover:dark:border-[#C3E41D]/30 hover:border-[#C3E41D]/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-[rgba(195,228,29,0.05)]">
+                <div className="dark:bg-[hsl(0,0%,12%)] bg-white dark:border-neutral-800 border-neutral-200 border rounded-xl p-5 md:p-6 hover:dark:border-[#8A00C4]/30 hover:border-[#8A00C4]/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-[rgba(195,228,29,0.05)]">
                   {/* Degree & School */}
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-3">
                     <h3
@@ -114,7 +100,7 @@ export default function EducationSection() {
                       {edu.degree}
                     </h3>
                     <span
-                      className="text-xs uppercase tracking-widest dark:text-[#C3E41D] text-[#8a9d17] font-medium"
+                      className="text-xs uppercase tracking-widest dark:text-[#8A00C4] text-[#8a9d17] font-medium"
                       style={{ fontFamily: "'Fira Code', monospace" }}
                     >
                       {edu.period}
@@ -145,7 +131,7 @@ export default function EducationSection() {
                         className="flex items-start gap-2 text-sm dark:text-neutral-300 text-neutral-600"
                         style={{ fontFamily: "'Antic', sans-serif", fontSize: "0.95rem" }}
                       >
-                        <span className="mt-1.5 w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: "#C3E41D", opacity: 0.7 }} />
+                        <span className="mt-1.5 w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: "#8A00C4", opacity: 0.7 }} />
                         {bullet}
                       </motion.li>
                     ))}

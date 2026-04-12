@@ -64,7 +64,7 @@ export default function ParticleNetwork({ isDark }: ParticleNetworkProps) {
     window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("mouseleave", handleMouseLeave);
 
-    const particleColor = "#C3E41D";
+    const particleColor = "#8A00C4";
     const dark = isDarkRef.current;
     const lineColor = dark ? "rgba(195, 228, 29," : "rgba(138, 157, 23,";
     const maxDist = 150;

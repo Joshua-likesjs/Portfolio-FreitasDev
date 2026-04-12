@@ -34,7 +34,7 @@ export default function BackToTop() {
           onMouseLeave={() => setIsHovered(false)}
           className="fixed bottom-6 right-6 z-50 p-3 rounded-full shadow-lg transition-shadow duration-300 hover:shadow-[0_0_24px_rgba(195,228,29,0.4)] hover:-translate-y-1 group cursor-pointer"
           style={{
-            backgroundColor: "#C3E41D",
+            backgroundColor: "#8A00C4",
             boxShadow: isVisible
               ? "0 4px 20px rgba(195, 228, 29, 0.3)"
               : "0 1px 3px rgba(0,0,0,0.1)",

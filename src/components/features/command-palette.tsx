@@ -150,9 +150,9 @@ export default function CommandPalette() {
             <CommandItem
               key={item.id}
               onSelect={item.action}
-              className="gap-3 cursor-pointer data-[selected=true]:bg-[#C3E41D]/10 data-[selected=true]:text-[#C3E41D]"
+              className="gap-3 cursor-pointer data-[selected=true]:bg-[#8A00C4]/10 data-[selected=true]:text-[#8A00C4]"
             >
-              <span className="text-muted-foreground data-[selected=true]:text-[#C3E41D]">
+              <span className="text-muted-foreground data-[selected=true]:text-[#8A00C4]">
                 {item.icon}
               </span>
               <span className="font-['Fira_Code'] text-sm">{item.label}</span>
@@ -170,7 +170,7 @@ export default function CommandPalette() {
             <CommandItem
               key={item.id}
               onSelect={item.action}
-              className="gap-3 cursor-pointer data-[selected=true]:bg-[#C3E41D]/10 data-[selected=true]:text-[#C3E41D]"
+              className="gap-3 cursor-pointer data-[selected=true]:bg-[#8A00C4]/10 data-[selected=true]:text-[#8A00C4]"
             >
               <span className="text-muted-foreground">{item.icon}</span>
               <span className="font-['Fira_Code'] text-sm">{item.label}</span>

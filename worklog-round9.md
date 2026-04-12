@@ -15,9 +15,9 @@ Bug Fixes:
 - Fixed hero gradient orbs: Removed duplicate closing tags after refactoring animate-pulse to animate-breathe
 
 New Features:
-- Created `contribution-graph-section.tsx` — GitHub-style contribution/activity heatmap grid showing 365 days (1 year) of coding activity; 53x7 CSS grid with 5 intensity levels (0-4) using #C3E41D at varying opacities; seeded random generator for consistent data on reload; realistic weekday/weekend patterns with burst periods; month labels on top, day labels on left (Sun/Empty/Tue/Empty/Thu/Empty/Sat); hover tooltips showing contribution count + date; animated cell entrance (scale-in with staggered delay); responsive with horizontal scroll on mobile; summary stats row: total contributions, longest streak, current streak, busiest day; color legend (Less → More); dark/light mode via MutationObserver; thin custom scrollbar for horizontal scroll
+- Created `contribution-graph-section.tsx` — GitHub-style contribution/activity heatmap grid showing 365 days (1 year) of coding activity; 53x7 CSS grid with 5 intensity levels (0-4) using #8A00C4 at varying opacities; seeded random generator for consistent data on reload; realistic weekday/weekend patterns with burst periods; month labels on top, day labels on left (Sun/Empty/Tue/Empty/Thu/Empty/Sat); hover tooltips showing contribution count + date; animated cell entrance (scale-in with staggered delay); responsive with horizontal scroll on mobile; summary stats row: total contributions, longest streak, current streak, busiest day; color legend (Less → More); dark/light mode via MutationObserver; thin custom scrollbar for horizontal scroll
 
-- Created `timeline-journey-section.tsx` — "MY JOURNEY" career timeline with 8 milestones (2018-2025); vertical gradient timeline line from #C3E41D to transparent; each milestone has year label, title card (Fira Code + Antic fonts), and animated dot node on timeline; staggered Framer Motion entrance (fade + slide from left); active milestone (2025) has pulsing green dot + "Current" badge with ping animation; card hover effects with lift and border glow; dark/light mode responsive layout
+- Created `timeline-journey-section.tsx` — "MY JOURNEY" career timeline with 8 milestones (2018-2025); vertical gradient timeline line from #8A00C4 to transparent; each milestone has year label, title card (Fira Code + Antic fonts), and animated dot node on timeline; staggered Framer Motion entrance (fade + slide from left); active milestone (2025) has pulsing green dot + "Current" badge with ping animation; card hover effects with lift and border glow; dark/light mode responsive layout
 
 Navigation & Integration:
 - Updated hero IntersectionObserver sectionIds to include "contribution-graph" and "journey"
@@ -27,7 +27,7 @@ Navigation & Integration:
 Styling Improvements:
 - **Hero gradient orbs**: Changed from animate-pulse to animate-breathe for smoother, organic floating motion
 - **Footer CTA button**: Upgraded with glass-button utility (glassmorphism backdrop-blur + border), wider padding (px-8), removed default border to let glass utility handle it
-- **Footer dividers**: Replaced plain h-px dividers with gradient-line class (accent gradient from transparent → #C3E41D30 → transparent)
+- **Footer dividers**: Replaced plain h-px dividers with gradient-line class (accent gradient from transparent → #8A00C430 → transparent)
 - **Footer top**: Added gradient-line decorative border at top of footer
 - **New CSS utilities in globals.css**:
   - `@keyframes skeleton-shine` — Shimmer loading animation for skeletons

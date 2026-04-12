@@ -27,7 +27,7 @@ function AnimatedHeading({ text }: { text: string }) {
       className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4 md:mb-6"
       style={{
         fontFamily: "'Fira Code', monospace",
-        color: "#C3E41D",
+        color: "#8A00C4",
         opacity: inView ? 1 : 0,
         transform: inView ? "translateY(0)" : "translateY(20px)",
         filter: inView ? "blur(0px)" : "blur(8px)",
@@ -48,49 +48,19 @@ interface Milestone {
 
 const milestones: Milestone[] = [
   {
-    year: "2018",
+    year: "2024",
     title: "Started coding journey",
     description:
       "Built my first website and fell in love with web development",
   },
   {
-    year: "2019",
+    year: "2025",
     title: "First freelance project",
     description:
       "Landed my first client and learned the art of client communication",
   },
   {
-    year: "2020",
-    title: "Joined a startup",
-    description:
-      "Became a frontend engineer at a Y Combinator-backed startup",
-  },
-  {
-    year: "2021",
-    title: "Led a team of 5",
-    description:
-      "Promoted to senior engineer and led the frontend team",
-  },
-  {
-    year: "2022",
-    title: "Launched a SaaS product",
-    description:
-      "Designed and shipped a design tool used by 10K+ creators",
-  },
-  {
-    year: "2023",
-    title: "Went independent",
-    description:
-      "Started freelancing full-time, focusing on design + engineering",
-  },
-  {
-    year: "2024",
-    title: "Hit 50K GitHub stars",
-    description:
-      "Open-source projects gained traction in the developer community",
-  },
-  {
-    year: "2025",
+    year: "2026",
     title: "Building the future",
     description: "Exploring AI-powered interfaces and creative tools",
     active: true,
@@ -115,10 +85,10 @@ export default function TimelineJourneySection() {
         <div className="relative">
           {/* Vertical gradient timeline line */}
           <div
-            className="absolute left-[23px] md:left-[27px] top-0 bottom-0 w-[2px]"
+            className="absolute left-5.75 md:left-6.75 top-0 bottom-0 w-0.5"
             style={{
               background:
-                "linear-gradient(to bottom, #C3E41D, #C3E41D33)",
+                "linear-gradient(to bottom, #8A00C4, #8A00C433)",
             }}
           />
 
@@ -134,25 +104,25 @@ export default function TimelineJourneySection() {
               >
                 {/* Timeline dot / node */}
                 <div
-                  className="absolute left-[18px] md:left-[22px] top-6 w-3 h-3 rounded-full -translate-x-1/2 z-10"
+                  className="absolute left-4.5 md:left-5.5 top-6 w-3 h-3 rounded-full -translate-x-1/2 z-10"
                   style={
                     milestone.active
                       ? {
-                          backgroundColor: "#C3E41D",
-                          border: "2px solid #C3E41D",
+                          backgroundColor: "#8A00C4",
+                          border: "2px solid #8A00C4",
                           boxShadow:
                             "0 0 10px rgba(195,228,29,0.6), 0 0 20px rgba(195,228,29,0.3)",
                         }
                       : {
                           backgroundColor: "var(--dot-fill, hsl(0,0%,7%))",
-                          border: "2px solid #C3E41D",
+                          border: "2px solid #8A00C4",
                         }
                   }
                 >
                   {/* Pulsing ring for active milestone */}
                   {milestone.active && (
                     <span
-                      className="absolute inset-[-4px] rounded-full animate-ping"
+                      className="absolute inset-1 rounded-full animate-ping"
                       style={{
                         backgroundColor: "rgba(195,228,29,0.3)",
                       }}
@@ -162,7 +132,7 @@ export default function TimelineJourneySection() {
 
                 {/* Year label — positioned on the left */}
                 <span
-                  className="absolute left-0 md:-left-2 top-5 text-xs md:text-sm font-bold tracking-wider whitespace-nowrap dark:text-[#C3E41D] text-[#8a9d17]"
+                  className="absolute left-0 md:-left-7 top-5 text-xs md:text-sm font-bold tracking-wider whitespace-nowrap dark:text-[#8A00C4] text-[#8a9d17]"
                   style={{ fontFamily: "'Fira Code', monospace" }}
                 >
                   {milestone.year}
@@ -170,12 +140,12 @@ export default function TimelineJourneySection() {
 
                 {/* Card on the right */}
                 <div
-                  className="dark:bg-[hsl(0,0%,10%)] bg-white dark:border-neutral-800 border-neutral-200 border rounded-xl p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-[rgba(195,228,29,0.05)] group"
+                  className="dark:bg-[hsl(0,0%,10%)] bg-white dark:border-neutral-800 border-neutral-200 border rounded-xl p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-[rgba(195,228,29,0.05)] group "
                   onMouseEnter={(e) => {
                     (e.currentTarget as HTMLElement).style.borderColor =
                       "rgba(195,228,29,0.4)";
                     (e.currentTarget as HTMLElement).style.boxShadow =
-                      "0 0 20px rgba(195,228,29,0.1)";
+                      "0 0 100  px rgba(195,228,29,0.1)";
                   }}
                   onMouseLeave={(e) => {
                     (e.currentTarget as HTMLElement).style.borderColor = "";
@@ -193,10 +163,10 @@ export default function TimelineJourneySection() {
                       {milestone.title}
                     </h3>
                     {milestone.active && (
-                      <span className="flex items-center gap-1 text-[10px] uppercase tracking-widest font-bold dark:text-[#C3E41D] text-[#8a9d17] shrink-0 px-2 py-0.5 rounded-full dark:bg-[#C3E41D]/10 bg-[#C3E41D]/10">
+                      <span className="flex items-center gap-1 text-[10px] uppercase tracking-widest font-bold dark:text-[#8A00C4] text-[#8a9d17] shrink-0 px-2 py-0.5 rounded-full dark:bg-[#8A00C4]/10 bg-[#8A00C4]/10">
                         <span className="relative flex h-1.5 w-1.5">
-                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#C3E41D] opacity-75" />
-                          <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#C3E41D]" />
+                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#8A00C4] opacity-75" />
+                          <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#8A00C4]" />
                         </span>
                         Current
                       </span>

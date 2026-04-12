@@ -52,19 +52,6 @@ const projects = [
     highlights: ["Operational transformation", "Syntax-highlighted code editing", "Video conferencing", "File version management"],
   },
   {
-    name: "PixelArt Studio",
-    category: "Design" as Category,
-    description:
-      "A creative pixel art editor built with the Canvas API, featuring layers, animation timeline, custom palettes, and export to sprite sheets.",
-    fullDescription: "PixelArt Studio is a browser-based pixel art editor designed for game developers and digital artists. It features a layer system with blend modes, an animation timeline with onion skinning, custom color palettes, tilemap editing, and export to sprite sheets, GIF animations, and PNG sequences. All processing happens client-side for instant feedback.",
-    tags: ["Canvas API", "TypeScript"],
-    image: "https://images.unsplash.com/photo-1542744094-3a31f272c490?w=600&h=400&fit=crop",
-    featured: false,
-    link: "#",
-    github: "#",
-    highlights: ["Layer system with blend modes", "Animation timeline", "Custom palettes", "Sprite sheet export"],
-  },
-  {
     name: "EcoTrack",
     category: "Mobile" as Category,
     description:
@@ -128,7 +115,7 @@ function AnimatedHeading({ text }: { text: string }) {
       className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4 md:mb-6"
       style={{
         fontFamily: "'Fira Code', monospace",
-        color: "#C3E41D",
+        color: "#8A00C4",
         opacity: inView ? 1 : 0,
         transform: inView ? "translateY(0)" : "translateY(20px)",
         filter: inView ? "blur(0px)" : "blur(8px)",
@@ -184,7 +171,7 @@ function ProjectModal({ project, onClose }: { project: typeof projects[0]; onClo
             </h3>
             <div className="flex gap-2 mt-2">
               {project.tags.map((tag) => (
-                <Badge key={tag} className="text-xs bg-[#C3E41D] text-black border-none font-semibold">
+                <Badge key={tag} className="text-xs bg-[#8A00C4] text-black border-none font-semibold">
                   {tag}
                 </Badge>
               ))}
@@ -212,7 +199,7 @@ function ProjectModal({ project, onClose }: { project: typeof projects[0]; onClo
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {project.highlights.map((h) => (
                 <li key={h} className="flex items-center gap-2 text-sm dark:text-neutral-300 text-neutral-600">
-                  <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: "#C3E41D" }} />
+                  <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: "#8A00C4" }} />
                   <span style={{ fontFamily: "'Antic', sans-serif" }}>{h}</span>
                 </li>
               ))}
@@ -224,7 +211,7 @@ function ProjectModal({ project, onClose }: { project: typeof projects[0]; onClo
             <Button
               variant="outline"
               size="sm"
-              className="dark:border-neutral-700 dark:text-neutral-300 dark:hover:border-[#C3E41D] dark:hover:text-[#C3E41D] border-neutral-300 text-neutral-600 hover:border-[#C3E41D] hover:text-[#C3E41D] transition-colors"
+              className="dark:border-neutral-700 dark:text-neutral-300 dark:hover:border-[#8A00C4] dark:hover:text-[#8A00C4] border-neutral-300 text-neutral-600 hover:border-[#8A00C4] hover:text-[#8A00C4] transition-colors"
               onClick={onClose}
             >
               <Globe className="w-4 h-4 mr-2" />
@@ -233,7 +220,7 @@ function ProjectModal({ project, onClose }: { project: typeof projects[0]; onClo
             <Button
               variant="outline"
               size="sm"
-              className="dark:border-neutral-700 dark:text-neutral-300 dark:hover:border-[#C3E41D] dark:hover:text-[#C3E41D] border-neutral-300 text-neutral-600 hover:border-[#C3E41D] hover:text-[#C3E41D] transition-colors"
+              className="dark:border-neutral-700 dark:text-neutral-300 dark:hover:border-[#8A00C4] dark:hover:text-[#8A00C4] border-neutral-300 text-neutral-600 hover:border-[#8A00C4] hover:text-[#8A00C4] transition-colors"
               onClick={onClose}
             >
               <Github className="w-4 h-4 mr-2" />
@@ -292,15 +279,15 @@ export default function ProjectsSection() {
                 whileHover={
                   isActive
                     ? { scale: 1.03 }
-                    : { scale: 1.03, borderColor: "#C3E41D", color: "#C3E41D" }
+                    : { scale: 1.03, borderColor: "#8A00C4", color: "#8A00C4" }
                 }
                 whileTap={{ scale: 0.97 }}
                 className="relative flex items-center gap-1 rounded-full px-4 py-2 text-xs uppercase tracking-wider font-medium transition-all duration-300"
                 style={{
                   fontFamily: "'Fira Code', monospace",
-                  backgroundColor: isActive ? "#C3E41D" : "transparent",
+                  backgroundColor: isActive ? "#8A00C4" : "transparent",
                   color: isActive ? "black" : isDark ? "hsl(0 0% 70%)" : "hsl(0 0% 40%)",
-                  border: `1px solid ${isActive ? "#C3E41D" : isDark ? "hsl(0 0% 20%)" : "hsl(0 0% 82%)"}`,
+                  border: `1px solid ${isActive ? "#8A00C4" : isDark ? "hsl(0 0% 20%)" : "hsl(0 0% 82%)"}`,
                 }}
               >
                 <span>{category}</span>
@@ -335,7 +322,7 @@ export default function ProjectsSection() {
                 }}
               >
                 <Card
-                  className="dark:bg-[hsl(0,0%,12%)] bg-white dark:border-neutral-800 border-neutral-200 dark:hover:border-[#C3E41D]/40 hover:border-[#C3E41D]/60 transition-all duration-300 overflow-hidden group h-full relative cursor-pointer"
+                  className="dark:bg-[hsl(0,0%,12%)] bg-white dark:border-neutral-800 border-neutral-200 dark:hover:border-[#8A00C4]/40 hover:border-[#8A00C4]/60 transition-all duration-300 overflow-hidden group h-full relative cursor-pointer"
                   onClick={() => setSelectedProject(project)}
                   onKeyDown={(e) => e.key === "Enter" && setSelectedProject(project)}
                   tabIndex={0}
@@ -343,7 +330,7 @@ export default function ProjectsSection() {
                 >
                   {project.featured && (
                     <div className="absolute top-3 right-3 z-20 flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider text-black"
-                      style={{ backgroundColor: "#C3E41D", fontFamily: "'Fira Code', monospace" }}
+                      style={{ backgroundColor: "#8A00C4", fontFamily: "'Fira Code', monospace" }}
                     >
                       <Star className="w-3 h-3" />
                       Featured
@@ -387,7 +374,7 @@ export default function ProjectsSection() {
                     <Button
                       variant="outline"
                       size="sm"
-                      className="dark:border-neutral-700 dark:text-neutral-300 dark:hover:border-[#C3E41D] dark:hover:text-[#C3E41D] border-neutral-300 text-neutral-600 hover:border-[#C3E41D] hover:text-[#C3E41D] transition-colors"
+                      className="dark:border-neutral-700 dark:text-neutral-300 dark:hover:border-[#8A00C4] dark:hover:text-[#8A00C4] border-neutral-300 text-neutral-600 hover:border-[#8A00C4] hover:text-[#8A00C4] transition-colors"
                     >
                       <ExternalLink className="w-4 h-4 mr-2" />
                       View Details

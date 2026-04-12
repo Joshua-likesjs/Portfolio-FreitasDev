@@ -19,7 +19,7 @@ Stage Summary:
 - Component features: animated text (BlurText), dark/light theme toggle, responsive navigation menu, scroll indicator
 - The component manages its own dark mode state via `document.documentElement.classList` toggle
 - Profile image sourced from external URL (postimg.cc)
-- Accent color: #C3E41D (lime green)
+- Accent color: #8A00C4 (lime green)
 - Fonts: Fira Code (monospace for name), Antic (sans-serif for tagline), Brush Script MT (for signature)
 
 ---
@@ -75,7 +75,7 @@ Work Log:
 - Rewrote `portfolio-footer.tsx` — Nav links row, social icons (GitHub, LinkedIn, Twitter, Email), dynamic copyright year, divider line
 - Updated `portfolio-hero.tsx` — Added WRITING to nav menu items
 - Updated `page.tsx` — Added StatsSection, WritingSection, BackToTop to render order
-- Enhanced `globals.css` — Custom text selection color (#C3E41D), focus-visible ring, line-clamp utility, noise overlay
+- Enhanced `globals.css` — Custom text selection color (#8A00C4), focus-visible ring, line-clamp utility, noise overlay
 - ESLint: 0 errors
 - Full QA with agent-browser: all sections render, contact API works (201/400), mobile responsive, zero console errors
 
@@ -329,11 +329,11 @@ Files Created:
 
 Component Features:
 - Section id="newsletter" with dark:bg-[hsl(0,0%,4%)] bg-[hsl(0,0%,96%)] background
-- AnimatedHeading "STAY UPDATED" with Fira Code font, #C3E41D color, blur entrance animation
+- AnimatedHeading "STAY UPDATED" with Fira Code font, #8A00C4 color, blur entrance animation
 - Subtitle: "Get notified about new projects, articles, and creative experiments."
 - Email input + Subscribe button in a row (stacked on mobile via flex-col sm:flex-row)
-- Input: rounded-xl, px-4 py-3, dark:bg-[hsl(0,0%,8%)] bg-white, focus:border-[#C3E41D]
-- Button: backgroundColor #C3E41D, rounded-xl, Fira Code font, hover:-translate-y-0.5, hover:shadow-lg
+- Input: rounded-xl, px-4 py-3, dark:bg-[hsl(0,0%,8%)] bg-white, focus:border-[#8A00C4]
+- Button: backgroundColor #8A00C4, rounded-xl, Fira Code font, hover:-translate-y-0.5, hover:shadow-lg
 - Success state: green Check icon + "You're in! 🎉" message with spring animation
 - Loading state: Sparkles spinner + "Subscribing..." text
 - Error handling: inline error message below form
@@ -374,7 +374,7 @@ Task 2 — Next.js Image remotePatterns:
 
 Task 3 — Loading Skeleton Page:
 - Created `src/app/loading.tsx` — Next.js automatically shows this during route loading
-- Uses shadcn `Skeleton` component with `bg-[#C3E41D]/20` accent-tinted backgrounds for hero elements
+- Uses shadcn `Skeleton` component with `bg-[#8A00C4]/20` accent-tinted backgrounds for hero elements
 - Skeleton sections mirror the real page layout:
   - Hero: circular profile image, name/title bars, CTA buttons, scroll indicator
   - About: bio text lines, headshot placeholder, skill progress bar placeholders (4 bars in 2-col grid)
@@ -382,7 +382,7 @@ Task 3 — Loading Skeleton Page:
   - Projects: 4 card placeholders with image, title, description, tag bars
   - Timeline: 3 timeline entries with dot connectors and text lines
   - Contact: form fields + info cards side-by-side
-- Dark/light mode aware via `bg-background` and `bg-muted` / `bg-[#C3E41D]/20` classes
+- Dark/light mode aware via `bg-background` and `bg-muted` / `bg-[#8A00C4]/20` classes
 
 Files Modified/Created:
 | File | Status | Description |
@@ -432,7 +432,7 @@ Styling Improvements:
 - **Experience cards**: Added hover:-translate-y-1 and hover:shadow-lg with subtle green glow shadow
 - **Process cards**: Added hover lift (-translate-y-1), shadow glow, and gradient overlay on hover (matching services/achievements pattern)
 - **Writing section cards**: Added hover lift and shadow glow to both featured article and grid cards
-- **Testimonials card**: Added subtle hover border glow (dark:border-[#C3E41D]/20)
+- **Testimonials card**: Added subtle hover border glow (dark:border-[#8A00C4]/20)
 - **New CSS animations in globals.css**:
   - `@keyframes float` — Gentle 10px vertical oscillation (6s loop)
   - `@keyframes glow-pulse` — Pulsing box-shadow glow (3s loop)
@@ -440,7 +440,7 @@ Styling Improvements:
   - `.animate-float` — Float animation utility class
   - `.animate-glow-pulse` — Glow pulse utility class
   - `.dot-pattern` — Dot grid background pattern (radial-gradient dots with dark/light variants)
-  - `.text-gradient-accent` — Gradient text effect (#C3E41D → #8aaa10)
+  - `.text-gradient-accent` — Gradient text effect (#8A00C4 → #8aaa10)
   - `.border-gradient` — Gradient border on hover (CSS mask trick with pseudo-element)
   - `:not(.dark) ::-webkit-scrollbar-thumb` — Light mode scrollbar styling
 
@@ -550,7 +550,7 @@ Performance Optimization:
 
 New Features:
 - Created `tools-section.tsx` — "TOOLS & SETUP" section with 5 tool categories (Editor & IDE, Frontend, Backend, DevOps, Hardware), 20 tool cards total, each with emoji icon, tool name (Fira Code), description (Antic), compact rounded-xl card design, hover effects (border glow, translateY, shadow), staggered Framer Motion entrance, flex-wrap layout with category dividers
-- Created `availability-banner.tsx` — Dismissible freelancer availability banner with pulsing green dot, "Available for freelance work" text, "Updated Jan 2025" date, gradient bottom border (#C3E41D), Framer Motion fade-in/exit animation, localStorage dismissal persistence
+- Created `availability-banner.tsx` — Dismissible freelancer availability banner with pulsing green dot, "Available for freelance work" text, "Updated Jan 2025" date, gradient bottom border (#8A00C4), Framer Motion fade-in/exit animation, localStorage dismissal persistence
 
 Bug Fixes:
 - Fixed `react-hooks/set-state-in-effect` lint error in availability-banner.tsx: Replaced `useState(false)` + `useEffect` with lazy initializer `useState(() => !localStorage.getItem(key))` to avoid synchronous setState in effect
@@ -664,19 +664,19 @@ Part 1 — Dark/Light Image Adaptation:
 Part 2 — Card Hover Micro-interactions:
 Added new CSS utilities at end of globals.css:
 - `.card-tilt` — 3D transform + perspective for JS-driven tilt effects
-- `.heading-glow:hover` — subtle text-shadow glow (#C3E41D at 0.15 opacity)
+- `.heading-glow:hover` — subtle text-shadow glow (#8A00C4 at 0.15 opacity)
 - `.img-reveal` / `.img-reveal.revealed` — clip-path scroll reveal animation (0.8s cubic-bezier)
 - `.stagger-1` through `.stagger-5` — animation delay utilities (0.1s–0.5s)
-- `*:focus-visible` — accent color (#C3E41D) focus ring (2px solid, 2px offset)
+- `*:focus-visible` — accent color (#8A00C4) focus ring (2px solid, 2px offset)
 - `:not(.dark) ::selection` — light mode text selection color (rgba(195,228,29,0.3))
 - `@keyframes dot-pulse` / `.dot-pulse` — pulsing box-shadow ring for timeline dots
-- `.card-glow-line::before` — 3px #C3E41D left-edge line that scales in on hover (scaleY 0→1)
+- `.card-glow-line::before` — 3px #8A00C4 left-edge line that scales in on hover (scaleY 0→1)
 
 Part 3 — Experience Section Card Enhancements:
 Rewrote `experience-section.tsx` with:
 1. **Timeline dot pulse**: Each dot uses IntersectionObserver to conditionally add `.dot-pulse` class when in viewport; enhanced box-shadow when active
 2. **Card content stagger**: Extracted `ExperienceCard` component using Framer Motion `staggerContainer` + `staggerItem` variants — children (title+period, meta info, bullet list) animate in with 0.08s stagger per child
-3. **Hover glow line**: Added `.card-glow-line` class to content card div — thin #C3E41D line scales from top on hover
+3. **Hover glow line**: Added `.card-glow-line` class to content card div — thin #8A00C4 line scales from top on hover
 4. **Calendar icon**: Added `Calendar` lucide icon next to period text for visual consistency
 5. **Heading glow**: Added `.heading-glow` to role title for subtle hover text-shadow
 
@@ -709,14 +709,14 @@ Agent: Main Agent
 Task: Create availability status banner component
 
 Work Log:
-- Read worklog.md to understand full project context (19+ sections, accent color #C3E41D, Fira Code + Antic fonts, framer-motion animations)
+- Read worklog.md to understand full project context (19+ sections, accent color #8A00C4, Fira Code + Antic fonts, framer-motion animations)
 - Created `src/components/ui/availability-banner.tsx`
 
 Component Features:
 - `'use client'` directive for client-side interactivity
 - Compact full-width bar with `py-2.5 px-4` padding
 - Dark/light mode aware background: `bg-[hsl(0,0%,95%)] dark:bg-[hsl(0,0%,6%)]`
-- Subtle gradient border at bottom: 1px linear-gradient of #C3E41D fading from center to transparent
+- Subtle gradient border at bottom: 1px linear-gradient of #8A00C4 fading from center to transparent
 - Left side: pulsing green dot (`w-2 h-2 rounded-full bg-green-500 animate-pulse`) + "Available for freelance work" text in Fira Code monospace, text-xs uppercase tracking-widest
 - Right side (desktop): "Updated Jan 2025" in muted text + dismiss X button
 - Right side (mobile): "Updated Jan 2025" moves below the main line
@@ -737,14 +737,14 @@ Task: Create Tools & Setup section
 
 Work Log:
 - Read worklog.md to understand project context (19+ sections, AnimatedHeading patterns, styling conventions)
-- Read faq-section.tsx and services-section.tsx to match AnimatedHeading pattern (IntersectionObserver + blur entrance, Fira Code, #C3E41D color)
+- Read faq-section.tsx and services-section.tsx to match AnimatedHeading pattern (IntersectionObserver + blur entrance, Fira Code, #8A00C4 color)
 - Created `src/components/ui/tools-section.tsx` with all specified requirements
 
 Component Features:
 - Section id="tools" with dark:bg-[hsl(0,0%,4%)] bg-[hsl(0,0%,96%)] background
 - AnimatedHeading "TOOLS & SETUP" — same IntersectionObserver + blur entrance pattern as other sections
 - Subtitle in Antic font: "The hardware, software, and tools I use daily to build great products."
-- 5 tool categories, each with Lucide icon + uppercase tracking-widest header (#C3E41D):
+- 5 tool categories, each with Lucide icon + uppercase tracking-widest header (#8A00C4):
   1. Editor & IDE (Code2): VS Code, Vim, Figma, iTerm2
   2. Frontend (Palette): React/Next.js, TypeScript, Tailwind CSS, Framer Motion
   3. Backend (Server): Node.js, Prisma, PostgreSQL, Redis
@@ -752,7 +752,7 @@ Component Features:
   5. Hardware (Monitor): MacBook Pro 16", LG 4K Monitor, Keychron K2, Logitech MX Master 3
 - Tool cards: compact rounded-xl (px-3 py-2), emoji + name (Fira Code text-sm) + description (Antic text-xs muted)
 - Card styling: dark:bg-[hsl(0,0%,8%)] bg-white, dark:border-neutral-800 border-neutral-200
-- Hover effects: border → #C3E41D/40, translateY(-2px), subtle green shadow glow
+- Hover effects: border → #8A00C4/40, translateY(-2px), subtle green shadow glow
 - Staggered Framer Motion entrance (fade-in from bottom, 60ms delay per tool)
 - Categories separated by border-t dividers
 - Layout: flex-wrap gap-3 within each category, max-w-6xl mx-auto
@@ -837,7 +837,7 @@ Agent: full-stack-developer
 Task: Create Animated Quote Section
 
 Work Log:
-- Read worklog.md to understand project context (20+ sections, Framer Motion animations, accent color #C3E41D)
+- Read worklog.md to understand project context (20+ sections, Framer Motion animations, accent color #8A00C4)
 - Read testimonials-section.tsx and faq-section.tsx to understand AnimatedHeading pattern and carousel/animation conventions
 - Created `/src/components/ui/quote-section.tsx` with all required features:
   - Section id="quotes" with dark:bg-[hsl(0,0%,4%)] bg-[hsl(0,0%,96%)] background
@@ -849,7 +849,7 @@ Work Log:
   - Dot indicators for direct navigation to any quote
   - Framer Motion AnimatePresence crossfade animation (directional slide + opacity)
   - Staggered author reveal animation (delayed 0.2s after quote appears)
-  - Large decorative opening quote mark ("") in accent color #C3E41D at 12% opacity (120px/180px responsive)
+  - Large decorative opening quote mark ("") in accent color #8A00C4 at 12% opacity (120px/180px responsive)
   - Decorative closing quote mark ("") at 8% opacity below content
   - Quote text in text-xl md:text-2xl lg:text-3xl with Antic font
   - Keyboard navigation (ArrowLeft/ArrowRight)
@@ -868,7 +868,7 @@ Agent: full-stack-developer
 Task: Create Music Player Widget
 
 Work Log:
-- Read worklog.md to understand project context (portfolio for "Freitas", 20+ sections, Fira Code/Antic fonts, #C3E41D accent, glass-card utility, Framer Motion animations)
+- Read worklog.md to understand project context (portfolio for "Freitas", 20+ sections, Fira Code/Antic fonts, #8A00C4 accent, glass-card utility, Framer Motion animations)
 - Read now-section.tsx to understand the "Currently listening" pattern (Live badge with pulsing green dot, card grid layout, AnimatedHeading)
 - Read skills-radar-section.tsx for additional styling patterns (dot pattern backgrounds, gradient glows, IntersectionObserver animations)
 - Verified .glass-card CSS class in globals.css (backdrop-blur + semi-transparent bg with dark/light variants)
@@ -879,12 +879,12 @@ Component Features:
 - **Album art**: Unique gradient placeholder per track (5 distinct linear-gradient backgrounds), vinyl grooves overlay with spinning conic-gradient animation when playing
 - **Track info**: Song title in Fira Code monospace, artist name in Antic sans-serif, both truncated with min-w-0
 - **Equalizer bars**: 5 animated bars using Framer Motion (height keyframes with staggered delays: 0s, 0.15s, 0.3s, 0.1s, 0.25s; different max heights: 60%, 90%, 45%, 75%, 55%); bars collapse to 15% when paused
-- **Play/pause button**: #C3E41D accent circle with AnimatePresence icon swap (scale + rotate entrance/exit animations), hover glow shadow
-- **Progress bar**: Clickable slider with #C3E41D fill, spring-animated layout transitions, hover thumb reveal, current time / total time display (tabular-nums in Fira Code)
+- **Play/pause button**: #8A00C4 accent circle with AnimatePresence icon swap (scale + rotate entrance/exit animations), hover glow shadow
+- **Progress bar**: Clickable slider with #8A00C4 fill, spring-animated layout transitions, hover thumb reveal, current time / total time display (tabular-nums in Fira Code)
 - **Playback simulation**: useEffect-based setInterval (200ms) that advances progress, auto-advances to next track at 100%, supports seek via click
 - **Skip controls**: Previous/Next buttons with Framer Motion whileHover/whileTap scale animations
 - **Currently listening label**: "Currently listening" text in Fira Code with uppercase tracking, pulsing green dot (animate-ping with animationPlayState tied to isPlaying)
-- **Glass morphism**: Uses .glass-card class with rounded-2xl, subtle #C3E41D radial gradient glow in background
+- **Glass morphism**: Uses .glass-card class with rounded-2xl, subtle #8A00C4 radial gradient glow in background
 - **Volume indicator**: Decorative Volume2 icon + 72% mini volume bar (visual only)
 - **Track counter**: Music2 icon + "N/M" counter in Fira Code
 - **Dark/light mode**: Full support via dark: Tailwind prefixes throughout
@@ -1117,7 +1117,7 @@ Changes Made:
 
 2. Enhanced hero profile picture with animated gradient ring:
    - Added a `relative` wrapper div around the profile image container
-   - Added a conic gradient ring div (`absolute inset-[-6px] rounded-full animate-rotate-ring`) using #C3E41D and transparent segments
+   - Added a conic gradient ring div (`absolute inset-[-6px] rounded-full animate-rotate-ring`) using #8A00C4 and transparent segments
    - Added a solid background ring underneath (`absolute inset-[-5px]`) matching dark/light theme colors to create the ring effect
    - Inner image container has `relative z-10` to sit above the rotating ring
    - Kept existing hover:scale-110 effect on the image container
@@ -1138,10 +1138,10 @@ Verification Results:
 - ✅ ESLint: 0 errors on modified files (pre-existing errors in other files are unrelated)
 - ✅ No existing functionality changed
 - ✅ All existing styles and animations preserved
-- ✅ Accent color #C3E41D used consistently
+- ✅ Accent color #8A00C4 used consistently
 
 Stage Summary:
-- Hero profile picture now has an animated rotating conic gradient ring in #C3E41D
+- Hero profile picture now has an animated rotating conic gradient ring in #8A00C4
 - CTA buttons ("Get in Touch" and "Resume") have a subtle magnetic hover effect (max 4px translation toward cursor)
 - New CSS animation `rotate-ring` added to globals.css (6s linear infinite rotation)
 
@@ -1156,16 +1156,16 @@ Work Log:
 - Read page.tsx to determine section ordering
 - Created `src/components/ui/trusted-brands-section.tsx` with:
   - Section ID `trusted-brands` for navigation
-  - AnimatedHeading "TRUSTED BY" in Fira Code, #C3E41D color, blur entrance animation
+  - AnimatedHeading "TRUSTED BY" in Fira Code, #8A00C4 color, blur entrance animation
   - Subtitle in Antic font: "Companies and teams I've had the privilege of working with."
   - 12 brand cards (Google, Stripe, Vercel, Figma, GitHub, Shopify, Notion, Linear, Supabase, AWS, Framer, Railway)
   - Each card: brand name (Fira Code bold), colored dot + decorative line (brand signature color), category text (Antic)
   - Glassmorphism cards: backdrop-blur-sm, semi-transparent bg, subtle border
-  - Hover effects: scale(1.05), translateY(-2px), #C3E41D border glow
+  - Hover effects: scale(1.05), translateY(-2px), #8A00C4 border glow
   - Staggered Framer Motion whileInView entrance (0.06s delay per card)
   - Responsive grid: 4 cols desktop, 3 tablet, 2 mobile
   - Dark/light mode: dark:bg-[hsl(0,0%,6%)] bg-[hsl(0,0%,99%)]
-  - Subtle radial gradient glow (#C3E41D at low opacity) in section background
+  - Subtle radial gradient glow (#8A00C4 at low opacity) in section background
 - Integrated into page.tsx: imported TrustedBrandsSection, placed after AboutSection with SectionDivider before/after, before SkillsRadarSection
 - Fixed initial parsing error (ternary operator syntax in style object) and re-verified
 - Ran ESLint: 0 new errors (2 pre-existing issues in other files)
@@ -1173,7 +1173,7 @@ Work Log:
 Stage Summary:
 - New TrustedBrandsSection component with 12 brand cards, glassmorphism styling, and staggered animations
 - Section placed between About and Skills Radar with section dividers
-- Follows all established patterns (AnimatedHeading, Framer Motion, Fira Code/Antic fonts, #C3E41D accent)
+- Follows all established patterns (AnimatedHeading, Framer Motion, Fira Code/Antic fonts, #8A00C4 accent)
 
 ---
 Task ID: 11-b
@@ -1184,7 +1184,7 @@ Work Log:
 - Read worklog.md to understand project context (21+ section components, established patterns)
 - Read existing testimonials-section.tsx to understand current implementation (auto-advance, prev/next, dots, keyboard nav)
 - Added auto-advance progress bar using requestAnimationFrame with direct DOM manipulation (avoids setState-in-effect lint error)
-  - 2px height, rounded-full, backgroundColor #C3E41D, track dark:bg-neutral-800 bg-neutral-200
+  - 2px height, rounded-full, backgroundColor #8A00C4, track dark:bg-neutral-800 bg-neutral-200
   - Container: max-w-xs centered below testimonial card
   - Resets on testimonial change (manual or auto), pauses on hover
 - Added shuffle button (Shuffle icon from lucide-react) between dots and next button
@@ -1226,7 +1226,7 @@ Work Log:
   - Removed dark:bg-neutral-800/bg-neutral-200 solid colors, replaced with gradient
 - Enhanced portfolio-footer.tsx:
   - CTA button: magnetic hover effect with onMouseMove/onMouseLeave, max 3px translation toward cursor
-  - Added animated gradient top border on footer (left→right sliding gradient with #C3E41D/40)
+  - Added animated gradient top border on footer (left→right sliding gradient with #8A00C4/40)
   - Social icons: CSS transition-based bounce on hover (translateY -3px) with spring easing
   - Added useRef for CTA button, useCallback for mouse handlers
 - Enhanced back-to-top.tsx:
@@ -1261,7 +1261,7 @@ Work Log:
 - Launched 4 parallel subagents for feature development
 
 New Features (Subagent 11-a):
-- **Animated gradient ring** on hero profile picture — rotating conic gradient (#C3E41D + transparent) using CSS animation (6s linear infinite)
+- **Animated gradient ring** on hero profile picture — rotating conic gradient (#8A00C4 + transparent) using CSS animation (6s linear infinite)
 - **Magnetic hover effect** on CTA buttons — buttons subtly translate toward cursor (max 4px) on mousemove, spring back on mouseleave
 - Added `@keyframes rotate-ring` + `.animate-rotate-ring` to globals.css
 
@@ -1273,14 +1273,14 @@ New Features (Subagent 11-b):
 New Section (Subagent 11-c):
 - **Trusted Brands section** — 12 brand cards (Google, Stripe, Vercel, Figma, GitHub, Shopify, Notion, Linear, Supabase, AWS, Framer, Railway)
 - Glassmorphism cards with colored dot decorations, brand category labels
-- Hover effects: scale(1.05), translateY(-2px), #C3E41D border glow
+- Hover effects: scale(1.05), translateY(-2px), #8A00C4 border glow
 - Staggered Framer Motion entrance animation
 - Responsive grid: 4 cols desktop, 3 tablet, 2 mobile
 - Integrated into page.tsx between About and Skills Radar with SectionDividers
 
 Styling Enhancements (Subagent 11-d):
-- **Section divider** — gradient lines (transparent → #C3E41D/30 → transparent), continuous CSS pulsing glow on center dot, IntersectionObserver-driven reveal
-- **Footer CTA** — magnetic hover on "Get in Touch" button, animated gradient sliding top border (#C3E41D/40), social icons bounce on hover
+- **Section divider** — gradient lines (transparent → #8A00C4/30 → transparent), continuous CSS pulsing glow on center dot, IntersectionObserver-driven reveal
+- **Footer CTA** — magnetic hover on "Get in Touch" button, animated gradient sliding top border (#8A00C4/40), social icons bounce on hover
 - **Back-to-top** — improved entrance animation (scale 0.5→1), spinning dashed ring on hover, pulsing glow shadow when visible
 - **Scroll progress bar** — dual-layer glow/shadow, rounded right end cap, flash/pulse at 100%
 - **New CSS utilities** in globals.css: magnetic-pulse-subtle, gradient-slide, spin-ring, soft-bounce, flash-complete, scroll-reveal-line
@@ -1329,7 +1329,7 @@ The portfolio is a **fully-featured, production-quality single-page portfolio we
 - **Backend**: 2 API routes + Prisma ORM + SQLite (4 models)
 - **Fonts**: Fira Code (monospace), Antic (sans-serif), Brush Script MT (cursive)
 - **SEO**: JSON-LD Person schema, OpenGraph + Twitter metadata
-- **Accent color**: #C3E41D (lime green) used consistently throughout
+- **Accent color**: #8A00C4 (lime green) used consistently throughout
 
 ### Unresolved Issues / Risks & Next Phase Recommendations
 1. **External images still need optimization verification** — Migrated to Next.js Image but remote patterns should be stress-tested
@@ -1359,8 +1359,8 @@ Work Log:
 - Added `BillingType` type ('project' | 'monthly') and `useState` for toggle state
 - Added monthly pricing data to all 3 plans: Starter "$500/mo", Professional "$1,200/mo", Enterprise "Custom" (unchanged)
 - Added billing toggle UI between subtitle and pricing cards:
-  - "Per Project" label (clickable, #C3E41D when active, neutral-400/500 when inactive, Fira Code font)
-  - Toggle switch: w-12 h-6 rounded-full, bg-neutral-700 inactive / #C3E41D active, spring-animated thumb (w-5 h-5 white)
+  - "Per Project" label (clickable, #8A00C4 when active, neutral-400/500 when inactive, Fira Code font)
+  - Toggle switch: w-12 h-6 rounded-full, bg-neutral-700 inactive / #8A00C4 active, spring-animated thumb (w-5 h-5 white)
   - "Monthly" label (clickable, same active/inactive styling)
 - Added "Save 20%" badge next to "Per Project" label when monthly is active:
   - AnimatePresence fade-in/out, bg-green-500/10, text-green-400, text-[10px], rounded-full, px-2 py-0.5
@@ -1402,9 +1402,9 @@ Work Log:
 
 Filter Tab Styling:
 - Restyled tabs: rounded-full, px-4 py-2, text-xs uppercase tracking-wider, Fira Code font
-- Active tab: #C3E41D background, black text, #C3E41D border
+- Active tab: #8A00C4 background, black text, #8A00C4 border
 - Inactive tab: transparent background, neutral border/text (dark: hsl(0,0%,20%/70%), light: hsl(0,0%,82%/40%))
-- Hover on inactive: framer-motion whileHover animates border-color → #C3E41D, color → #C3E41D, scale 1.03
+- Hover on inactive: framer-motion whileHover animates border-color → #8A00C4, color → #8A00C4, scale 1.03
 - Active hover: scale 1.03 only
 - whileTap: scale 0.97 on all tabs
 
@@ -1449,22 +1449,22 @@ Work Log:
 
 Created `featured-articles-section.tsx`:
 - Section id="featured-articles" with dark/light mode background
-- AnimatedHeading "FEATURED ARTICLES" in Fira Code, #C3E41D, blur entrance animation via IntersectionObserver
+- AnimatedHeading "FEATURED ARTICLES" in Fira Code, #8A00C4, blur entrance animation via IntersectionObserver
 - AnimatedSubtitle "Thoughts on design, code, and the creative process." in Antic with fade-in + translate-up entrance
 - Horizontal scrollable article carousel with scroll-snap-x, flex layout, gap-6, overflow-x-auto, pb-4
 - 6 article cards in a horizontal row, each min-w-[320px] sm:min-w-[380px]
 - Each card features:
-  - Article number (01-06) in Fira Code, #C3E41D, text-6xl font-bold, opacity 0.15
-  - Category badge with color coding (Design=#C3E41D, Development=blue-400, Creative=purple-400, Startup=orange-400)
+  - Article number (01-06) in Fira Code, #8A00C4, text-6xl font-bold, opacity 0.15
+  - Category badge with color coding (Design=#8A00C4, Development=blue-400, Creative=purple-400, Startup=orange-400)
   - Title in Fira Code, dark:text-white, text-neutral-900
   - Description in Antic, text-sm, line-clamp-2
   - Footer with Clock icon + reading time on left, date on right
   - "Read" + ArrowRight link on hover with link-underline animation
-  - Glass-card styling, rounded-2xl, p-6, hover:-translate-y-2, hover:shadow-lg, hover border glow #C3E41D/20
+  - Glass-card styling, rounded-2xl, p-6, hover:-translate-y-2, hover:shadow-lg, hover border glow #8A00C4/20
 - Staggered Framer Motion entrance animations (0.1s delay between cards)
 - Scroll position tracking via passive scroll listener for dot indicators
 - CSS gradient mask edges on scroll container (fade in/out on left/right)
-- 3 dot indicators below carousel with active state (width expands to 28px when active, color #C3E41D)
+- 3 dot indicators below carousel with active state (width expands to 28px when active, color #8A00C4)
 - Dot click scrolls carousel to start/middle/end positions
 
 Integration:
@@ -1486,9 +1486,9 @@ Work Log:
 
 Part 1 — Services Section Enhancements:
 1. **Staggered Card Entrance**: Updated delay from 0.08s to 0.1s per card, using whileInView with viewport once + amount 0.2
-2. **Animated Gradient Border**: Added outer wrapper div with CSS gradient background that transitions from transparent to `linear-gradient(135deg, #C3E41D, #8aaa10, #C3E41D)` on hover via mouseEnter/mouseLeave state
+2. **Animated Gradient Border**: Added outer wrapper div with CSS gradient background that transitions from transparent to `linear-gradient(135deg, #8A00C4, #8aaa10, #8A00C4)` on hover via mouseEnter/mouseLeave state
 3. **Icon Scale Bounce**: Replaced static CSS scale with Framer Motion `animate` that bounces `scale: [1, 1.1, 1.0]` with 0.4s easeInOut on hover
-4. **Tech Tags Shift**: Tags container uses `translateY(-2px)` on card hover with smooth transition; tags also change color to #C3E41D with opacity 0.9
+4. **Tech Tags Shift**: Tags container uses `translateY(-2px)` on card hover with smooth transition; tags also change color to #8A00C4 with opacity 0.9
 5. **Service Counter**: Added number indicator ("01"-"06") in top-right corner with Fira Code font, 12px, opacity 0.3, turns accent color on hover
 6. **Expand/Collapse Case Study**: Added `caseStudy` paragraph to each service data object (hardcoded real-world case studies with metrics); click toggles expand via `useState<number | null>` (only one expanded at a time); AnimatePresence with height/opacity animation; shows "Click for case study →" hint on hover; shows "Click to collapse ↑" when expanded
 7. **Removed ScrollReveal wrapper**: Cards now animate independently via whileInView
@@ -1498,7 +1498,7 @@ Part 2 — Process Section Enhancements:
 2. **Connector Arrow Animation**: Created `ConnectorArrow` component replacing static ArrowRight; SVG line draws itself via Framer Motion `pathLength` animation (0→1) triggered by IntersectionObserver; arrow head polygon fades in after line completes; each connector has staggered delay
 3. **Key Tools Hover Detail**: Added `keyTools` data to each step (Discovery: Figma/Miro/Notion, Research: Analytics/Hotjar/竞品分析, Design: Figma/Framer/Storybook, Build: Next.js/TypeScript/GitHub Actions); on hover, a "Key Tools" sub-section with pill badges animates in (opacity + height via Framer Motion)
 4. **Icon Bounce**: Same spring bounce animation as services section (scale 1→1.1→1.0 on hover)
-5. **Title Hover Color**: Step title transitions to #C3E41D on hover
+5. **Title Hover Color**: Step title transitions to #8A00C4 on hover
 
 Files Modified:
 | File | Status | Description |
@@ -1540,7 +1540,7 @@ New Features (Subagent 12-b):
 New Section (Subagent 12-c):
 - **Featured Articles section** — replaces WritingSection
 - Horizontal scroll carousel with snap scrolling (6 articles)
-- Color-coded category badges (Design=#C3E41D, Development=blue, Creative=purple, Startup=orange)
+- Color-coded category badges (Design=#8A00C4, Development=blue, Creative=purple, Startup=orange)
 - Article numbers (01-06), reading time estimates, dates
 - Scroll fade edges + dot position indicators
 - Glass-card hover effects with border glow
@@ -1587,7 +1587,7 @@ The portfolio is a **fully-featured, production-quality single-page portfolio we
 - **Styling**: Tailwind CSS 4 + shadcn/ui + 25+ CSS keyframe animations
 - **Animations**: Framer Motion + Canvas API (particles) + SVG animations
 - **Backend**: 2 API routes + Prisma ORM + SQLite
-- **Accent color**: #C3E41D (lime green)
+- **Accent color**: #8A00C4 (lime green)
 - **Fonts**: Fira Code, Antic, Brush Script MT
 
 ### Recommended Next Phase Priority
@@ -1665,7 +1665,7 @@ Part 2 — About Section Enhancement:
 1. Interactive Skill Progress Bars:
    - Added hover tooltip overlay on each bar showing exact percentage (positioned above bar with CSS arrow)
    - Added shimmer animation on bar fill when entering viewport (one-shot animation, 2s ease-in-out after 0.8s delay)
-   - Applied gradient to bar fill: `linear-gradient(90deg, #9ab016 0%, #C3E41D 60%, #d4f045 100%)` (left darker, right lighter)
+   - Applied gradient to bar fill: `linear-gradient(90deg, #9ab016 0%, #8A00C4 60%, #d4f045 100%)` (left darker, right lighter)
 
 2. Status Indicators:
    - Added "Currently" subsection below skills area with 3 status items:
@@ -1680,7 +1680,7 @@ Part 2 — About Section Enhancement:
    - Used containerVariants + fadeUpVariants with custom delay props
 
 4. Decorative Elements:
-   - Added accent-colored dot pattern behind skills area using radial-gradient (#C3E41D dots, 20px grid, very low opacity 0.03/0.04)
+   - Added accent-colored dot pattern behind skills area using radial-gradient (#8A00C4 dots, 20px grid, very low opacity 0.03/0.04)
    - Added animated "Available" badge next to section heading with pulsing green dot (animate-ping + static green dot), green-tinted background, Fira Code font
 
 Files Modified:
@@ -1702,16 +1702,16 @@ Agent: Main Agent
 Task: Enhance FAQ, Achievements, and Tools Sections with Stagger Animations + Interactivity
 
 Work Log:
-- Read worklog.md and assessed project context (20+ sections, dark/light theme, Framer Motion, accent #C3E41D)
+- Read worklog.md and assessed project context (20+ sections, dark/light theme, Framer Motion, accent #8A00C4)
 - Read all 3 target files: faq-section.tsx, achievements-section.tsx, tools-section.tsx
 - Read scroll-reveal.tsx for ScrollReveal component pattern reference
 
 Part 1 — FAQ Section (`faq-section.tsx`):
 - Added staggered entrance: each FAQ item animates with 0.08s delay between items via `whileInView` transition delay
-- Added number indicators: "01"–"06" displayed to the left of each question in Fira Code, opacity 0.3, transitions to #C3E41D when open
+- Added number indicators: "01"–"06" displayed to the left of each question in Fira Code, opacity 0.3, transitions to #8A00C4 when open
 - Improved smooth expand: kept AnimatePresence with refined cubic-bezier easing `[0.4, 0, 0.2, 1]` for open/close, added `initial={false}`
-- Added hover glow: left border glow (#C3E41D with box-shadow) appears on hover for closed items via absolutely-positioned div
-- Changed open state to use 3px solid #C3E41D left border
+- Added hover glow: left border glow (#8A00C4 with box-shadow) appears on hover for closed items via absolutely-positioned div
+- Changed open state to use 3px solid #8A00C4 left border
 - Removed ScrollReveal wrapper from FAQ list (stagger is now handled per-item)
 - Restructured layout: number label + question/title in a flex row with gap
 
@@ -1723,13 +1723,13 @@ Part 2 — Achievements Section (`achievements-section.tsx`):
 - Added AnimatePresence with mode="popLayout" for smooth filter transitions
 - Created useCountUp custom hook for animated year counter (counts from 2000 to target year with ease-out cubic)
 - AnimatedYear component uses IntersectionObserver to trigger count-up when visible
-- Filter pills styled: Fira Code, rounded-full, active state with #C3E41D bg tint + border
+- Filter pills styled: Fira Code, rounded-full, active state with #8A00C4 bg tint + border
 
 Part 3 — Tools Section (`tools-section.tsx`):
 - Updated stagger delay to 0.05s per tool card
 - Added collapsible categories: clicking category header toggles tool cards with AnimatePresence height animation
 - Added chevron icon (ChevronRight) that rotates 90° when expanded
-- Added search filter input: rounded-full, Fira Code, #C3E41D focus border, Search icon, ESC dismiss button
+- Added search filter input: rounded-full, Fira Code, #8A00C4 focus border, Search icon, ESC dismiss button
 - Search filters tools by name, auto-expands matching categories, hides empty categories
 - Added hover glow: onMouseEnter/Leave events set border-color and box-shadow with green glow
 - Added emoji bounce: motion.span with whileHover scale 1.1, spring animation (stiffness: 400, damping: 10)

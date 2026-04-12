@@ -64,7 +64,7 @@ function AnimatedHeading({ text }: { text: string }) {
       className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4 md:mb-6"
       style={{
         fontFamily: "'Fira Code', monospace",
-        color: "#C3E41D",
+        color: "#8A00C4",
         opacity: inView ? 1 : 0,
         transform: inView ? "translateY(0)" : "translateY(20px)",
         filter: inView ? "blur(0px)" : "blur(8px)",
@@ -100,7 +100,7 @@ export default function WritingSection() {
           className="mb-12"
         >
           <article className="group cursor-pointer">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 dark:bg-[hsl(0,0%,8%)] bg-white dark:border-neutral-800 border-neutral-200 border rounded-2xl overflow-hidden dark:hover:border-[#C3E41D]/40 hover:border-[#C3E41D]/60 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-[rgba(195,228,29,0.08)]">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 dark:bg-[hsl(0,0%,8%)] bg-white dark:border-neutral-800 border-neutral-200 border rounded-2xl overflow-hidden dark:hover:border-[#8A00C4]/40 hover:border-[#8A00C4]/60 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-[rgba(195,228,29,0.08)]">
               <div className="relative overflow-hidden h-48 md:h-full">
                 <Image
                   src={articles[0].image}
@@ -111,7 +111,7 @@ export default function WritingSection() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-transparent md:from-black/50" />
                 <div className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-black"
-                  style={{ backgroundColor: "#C3E41D", fontFamily: "'Fira Code', monospace" }}
+                  style={{ backgroundColor: "#8A00C4", fontFamily: "'Fira Code', monospace" }}
                 >
                   Featured
                 </div>
@@ -122,7 +122,7 @@ export default function WritingSection() {
                   <span className="flex items-center gap-1"><Clock className="w-3 h-3" />{articles[0].readTime}</span>
                 </div>
                 <h3
-                  className="text-xl md:text-2xl font-bold dark:text-white text-neutral-900 mb-3 group-hover:text-[#C3E41D] transition-colors"
+                  className="text-xl md:text-2xl font-bold dark:text-white text-neutral-900 mb-3 group-hover:text-[#8A00C4] transition-colors"
                   style={{ fontFamily: "'Fira Code', monospace" }}
                 >
                   {articles[0].title}
@@ -159,7 +159,7 @@ export default function WritingSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group cursor-pointer dark:bg-[hsl(0,0%,8%)] bg-white dark:border-neutral-800 border-neutral-200 border rounded-xl overflow-hidden dark:hover:border-[#C3E41D]/40 hover:border-[#C3E41D]/60 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-[rgba(195,228,29,0.05)]"
+              className="group cursor-pointer dark:bg-[hsl(0,0%,8%)] bg-white dark:border-neutral-800 border-neutral-200 border rounded-xl overflow-hidden dark:hover:border-[#8A00C4]/40 hover:border-[#8A00C4]/60 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-[rgba(195,228,29,0.05)]"
             >
               <div className="relative h-40 overflow-hidden">
                 <Image
@@ -177,7 +177,7 @@ export default function WritingSection() {
                   <span className="flex items-center gap-1"><Clock className="w-3 h-3" />{article.readTime}</span>
                 </div>
                 <h3
-                  className="text-base font-bold dark:text-white text-neutral-900 mb-2 group-hover:text-[#C3E41D] transition-colors leading-snug"
+                  className="text-base font-bold dark:text-white text-neutral-900 mb-2 group-hover:text-[#8A00C4] transition-colors leading-snug"
                   style={{ fontFamily: "'Fira Code', monospace" }}
                 >
                   {article.title}

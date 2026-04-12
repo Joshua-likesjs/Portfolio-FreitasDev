@@ -8,17 +8,10 @@ const technologies = [
   { name: "Next.js", category: "Frontend" },
   { name: "TypeScript", category: "Language" },
   { name: "Tailwind CSS", category: "Styling" },
-  { name: "Framer Motion", category: "Animation" },
   { name: "Node.js", category: "Backend" },
-  { name: "Python", category: "Language" },
-  { name: "PostgreSQL", category: "Database" },
   { name: "Prisma", category: "ORM" },
   { name: "GraphQL", category: "API" },
-  { name: "Docker", category: "DevOps" },
-  { name: "AWS", category: "Cloud" },
   { name: "Figma", category: "Design" },
-  { name: "Three.js", category: "3D" },
-  { name: "Redis", category: "Database" },
   { name: "Git", category: "Tools" },
   { name: "Vercel", category: "Hosting" },
   { name: "D3.js", category: "Visualization" },
@@ -52,7 +45,7 @@ function AnimatedHeading({ text }: { text: string }) {
       className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4 md:mb-6"
       style={{
         fontFamily: "'Fira Code', monospace",
-        color: "#C3E41D",
+        color: "#8A00C4",
         opacity: inView ? 1 : 0,
         transform: inView ? "translateY(0)" : "translateY(20px)",
         filter: inView ? "blur(0px)" : "blur(8px)",
@@ -103,7 +96,7 @@ export default function TechMarqueeSection() {
             {marqueeItemsRow1.map((tech, i) => (
               <div
                 key={`row1-${i}`}
-                className="flex items-center gap-3 px-5 py-3 rounded-full dark:bg-[hsl(0,0%,10%)] bg-white dark:border-neutral-800 border-neutral-200 border shrink-0 hover:dark:border-[#C3E41D]/40 hover:border-[#C3E41D]/60 transition-colors duration-300 cursor-default"
+                className="flex items-center gap-3 px-5 py-3 rounded-full dark:bg-[hsl(0,0%,10%)] bg-white dark:border-neutral-800 border-neutral-200 border shrink-0 hover:dark:border-[#8A00C4]/40 hover:border-[#8A00C4]/60 transition-colors duration-300 cursor-default"
               >
                 <span
                   className="text-sm font-semibold dark:text-neutral-200 text-neutral-700 whitespace-nowrap"
@@ -139,7 +132,7 @@ export default function TechMarqueeSection() {
             {marqueeItemsRow2.map((tech, i) => (
               <div
                 key={`row2-${i}`}
-                className="flex items-center gap-3 px-5 py-3 rounded-full dark:bg-[hsl(0,0%,10%)] bg-white dark:border-neutral-800 border-neutral-200 border shrink-0 hover:dark:border-[#C3E41D]/40 hover:border-[#C3E41D]/60 transition-colors duration-300 cursor-default"
+                className="flex items-center gap-3 px-5 py-3 rounded-full dark:bg-[hsl(0,0%,10%)] bg-white dark:border-neutral-800 border-neutral-200 border shrink-0 hover:dark:border-[#8A00C4]/40 hover:border-[#8A00C4]/60 transition-colors duration-300 cursor-default"
               >
                 <span
                   className="text-sm font-semibold dark:text-neutral-200 text-neutral-700 whitespace-nowrap"

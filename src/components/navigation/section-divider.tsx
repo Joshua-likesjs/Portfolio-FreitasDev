@@ -51,7 +51,7 @@ export default function SectionDivider() {
           <div
             className="w-2 h-2 rounded-full"
             style={{
-              backgroundColor: "#C3E41D",
+              backgroundColor: "#8A00C4",
               boxShadow: "0 0 8px rgba(195, 228, 29, 0.4), 0 0 20px rgba(195, 228, 29, 0.2)",
               animation: "glow-pulse 3s ease-in-out infinite",
             }}

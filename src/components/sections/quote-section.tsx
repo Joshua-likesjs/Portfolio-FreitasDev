@@ -60,7 +60,7 @@ function AnimatedHeading({ text }: { text: string }) {
       className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4 md:mb-6"
       style={{
         fontFamily: "'Fira Code', monospace",
-        color: '#C3E41D',
+        color: '#8A00C4',
         opacity: inView ? 1 : 0,
         transform: inView ? 'translateY(0)' : 'translateY(20px)',
         filter: inView ? 'blur(0px)' : 'blur(8px)',
@@ -125,7 +125,7 @@ export default function QuoteSection() {
             className="absolute -top-6 md:-top-10 left-4 md:left-8 text-[120px] md:text-[180px] leading-none select-none pointer-events-none"
             style={{
               fontFamily: 'Georgia, serif',
-              color: '#C3E41D',
+              color: '#8A00C4',
               opacity: 0.12,
             }}
           >
@@ -163,7 +163,7 @@ export default function QuoteSection() {
                   className="text-base md:text-lg font-bold"
                   style={{
                     fontFamily: "'Fira Code', monospace",
-                    color: '#C3E41D',
+                    color: '#8A00C4',
                   }}
                 >
                   {quote.author}
@@ -183,7 +183,7 @@ export default function QuoteSection() {
         <div className="flex items-center justify-center gap-4 mt-8 md:mt-12">
           <button
             onClick={prev}
-            className="p-2 rounded-full dark:bg-[hsl(0,0%,10%)] bg-white dark:border-neutral-800 border-neutral-200 border dark:hover:border-[#C3E41D]/50 hover:border-[#C3E41D]/60 dark:text-neutral-400 text-neutral-500 dark:hover:text-[#C3E41D] hover:text-[#C3E41D] transition-colors"
+            className="p-2 rounded-full dark:bg-[hsl(0,0%,10%)] bg-white dark:border-neutral-800 border-neutral-200 border dark:hover:border-[#8A00C4]/50 hover:border-[#8A00C4]/60 dark:text-neutral-400 text-neutral-500 dark:hover:text-[#8A00C4] hover:text-[#8A00C4] transition-colors"
             aria-label="Previous quote"
           >
             <ChevronLeft className="w-5 h-5" />
@@ -200,7 +200,7 @@ export default function QuoteSection() {
                 }}
                 className="w-2 h-2 rounded-full transition-all duration-300"
                 style={{
-                  backgroundColor: i === current ? '#C3E41D' : 'hsl(0 0% 50%)',
+                  backgroundColor: i === current ? '#8A00C4' : 'hsl(0 0% 50%)',
                   opacity: i === current ? 1 : 0.3,
                   transform: i === current ? 'scale(1.3)' : 'scale(1)',
                 }}
@@ -211,7 +211,7 @@ export default function QuoteSection() {
 
           <button
             onClick={next}
-            className="p-2 rounded-full dark:bg-[hsl(0,0%,10%)] bg-white dark:border-neutral-800 border-neutral-200 border dark:hover:border-[#C3E41D]/50 hover:border-[#C3E41D]/60 dark:text-neutral-400 text-neutral-500 dark:hover:text-[#C3E41D] hover:text-[#C3E41D] transition-colors"
+            className="p-2 rounded-full dark:bg-[hsl(0,0%,10%)] bg-white dark:border-neutral-800 border-neutral-200 border dark:hover:border-[#8A00C4]/50 hover:border-[#8A00C4]/60 dark:text-neutral-400 text-neutral-500 dark:hover:text-[#8A00C4] hover:text-[#8A00C4] transition-colors"
             aria-label="Next quote"
           >
             <ChevronRight className="w-5 h-5" />
@@ -223,7 +223,7 @@ export default function QuoteSection() {
           className="mt-8 md:mt-12 text-[80px] md:text-[100px] leading-none select-none"
           style={{
             fontFamily: 'Georgia, serif',
-            color: '#C3E41D',
+            color: '#8A00C4',
             opacity: 0.08,
           }}
         >

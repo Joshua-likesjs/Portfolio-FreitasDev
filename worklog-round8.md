@@ -26,7 +26,7 @@ Navigation & Integration:
 - Updated page.tsx: Added SkillsRadarSection (after About), NowSection (after Tools), SectionDividers
 
 Styling Improvements:
-- Theme toggle enhanced with Sun/Moon icons (lucide-react); dark mode knob is #C3E41D with Moon; light mode has dark knob with yellow Sun; hover glow shadow
+- Theme toggle enhanced with Sun/Moon icons (lucide-react); dark mode knob is #8A00C4 with Moon; light mode has dark knob with yellow Sun; hover glow shadow
 - Stats cards enhanced with glassmorphism card wrapper (backdrop-blur, semi-transparent bg, rounded-xl, border); hover lift + shadow; icon hover glow; gradient accent on suffix
 - Contact section added decorative radial gradient glow
 - 7 new CSS utilities in globals.css: blink-cursor animation, card-transition, text-glow-accent, breathe keyframe, animate-breathe, gradient-line, reveal-up

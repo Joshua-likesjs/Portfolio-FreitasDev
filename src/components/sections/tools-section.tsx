@@ -23,9 +23,7 @@ const categories: ToolCategory[] = [
     icon: Code2,
     tools: [
       { name: 'VS Code', description: 'primary', emoji: '💻' },
-      { name: 'Vim', description: 'for quick edits', emoji: '⚡' },
       { name: 'Figma', description: 'for design work', emoji: '🎨' },
-      { name: 'iTerm2', description: 'terminal', emoji: '🖥️' },
     ],
   },
   {
@@ -35,7 +33,6 @@ const categories: ToolCategory[] = [
       { name: 'React / Next.js', description: 'framework', emoji: '⚛️' },
       { name: 'TypeScript', description: 'language', emoji: '🔷' },
       { name: 'Tailwind CSS', description: 'styling', emoji: '💨' },
-      { name: 'Framer Motion', description: 'animations', emoji: '🎬' },
     ],
   },
   {
@@ -44,17 +41,13 @@ const categories: ToolCategory[] = [
     tools: [
       { name: 'Node.js', description: 'runtime', emoji: '🟢' },
       { name: 'Prisma', description: 'ORM', emoji: '🔷' },
-      { name: 'PostgreSQL', description: 'database', emoji: '🐘' },
-      { name: 'Redis', description: 'cache', emoji: '🔴' },
     ],
   },
   {
     name: 'DevOps',
     icon: Cloud,
     tools: [
-      { name: 'Docker', description: 'containers', emoji: '🐳' },
       { name: 'GitHub Actions', description: 'CI/CD', emoji: '🤖' },
-      { name: 'AWS', description: 'cloud', emoji: '☁️' },
       { name: 'Vercel', description: 'deployment', emoji: '▲' },
     ],
   },
@@ -62,10 +55,8 @@ const categories: ToolCategory[] = [
     name: 'Hardware',
     icon: Monitor,
     tools: [
-      { name: 'MacBook Pro 16"', description: 'laptop', emoji: '💻' },
-      { name: 'LG 4K Monitor', description: 'display', emoji: '🖥️' },
-      { name: 'Keychron K2', description: 'keyboard', emoji: '⌨️' },
-      { name: 'Logitech MX Master 3', description: 'mouse', emoji: '🖱️' },
+      { name: 'Acer Aspire A515-45"', description: 'laptop', emoji: '💻' },
+      { name: 'ELG Dragon War Camuflado (MGDW)', description: 'mouse', emoji: '🖱️' },
     ],
   },
 ];
@@ -93,7 +84,7 @@ function AnimatedHeading({ text }: { text: string }) {
       className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4 md:mb-6"
       style={{
         fontFamily: "'Fira Code', monospace",
-        color: '#C3E41D',
+        color: '#8A00C4',
         opacity: inView ? 1 : 0,
         transform: inView ? 'translateY(0)' : 'translateY(20px)',
         filter: inView ? 'blur(0px)' : 'blur(8px)',
@@ -183,12 +174,12 @@ function CategoryGroup({ category, categoryIndex, searchQuery }: { category: Too
         className={`w-full flex items-center gap-2 mb-4 text-left group/cat ${!searchQuery ? 'cursor-pointer' : 'cursor-default'}`}
         disabled={!!searchQuery}
       >
-        <Icon className="w-4 h-4 shrink-0 transition-transform duration-300" style={{ color: '#C3E41D' }} />
+        <Icon className="w-4 h-4 shrink-0 transition-transform duration-300" style={{ color: '#8A00C4' }} />
         <h3
-          className="text-xs uppercase tracking-widest font-semibold transition-colors duration-300 group-hover/cat:text-[#C3E41D]"
+          className="text-xs uppercase tracking-widest font-semibold transition-colors duration-300 group-hover/cat:text-[#8A00C4]"
           style={{
             fontFamily: "'Fira Code', monospace",
-            color: '#C3E41D',
+            color: '#8A00C4',
           }}
         >
           {category.name}
@@ -262,13 +253,13 @@ export default function ToolsSection() {
             placeholder="Search tools..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-11 pr-4 py-2.5 rounded-full text-sm dark:bg-[hsl(0,0%,8%)] bg-white dark:border-neutral-800 border-neutral-200 border outline-none transition-all duration-300 focus:shadow-[0_0_0_2px_rgba(195,228,29,0.3)] focus:border-[#C3E41D] dark:text-neutral-200 text-neutral-800 placeholder:dark:text-neutral-600 placeholder:text-neutral-400"
+            className="w-full pl-11 pr-4 py-2.5 rounded-full text-sm dark:bg-[hsl(0,0%,8%)] bg-white dark:border-neutral-800 border-neutral-200 border outline-none transition-all duration-300 focus:shadow-[0_0_0_2px_rgba(195,228,29,0.3)] focus:border-[#8A00C4] dark:text-neutral-200 text-neutral-800 placeholder:dark:text-neutral-600 placeholder:text-neutral-400"
             style={{ fontFamily: "'Fira Code', monospace" }}
           />
           {searchQuery && (
             <button
               onClick={() => setSearchQuery('')}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-xs dark:text-neutral-500 text-neutral-400 hover:text-[#C3E41D] transition-colors"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-xs dark:text-neutral-500 text-neutral-400 hover:text-[#8A00C4] transition-colors"
               style={{ fontFamily: "'Fira Code', monospace" }}
             >
               ESC

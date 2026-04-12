@@ -14,11 +14,10 @@ const skills: SkillData[] = [
   { name: 'Backend', value: 83 },
   { name: 'Design', value: 88 },
   { name: 'DevOps', value: 80 },
-  { name: 'Mobile', value: 75 },
-  { name: 'Data Viz', value: 78 },
+  { name: 'Mobile', value: 75 }
 ];
 
-const ACCENT = '#C3E41D';
+const ACCENT = '#8A00C4';
 const ACCENT_FILL = 'rgba(195, 228, 29, 0.12)';
 const NUM_AXES = skills.length;
 const ANGLE_STEP = (2 * Math.PI) / NUM_AXES;
@@ -111,7 +110,7 @@ export default function SkillsRadarSection() {
   const size = 400;
   const cx = size / 2;
   const cy = size / 2;
-  const maxRadius = 160;
+  const maxRadius = 133;
   const gridLevels = [0.2, 0.4, 0.6, 0.8, 1.0];
   const animatedFraction = isVisible ? 1 : 0;
 
@@ -161,7 +160,7 @@ export default function SkillsRadarSection() {
           transition={{ duration: 0.6, ease: 'easeOut' }}
           className="flex justify-center mb-10"
         >
-          <div className="relative w-full max-w-[400px] aspect-square">
+          <div className="relative w-full max-w-[500px] aspect-square">
             <svg
               viewBox={`0 0 ${size} ${size}`}
               className="w-full h-full"
@@ -262,7 +261,7 @@ export default function SkillsRadarSection() {
 
               {/* Labels */}
               {skills.map((skill, i) => {
-                const labelRadius = maxRadius + 28;
+                const labelRadius = maxRadius + 18;
                 const { x, y } = getPoint(cx, cy, labelRadius, i, 1);
                 // Adjust text anchor based on position
                 let textAnchor: React.SVGAttributes<SVGTextElement>['textAnchor'] = 'middle';

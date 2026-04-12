@@ -33,7 +33,7 @@ export default function AvailabilityBanner() {
             className="absolute bottom-0 left-0 right-0 h-px pointer-events-none"
             style={{
               background:
-                'linear-gradient(90deg, transparent 0%, #C3E41D 50%, transparent 100%)',
+                'linear-gradient(90deg, transparent 0%, #8A00C4 50%, transparent 100%)',
             }}
           />
 
@@ -55,7 +55,7 @@ export default function AvailabilityBanner() {
                 className="text-xs text-muted-foreground hidden sm:inline"
                 style={{ fontFamily: "'Fira Code', monospace" }}
               >
-                Updated Jan 2025
+                Updated Apr 2026
               </span>
               <button
                 onClick={handleDismiss}
@@ -73,7 +73,7 @@ export default function AvailabilityBanner() {
               className="text-xs text-muted-foreground"
               style={{ fontFamily: "'Fira Code', monospace" }}
             >
-              Updated Jan 2025
+              Updated Apr 2026
             </span>
           </div>
         </motion.div>

@@ -7,29 +7,21 @@ const navLinks = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
   { label: "Projects", href: "#projects" },
-  { label: "Experience", href: "#experience" },
-  { label: "Achievements", href: "#achievements" },
   { label: "Skills", href: "#skills-radar" },
   { label: "Tools", href: "#tools" },
-  { label: "Activity", href: "#contribution-graph" },
-  { label: "Journey", href: "#timeline-journey" },
   { label: "Quotes", href: "#quotes" },
-  { label: "Now", href: "#now" },
-  { label: "Newsletter", href: "#newsletter" },
-  { label: "Pricing", href: "#pricing" },
   { label: "FAQ", href: "#faq" },
   { label: "Contact", href: "#contact" },
 ];
 
 const socialLinks = [
-  { icon: Github, href: "https://github.com", label: "GitHub" },
-  { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-  { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
-  { icon: Mail, href: "mailto:freitas@freitas.dev", label: "Email" },
+  { icon: Github, href: "https://github.com/Joshua-likesjs", label: "GitHub" },
+  { icon: Linkedin, href: "https://www.linkedin.com/in/josu%C3%A9-gabriel-560820306/?skipRedirect=true", label: "LinkedIn" },
+  { icon: Mail, href: "mailto:galego.jjdocarmo@gmail.com", label: "Email" },
 ];
 
 export default function PortfolioFooter() {
-  const ctaButtonRef = useRef<HTMLButtonElement>(null);
+  const ctaButtonRef = useRef<HTMLButtonElement>(null); 
 
   const handleClick = (href: string) => {
     const el = document.querySelector(href);
@@ -156,7 +148,7 @@ export default function PortfolioFooter() {
             onClick={() => handleClick("#contact")}
             className="glass-button inline-flex items-center gap-2 px-8 py-3 rounded-full text-sm font-bold uppercase tracking-wider cursor-pointer"
             style={{
-              backgroundColor: "#C3E41D",
+              backgroundColor: "#8A00C4",
               color: "black",
               fontFamily: "'Fira Code', monospace",
               border: "none",
@@ -177,7 +169,7 @@ export default function PortfolioFooter() {
             <button
               key={link.label}
               onClick={() => handleClick(link.href)}
-              className="link-underline text-xs uppercase tracking-widest dark:text-neutral-500 text-neutral-400 hover:text-[#C3E41D] dark:hover:text-[#C3E41D] transition-colors duration-300 cursor-pointer"
+              className="link-underline text-xs uppercase tracking-widest dark:text-neutral-500 text-neutral-400 hover:text-[#8A00C4] dark:hover:text-[#8A00C4] transition-colors duration-300 cursor-pointer"
               style={{ fontFamily: "'Fira Code', monospace" }}
             >
               {link.label}
@@ -201,7 +193,7 @@ export default function PortfolioFooter() {
             <span className="dark:text-neutral-700 text-neutral-300">|</span>
             <button
               onClick={scrollToTop}
-              className="inline-flex items-center gap-1 text-xs uppercase tracking-wider dark:text-neutral-500 text-neutral-400 hover:text-[#C3E41D] dark:hover:text-[#C3E41D] transition-colors duration-300 cursor-pointer"
+              className="inline-flex items-center gap-1 text-xs uppercase tracking-wider dark:text-neutral-500 text-neutral-400 hover:text-[#8A00C4] dark:hover:text-[#8A00C4] transition-colors duration-300 cursor-pointer"
               style={{ fontFamily: "'Fira Code', monospace" }}
               aria-label="Back to top"
             >
@@ -218,7 +210,7 @@ export default function PortfolioFooter() {
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 rounded-lg dark:text-neutral-500 text-[#C3E41D] transition-all duration-300 hover:drop-shadow-[0_0_6px_rgba(195,228,29,0.3)]"
+                className="p-2 rounded-lg dark:text-neutral-500 text-[#8A00C4] transition-all duration-300 hover:drop-shadow-[0_0_6px_rgba(195,228,29,0.3)]"
                 style={{ transition: "transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s ease, color 0.3s ease" }}
                 onMouseEnter={(e) => {
                   const el = e.currentTarget;
@@ -241,9 +233,9 @@ export default function PortfolioFooter() {
             style={{ fontFamily: "'Antic', sans-serif" }}
           >
             Made with
-            <Heart className="w-3 h-3 text-[#C3E41D] fill-[#C3E41D] animate-pulse" />
+            <Heart className="w-3 h-3 text-[#8A00C4] fill-[#8A00C4] animate-pulse" />
             and
-            <Code2 className="w-3 h-3 text-[#C3E41D]" />
+            <Code2 className="w-3 h-3 text-[#8A00C4]" />
           </p>
         </div>
       </div>

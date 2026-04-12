@@ -5,17 +5,12 @@ import { motion } from "framer-motion";
 
 const brands = [
   { name: "Google", color: "#4285F4", category: "Technology" },
-  { name: "Stripe", color: "#635BFF", category: "Payments" },
   { name: "Vercel", color: "#FFFFFF", category: "Cloud Platform" },
   { name: "Figma", color: "#F24E1E", category: "Design" },
   { name: "GitHub", color: "#E6EDF3", category: "Developer Tools" },
-  { name: "Shopify", color: "#96BF48", category: "E-Commerce" },
-  { name: "Notion", color: "#FFFFFF", category: "Productivity" },
-  { name: "Linear", color: "#5E6AD2", category: "Project Management" },
-  { name: "Supabase", color: "#3ECF8E", category: "Cloud" },
-  { name: "AWS", color: "#FF9900", category: "Infrastructure" },
-  { name: "Framer", color: "#0055FF", category: "Design" },
-  { name: "Railway", color: "#0B0D0E", category: "DevOps" },
+  { name: "Obsidian", color: "#7E1DFB", category: "Productivity" },
+  { name: "Firebase", color: "#FFC400", category: "Cloud" },
+  { name: "AWS", color: "#FF9900", category: "Infrastructure" }
 ];
 
 function AnimatedHeading({ text }: { text: string }) {
@@ -41,7 +36,7 @@ function AnimatedHeading({ text }: { text: string }) {
       className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4 md:mb-6"
       style={{
         fontFamily: "'Fira Code', monospace",
-        color: "#C3E41D",
+        color: "#8A00C4",
         opacity: inView ? 1 : 0,
         transform: inView ? "translateY(0)" : "translateY(20px)",
         filter: inView ? "blur(0px)" : "blur(8px)",
@@ -86,7 +81,7 @@ export default function TrustedBrandsSection() {
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.5, delay: index * 0.06 }}
             >
-              <div className="h-full p-5 md:p-6 rounded-2xl backdrop-blur-sm dark:bg-white/[0.03] bg-black/[0.02] dark:border-neutral-800 border-neutral-200 border group hover:scale-[1.05] hover:-translate-y-0.5 hover:dark:border-[#C3E41D]/50 hover:border-[#C3E41D]/50 hover:shadow-[0_8px_30px_rgba(195,228,29,0.15)] dark:hover:shadow-[0_8px_30px_rgba(195,228,29,0.1)] transition-all duration-300 cursor-default">
+              <div className="h-full p-5 md:p-6 rounded-2xl backdrop-blur-sm dark:bg-white/[0.03] bg-black/[0.02] dark:border-neutral-800 border-neutral-200 border group hover:scale-[1.05] hover:-translate-y-0.5 hover:dark:border-[#8A00C4]/50 hover:border-[#8A00C4]/50 hover:shadow-[0_8px_30px_rgba(195,228,29,0.15)] dark:hover:shadow-[0_8px_30px_rgba(195,228,29,0.1)] transition-all duration-300 cursor-default">
                 {/* Decorative colored dot and line */}
                 <div className="flex items-center gap-2.5 mb-4">
                   <span
@@ -104,7 +99,7 @@ export default function TrustedBrandsSection() {
 
                 {/* Brand Name */}
                 <h3
-                  className="text-base md:text-lg font-bold dark:text-white text-neutral-900 mb-1.5 group-hover:text-[#C3E41D] transition-colors duration-300"
+                  className="text-base md:text-lg font-bold dark:text-white text-neutral-900 mb-1.5 group-hover:text-[#8A00C4] transition-colors duration-300"
                   style={{ fontFamily: "'Fira Code', monospace" }}
                 >
                   {brand.name}

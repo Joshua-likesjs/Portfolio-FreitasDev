@@ -54,9 +54,9 @@ function StatCounter({ icon: Icon, value, suffix, label, delay }: StatItemProps)
     >
       <div
         className="inline-flex p-4 rounded-2xl mb-4 transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(195,228,29,0.15)]"
-        style={{ backgroundColor: "#C3E41D12" }}
+        style={{ backgroundColor: "#8A00C412" }}
       >
-        <Icon className="w-6 h-6" style={{ color: "#C3E41D" }} />
+        <Icon className="w-6 h-6" style={{ color: "#8A00C4" }} />
       </div>
       <div className="text-3xl sm:text-4xl md:text-5xl font-bold dark:text-white text-neutral-900 mb-1">
         <motion.span style={{ fontFamily: "'Fira Code', monospace" }}>
@@ -97,7 +97,7 @@ function AnimatedHeading({ text }: { text: string }) {
       className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4 md:mb-6"
       style={{
         fontFamily: "'Fira Code', monospace",
-        color: "#C3E41D",
+        color: "#8A00C4",
         opacity: inView ? 1 : 0,
         transform: inView ? "translateY(0)" : "translateY(20px)",
         filter: inView ? "blur(0px)" : "blur(8px)",
@@ -110,10 +110,10 @@ function AnimatedHeading({ text }: { text: string }) {
 }
 
 const stats = [
-  { icon: Code2, value: 50, suffix: "+", label: "Projects Built", delay: 0 },
-  { icon: Users, value: 30, suffix: "+", label: "Happy Clients", delay: 150 },
-  { icon: Layers, value: 12, suffix: "", label: "Products Shipped", delay: 300 },
-  { icon: Award, value: 7, suffix: "+", label: "Years Experience", delay: 450 },
+  { icon: Code2, value: 10, suffix: "+", label: "Projects Built", delay: 0 },
+  { icon: Users, value: 12, suffix: "+", label: "Happy Clients", delay: 150 },
+  { icon: Layers, value: 4, suffix: "", label: "Products Shipped", delay: 300 },
+  { icon: Award, value: 1, suffix: "+", label: "Year Experience", delay: 450 },
 ];
 
 export default function StatsSection() {
@@ -126,7 +126,7 @@ export default function StatsSection() {
       <div
         className="absolute inset-0 opacity-[0.03] dark:opacity-[0.04]"
         style={{
-          backgroundImage: `linear-gradient(#C3E41D 1px, transparent 1px), linear-gradient(90deg, #C3E41D 1px, transparent 1px)`,
+          backgroundImage: `linear-gradient(#8A00C4 1px, transparent 1px), linear-gradient(90deg, #8A00C4 1px, transparent 1px)`,
           backgroundSize: "60px 60px",
         }}
       />
@@ -134,11 +134,11 @@ export default function StatsSection() {
       {/* Glow effects */}
       <div
         className="absolute top-0 left-1/4 w-96 h-96 rounded-full blur-[128px] dark:opacity-10 opacity-[0.04]"
-        style={{ backgroundColor: "#C3E41D" }}
+        style={{ backgroundColor: "#8A00C4" }}
       />
       <div
         className="absolute bottom-0 right-1/4 w-96 h-96 rounded-full blur-[128px] dark:opacity-5 opacity-[0.02]"
-        style={{ backgroundColor: "#C3E41D" }}
+        style={{ backgroundColor: "#8A00C4" }}
       />
 
       <div className="max-w-6xl mx-auto relative z-10">

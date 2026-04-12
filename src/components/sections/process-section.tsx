@@ -10,8 +10,8 @@ const steps = [
     icon: MessageSquare,
     title: "Discovery",
     description: "We start with a conversation. I learn about your goals, audience, constraints, and vision. No question is too small — understanding is the foundation of great work.",
-    details: ["Kickoff call", "Stakeholder interviews", "Competitive analysis", "Requirements doc"],
-    keyTools: ["Figma", "Miro", "Notion"],
+    details: ["Kickoff call", "Stakeholder interviews", "Competitive Analysis", "Requirements doc"],
+    keyTools: ["Obsidian"],
   },
   {
     number: "02",
@@ -19,7 +19,7 @@ const steps = [
     title: "Research & Strategy",
     description: "I dive deep into user research, market analysis, and technical feasibility. This phase ensures every design and engineering decision is grounded in data.",
     details: ["User research", "Information architecture", "Technical planning", "Project roadmap"],
-    keyTools: ["Analytics", "Hotjar", "竞品分析"],
+    keyTools: ["Analytics", "Competitive Analysis"],
   },
   {
     number: "03",
@@ -27,7 +27,7 @@ const steps = [
     title: "Design & Prototype",
     description: "From wireframes to high-fidelity prototypes in Figma. Every interaction is considered, every pixel is intentional. You'll review and iterate until it's perfect.",
     details: ["Wireframes", "UI design", "Interactive prototypes", "Design system"],
-    keyTools: ["Figma", "Framer", "Storybook"],
+    keyTools: ["Figma"],
   },
   {
     number: "04",
@@ -62,7 +62,7 @@ function AnimatedHeading({ text }: { text: string }) {
       className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4 md:mb-6"
       style={{
         fontFamily: "'Fira Code', monospace",
-        color: "#C3E41D",
+        color: "#8A00C4",
         opacity: inView ? 1 : 0,
         transform: inView ? "translateY(0)" : "translateY(20px)",
         filter: inView ? "blur(0px)" : "blur(8px)",
@@ -114,7 +114,7 @@ function ProgressRing({ stepIndex }: { stepIndex: number }) {
           cy={size / 2}
           r={radius}
           fill="none"
-          stroke="#C3E41D"
+          stroke="#8A00C4"
           strokeWidth={strokeWidth}
           strokeLinecap="round"
           strokeDasharray={circumference}
@@ -128,7 +128,7 @@ function ProgressRing({ stepIndex }: { stepIndex: number }) {
         className="absolute text-xs font-bold"
         style={{
           fontFamily: "'Fira Code', monospace",
-          color: "#C3E41D",
+          color: "#8A00C4",
         }}
       >
         {steps[stepIndex].number}
@@ -166,7 +166,7 @@ function ConnectorArrow({ index }: { index: number }) {
           y1="12"
           x2="20"
           y2="12"
-          stroke="#C3E41D"
+          stroke="#8A00C4"
           strokeWidth="1.5"
           strokeLinecap="round"
           initial={{ pathLength: 0, opacity: 0 }}
@@ -176,7 +176,7 @@ function ConnectorArrow({ index }: { index: number }) {
         {/* Arrow head */}
         <motion.polygon
           points="18,8 24,12 18,16"
-          fill="#C3E41D"
+          fill="#8A00C4"
           initial={{ opacity: 0, scale: 0.5 }}
           animate={inView ? { opacity: 0.35, scale: 1 } : { opacity: 0, scale: 0.5 }}
           transition={{ duration: 0.3, delay: index * 0.15 + 0.4, ease: "easeOut" }}
@@ -218,11 +218,11 @@ function ProcessCard({ step, index }: { step: (typeof steps)[0]; index: number }
           {/* Icon */}
           <motion.div
             className="inline-flex p-3 rounded-xl mb-4"
-            style={{ backgroundColor: "#C3E41D15" }}
+            style={{ backgroundColor: "#8A00C415" }}
             animate={isHovered ? { scale: [1, 1.1, 1.0] } : { scale: 1 }}
             transition={isHovered ? { duration: 0.4, ease: "easeInOut" } : { duration: 0.3 }}
           >
-            <step.icon className="w-5 h-5" style={{ color: "#C3E41D" }} />
+            <step.icon className="w-5 h-5" style={{ color: "#8A00C4" }} />
           </motion.div>
 
           {/* Title */}
@@ -230,7 +230,7 @@ function ProcessCard({ step, index }: { step: (typeof steps)[0]; index: number }
             className="text-lg font-bold dark:text-white text-neutral-900 mb-3 transition-colors duration-300"
             style={{
               fontFamily: "'Fira Code', monospace",
-              color: isHovered ? "#C3E41D" : undefined,
+              color: isHovered ? "#8A00C4" : undefined,
             }}
           >
             {step.title}
@@ -252,7 +252,7 @@ function ProcessCard({ step, index }: { step: (typeof steps)[0]; index: number }
                 className="flex items-center gap-2 text-xs dark:text-neutral-500 text-neutral-400"
                 style={{ fontFamily: "'Fira Code', monospace" }}
               >
-                <ArrowRight className="w-3 h-3 shrink-0" style={{ color: "#C3E41D", opacity: 0.5 }} />
+                <ArrowRight className="w-3 h-3 shrink-0" style={{ color: "#8A00C4", opacity: 0.5 }} />
                 {detail}
               </li>
             ))}
@@ -282,8 +282,8 @@ function ProcessCard({ step, index }: { step: (typeof steps)[0]; index: number }
                   className="text-[11px] px-2.5 py-1 rounded-full font-medium"
                   style={{
                     fontFamily: "'Fira Code', monospace",
-                    backgroundColor: "#C3E41D15",
-                    color: "#C3E41D",
+                    backgroundColor: "#8A00C415",
+                    color: "#8A00C4",
                   }}
                 >
                   {tool}

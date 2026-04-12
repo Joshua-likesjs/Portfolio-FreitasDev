@@ -154,7 +154,7 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({
       <span
         className="inline-block w-0.5 h-1em ml-1 align-middle animate-[blink-cursor_1s_step-end_infinite]"
         style={{
-          backgroundColor: "#C3E41D",
+          backgroundColor: "#8A00C4",
           opacity: isStarted ? 1 : 0,
         }}
       />
@@ -429,12 +429,12 @@ export default function PortfolioHero() {
                       href={item.href}
                       className="block text-lg md:text-xl font-bold tracking-tight py-1.5 px-2 cursor-pointer transition-colors duration-300 rounded"
                       style={{
-                        color: active ? "#C3E41D" : isDark ? "hsl(0 0% 100%)" : "hsl(0 0% 10%)",
+                        color: active ? "#8A00C4" : isDark ? "hsl(0 0% 100%)" : "hsl(0 0% 10%)",
                         backgroundColor: active ? (isDark ? "hsl(0 0% 10%)" : "hsl(0 0% 93%)") : "transparent",
                       }}
-                      onMouseEnter={(e) => { e.currentTarget.style.color = "#C3E41D"; }}
+                      onMouseEnter={(e) => { e.currentTarget.style.color = "#8A00C4"; }}
                       onMouseLeave={(e) => {
-                        e.currentTarget.style.color = active ? "#C3E41D" : isDark ? "hsl(0 0% 100%)" : "hsl(0 0% 10%)";
+                        e.currentTarget.style.color = active ? "#8A00C4" : isDark ? "hsl(0 0% 100%)" : "hsl(0 0% 10%)";
                       }}
                       onClick={(e) => { e.preventDefault(); handleNavClick(item.href); }}
                     >
@@ -468,7 +468,7 @@ export default function PortfolioHero() {
             <div
               className="absolute top-1 left-1 w-6 h-6 rounded-full flex items-center justify-center transition-all duration-300"
               style={{
-                backgroundColor: isDark ? "#C3E41D" : "hsl(0 0% 10%)",
+                backgroundColor: isDark ? "#8A00C4" : "hsl(0 0% 10%)",
                 transform: isDark ? "translateX(2rem)" : "translateX(0)",
               }}
             >
@@ -489,7 +489,7 @@ export default function PortfolioHero() {
               animateBy="letters"
               direction="top"
               className="font-bold text-[100px] sm:text-[140px] md:text-[180px] lg:text-[210px] leading-[0.75] tracking-tighter uppercase justify-center whitespace-nowrap"
-              style={{ color: "#C3E41D", fontFamily: "'Fira Code', monospace" }}
+              style={{ color: "#8A00C4", fontFamily: "'Fira Code', monospace" }}
             />
 
             <div className="mt-4">
@@ -513,7 +513,7 @@ export default function PortfolioHero() {
           <div className="flex justify-center gap-4">
             <MagneticButton
               onClick={() => handleNavClick("#contact")}
-              bg="#C3E41D"
+              bg="#8A00C4"
               color="black"
               hoverShadow="0 4px 20px rgba(195,228,29,0.2)"
             >
@@ -525,8 +525,8 @@ export default function PortfolioHero() {
               bg="transparent"
               color={isDark ? "hsl(0 0% 90%)" : "hsl(0 0% 20%)"}
               border={isDark ? "hsl(0 0% 25%)" : "hsl(0 0% 80%)"}
-              hoverBorder="#C3E41D"
-              hoverColor="#C3E41D"
+              hoverBorder="#8A00C4"
+              hoverColor="#8A00C4"
               icon={<Download className="w-4 h-4" />}
             >
               Resume

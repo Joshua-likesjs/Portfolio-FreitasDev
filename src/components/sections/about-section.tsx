@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import ScrollReveal from "@/components/effects/scroll-reveal";
 import { BookOpen, Code2, Palette, Database, MapPin, Zap } from "lucide-react";
+import imageProfile from "../images/imageProfile.png"
 
 const skillCategories = [
   {
@@ -23,19 +24,18 @@ const skillCategories = [
     icon: Database,
     skills: [
       { name: "Node.js", level: 88 },
-      { name: "Python", level: 82 },
       { name: "PostgreSQL / Prisma", level: 85 },
-      { name: "GraphQL", level: 78 },
+      { name: "Firebase", level: 78 },
     ],
   },
   {
     label: "Design",
     icon: Palette,
     skills: [
-      { name: "Figma", level: 90 },
-      { name: "UI/UX Design", level: 88 },
-      { name: "Design Systems", level: 85 },
-      { name: "Prototyping", level: 80 },
+      { name: "Figma", level: 60 },
+      { name: "UI/UX Design", level: 58 },
+      { name: "Design Systems", level: 45 },
+      { name: "Prototyping", level: 68 },
     ],
   },
   {
@@ -43,9 +43,8 @@ const skillCategories = [
     icon: BookOpen,
     skills: [
       { name: "Git / GitHub", level: 92 },
-      { name: "Docker / AWS", level: 80 },
       { name: "CI/CD Pipelines", level: 78 },
-      { name: "Three.js / WebGL", level: 72 },
+      { name: "Three.js", level: 42 },
     ],
   },
 ];
@@ -59,7 +58,7 @@ const statusItems = [
   },
   {
     emoji: "📍",
-    label: "San Francisco, CA",
+    label: "Manaus, AM",
     description: "Open to remote work worldwide",
     icon: MapPin,
   },
@@ -95,7 +94,7 @@ function AnimatedHeading({ text }: { text: string }) {
         className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-0"
         style={{
           fontFamily: "'Fira Code', monospace",
-          color: "#C3E41D",
+          color: "#8A00C4",
           opacity: inView ? 1 : 0,
           transform: inView ? "translateY(0)" : "translateY(20px)",
           filter: inView ? "blur(0px)" : "blur(8px)",
@@ -168,7 +167,7 @@ function ProgressBar({ name, level, delay }: { name: string; level: number; dela
         <motion.div
           className="h-full rounded-full relative overflow-hidden"
           style={{
-            background: "linear-gradient(90deg, #9ab016 0%, #C3E41D 60%, #d4f045 100%)",
+            background: "linear-gradient(90deg, #9ab016 0%, #8A00C4 60%, #d4f045 100%)",
           }}
           initial={{ width: 0 }}
           animate={inView ? { width: `${level}%` } : { width: 0 }}
@@ -202,11 +201,11 @@ function ProgressBar({ name, level, delay }: { name: string; level: number; dela
             exit={{ opacity: 0, y: 4 }}
             transition={{ duration: 0.15 }}
             className="absolute -top-8 left-1/2 -translate-x-1/2 z-20 px-2.5 py-1 rounded-md text-xs font-mono font-bold whitespace-nowrap shadow-lg dark:bg-neutral-700 bg-white dark:text-neutral-100 text-neutral-800 border dark:border-neutral-600 border-neutral-200"
-            style={{ fontFamily: "'Fira Code', monospace", color: "#C3E41D" }}
+            style={{ fontFamily: "'Fira Code', monospace", color: "#8A00C4" }}
           >
             {level}%
             {/* Tooltip arrow */}
-            <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-[4px]">
+            <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-1">
               <div className="w-2 h-2 rotate-45 dark:bg-neutral-700 bg-white border-r border-b dark:border-neutral-600 border-neutral-200" />
             </div>
           </motion.div>
@@ -272,10 +271,10 @@ export default function AboutSection() {
               <motion.div variants={fadeUpVariants} custom={0.1} className="relative shrink-0">
                 <div
                   className="w-32 h-32 sm:w-36 sm:h-36 rounded-2xl overflow-hidden shadow-2xl"
-                  style={{ border: "3px solid #C3E41D" }}
+                  style={{ border: "3px solid #8A00C4" }}
                 >
                   <Image
-                    src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face"
+                    src={imageProfile}
                     alt="Freitas headshot"
                     className="w-full h-full object-cover"
                     width={400}
@@ -284,7 +283,7 @@ export default function AboutSection() {
                 </div>
                 <div
                   className="absolute -bottom-2 -right-2 w-32 h-32 sm:w-36 sm:h-36 rounded-2xl -z-10"
-                  style={{ backgroundColor: "#C3E41D", opacity: 0.15 }}
+                  style={{ backgroundColor: "#8A00C4", opacity: 0.15 }}
                 />
                 {/* Status badge */}
                 <div className="absolute -top-2 -right-2 flex items-center gap-1.5 px-2 py-1 rounded-full dark:bg-[hsl(0,0%,12%)] bg-white dark:border-neutral-800 border-neutral-200 border shadow-lg">
@@ -299,8 +298,8 @@ export default function AboutSection() {
                   className="text-base md:text-lg leading-relaxed dark:text-neutral-300 text-neutral-700 mb-4"
                   style={{ fontFamily: "'Antic', sans-serif" }}
                 >
-                  I&apos;m Freitas — a creative developer and designer who bridges the gap between
-                  aesthetics and engineering. With 7+ years building digital products, I specialize
+                  I&apos;m Freitas — a creative Jr. developer and designer who bridges the gap between
+                  aesthetics and engineering. With 1+ year building digital products, I specialize
                   in crafting interfaces that are beautiful, performant, and accessible.
                 </p>
                 <p
@@ -316,9 +315,8 @@ export default function AboutSection() {
             {/* Quick stat badges */}
             <div className="flex flex-wrap gap-3 mb-6">
               {[
-                { label: "7+ Years Exp.", value: "" },
-                { label: "50+ Projects", value: "" },
-                { label: "12 Products", value: "" },
+                { label: "1+ Year Exp.", value: "" },
+                { label: "3 Projects", value: "" },
               ].map((stat, i) => (
                 <motion.div
                   key={stat.label}
@@ -330,7 +328,7 @@ export default function AboutSection() {
                   <Badge
                     variant="outline"
                     className="px-3 py-1.5 text-sm dark:border-neutral-700 dark:text-neutral-300 border-neutral-300 text-neutral-600 cursor-default"
-                    style={{ borderColor: "#C3E41D30" }}
+                    style={{ borderColor: "#8A00C430" }}
                   >
                     {stat.label}
                   </Badge>
@@ -350,7 +348,7 @@ export default function AboutSection() {
               className="absolute -top-4 -left-4 -right-4 -bottom-4 -z-10 rounded-3xl pointer-events-none opacity-[0.03] dark:opacity-[0.04]"
               style={{
                 backgroundImage:
-                  "radial-gradient(circle, #C3E41D 1px, transparent 1px)",
+                  "radial-gradient(circle, #8A00C4 1px, transparent 1px)",
                 backgroundSize: "20px 20px",
               }}
             />
@@ -358,7 +356,7 @@ export default function AboutSection() {
             {skillCategories.map((category, catIdx) => (
               <div key={category.label}>
                 <div className="flex items-center gap-2 mb-4">
-                  <category.icon className="w-4 h-4" style={{ color: "#C3E41D" }} />
+                  <category.icon className="w-4 h-4" style={{ color: "#8A00C4" }} />
                   <h3
                     className="text-xs uppercase tracking-widest dark:text-neutral-400 text-neutral-500 font-semibold"
                     style={{ fontFamily: "'Fira Code', monospace" }}
@@ -399,9 +397,9 @@ export default function AboutSection() {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.4, delay: 0.3 + i * 0.1 }}
-                    className="flex items-center gap-3 px-4 py-3 rounded-xl dark:bg-neutral-900/50 bg-white/70 border dark:border-neutral-800/60 border-neutral-200/80 transition-all hover:dark:border-[#C3E41D]/20 hover:border-[#C3E41D]/30 hover:shadow-sm"
+                    className="flex items-center gap-3 px-4 py-3 rounded-xl dark:bg-neutral-900/50 bg-white/70 border dark:border-neutral-800/60 border-neutral-200/80 transition-all hover:dark:border-[#8A00C4]/20 hover:border-[#8A00C4]/30 hover:shadow-sm"
                   >
-                    <span className="text-lg flex-shrink-0">{item.emoji}</span>
+                    <span className="text-lg shrink-0">{item.emoji}</span>
                     <div className="flex flex-col sm:flex-row sm:items-center sm:gap-2 min-w-0">
                       <span
                         className="text-sm font-bold dark:text-neutral-200 text-neutral-700"

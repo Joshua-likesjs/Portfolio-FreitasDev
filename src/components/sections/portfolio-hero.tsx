@@ -195,7 +195,7 @@ const ProfileImage: React.FC<{ isDark: boolean }> = ({ isDark }) => {
         />
         {/* Image */}
         <div
-          className={`relative z-10 ${size} rounded-full overflow-hidden shadow-2xl transition-transform duration-300 hover:scale-110 cursor-pointer`}
+          className={`relative z-10 ${size}  fetchpriority=high rounded-full overflow-hidden shadow-2xl transition-transform duration-300 hover:scale-110 cursor-pointer`}
         >
           <Image
             src="https://i.postimg.cc/y8DnKLyK/albert-dera-ILip77-Sbm-OE-unsplash.jpg"
@@ -204,6 +204,7 @@ const ProfileImage: React.FC<{ isDark: boolean }> = ({ isDark }) => {
             width={400}
             height={400}
             loading="eager"
+           
             priority
           />
         </div>

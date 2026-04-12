@@ -104,7 +104,7 @@ function ServiceCard({
         className="relative rounded-2xl p-[1.5px] cursor-pointer"
         style={{
           background: isHovered
-            ? "linear-gradient(135deg, #8A00C4 0%, #8aaa10 50%, #8A00C4 100%)"
+            ? "linear-gradient(135deg, #C3E41D 0%, #8aaa10 50%, #C3E41D 100%)"
             : "transparent",
           transition: "background 0.4s ease",
         }}

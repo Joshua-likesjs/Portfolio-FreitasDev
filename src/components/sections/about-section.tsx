@@ -4,7 +4,6 @@ import React, { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
-import ScrollReveal from "@/components/effects/scroll-reveal";
 import { BookOpen, Code2, Palette, Database, MapPin, Zap } from "lucide-react";
 import imageProfile from "../images/imageProfile.png"
 
@@ -167,7 +166,7 @@ function ProgressBar({ name, level, delay }: { name: string; level: number; dela
         <motion.div
           className="h-full rounded-full relative overflow-hidden"
           style={{
-            background: "linear-gradient(90deg, #9ab016 0%, #8A00C4 60%, #d4f045 100%)",
+            background: "linear-gradient(90deg, #4c0e66 0%, #b403ff 60%, #c475e6   100%)",
           }}
           initial={{ width: 0 }}
           animate={inView ? { width: `${level}%` } : { width: 0 }}

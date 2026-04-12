@@ -17,7 +17,7 @@ const navLinks = [
 const socialLinks = [
   { icon: Github, href: "https://github.com/Joshua-likesjs", label: "GitHub" },
   { icon: Linkedin, href: "https://www.linkedin.com/in/josu%C3%A9-gabriel-560820306/?skipRedirect=true", label: "LinkedIn" },
-  { icon: Mail, href: "mailto:galego.jjdocarmo@gmail.com", label: "Email" },
+  { icon: Mail, href: "mailto:freitascontactdev@gmail.com", label: "Email" },
 ];
 
 export default function PortfolioFooter() {

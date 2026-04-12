@@ -127,7 +127,7 @@ export default function ContactSection() {
                 <div>
                   <p className="text-xs uppercase tracking-widest dark:text-neutral-500 text-neutral-500 mb-0.5" style={{ fontFamily: "'Fira Code', monospace" }}>Email</p>
                   <span className="text-sm dark:text-neutral-300 text-neutral-700" style={{ fontFamily: "'Fira Code', monospace" }}>
-                    galego.jjdocarmo@gmail.com
+                    freitascontactdev@gmail.com
                   </span>
                 </div>
               </div>

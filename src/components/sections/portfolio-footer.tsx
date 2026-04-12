@@ -16,7 +16,7 @@ const navLinks = [
 
 const socialLinks = [
   { icon: Github, href: "https://github.com/Joshua-likesjs", label: "GitHub" },
-  { icon: Linkedin, href: "https://www.linkedin.com/in/josu%C3%A9-gabriel-560820306/?skipRedirect=true", label: "LinkedIn" },
+  { icon: Linkedin, href: "https://www.linkedin.com/in/josu%C3%A9-freitas-442a1a402/", label: "LinkedIn" },
   { icon: Mail, href: "mailto:freitascontactdev@gmail.com", label: "Email" },
 ];
 

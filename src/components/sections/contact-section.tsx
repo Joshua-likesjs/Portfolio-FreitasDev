@@ -154,7 +154,7 @@ export default function ContactSection() {
                 <div className="flex gap-3">
                   {[
                     { icon: Github, label: "GitHub", href: "https://github.com/Joshua-likesjs" },
-                    { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/in/josu%C3%A9-gabriel-560820306/?skipRedirect=true" },
+                    { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/in/josu%C3%A9-freitas-442a1a402/" },
                   ].map(({ icon: Icon, label, href }) => (
                     <a
                       key={label}

@@ -9,8 +9,7 @@ const brands = [
   { name: "Figma", color: "#F24E1E", category: "Design" },
   { name: "GitHub", color: "#E6EDF3", category: "Developer Tools" },
   { name: "Obsidian", color: "#7E1DFB", category: "Productivity" },
-  { name: "Firebase", color: "#FFC400", category: "Cloud" },
-  { name: "AWS", color: "#FF9900", category: "Infrastructure" }
+  { name: "Firebase", color: "#FFC400", category: "Database" },
 ];
 
 function AnimatedHeading({ text }: { text: string }) {

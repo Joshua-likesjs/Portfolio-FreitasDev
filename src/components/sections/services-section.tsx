@@ -21,7 +21,7 @@ const services = [
     icon: Globe,
     title: "Full-Stack Engineering",
     description: "End-to-end application development with scalable APIs and database design. From concept to production.",
-    tags: ["Node.js", "PostgreSQL", "AWS"],
+    tags: ["Node.js", "Firebase"],
   },
   {
     icon: Smartphone,

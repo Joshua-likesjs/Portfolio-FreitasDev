@@ -259,6 +259,51 @@ export default function SkillsRadarSection() {
                 );
               })}
 
+            {skills.map((skill, i) => {
+                const { x, y } = getPoint(cx, cy, maxRadius, i, (skill.value * animatedFraction) / 100);
+                const isHovered = hoveredIndex === i;
+                return (
+                  <motion.line
+                    key={`jojo-line-${i}`}
+                    x1={cx}
+                    y1={cy}
+                    x2={x}
+                    y2={y}
+                    stroke={isHovered ? ACCENT : `${ACCENT}80`}
+                    strokeWidth={isHovered ? 3 : 2}
+                    strokeLinecap="round"
+                    initial={{ pathLength: 0, opacity: 0 }}
+                    animate={{ pathLength: 1, opacity: 1 }}
+                    transition={{ duration: 0.6, delay: 0.2 + i * 0.08, ease: 'easeOut' }}
+                    style={{ pointerEvents: 'none' }}
+                  />
+                );
+              })}
+
+              {/* Center dot (JoJo style core) */}
+              <motion.circle
+                cx={cx}
+                cy={cy}
+                r={7}
+                fill={ACCENT}
+                stroke={isDark ? 'hsl(0,0%,10%)' : 'hsl(0,0%,100%)'}
+                strokeWidth={3}
+                initial={{ r: 0, opacity: 0 }}
+                animate={{ r: 7, opacity: 1 }}
+                transition={{ duration: 0.4, delay: 0.1 }}
+              />
+              {/* Center dot inner glow */}
+              <motion.circle
+                cx={cx}
+                cy={cy}
+                r={3}
+                fill={isDark ? 'hsl(0,0%,10%)' : 'hsl(0,0%,100%)'}
+                initial={{ r: 0, opacity: 0 }}
+                animate={{ r: 3, opacity: 1 }}
+                transition={{ duration: 0.4, delay: 0.2 }}
+              />
+
+
               {/* Labels */}
               {skills.map((skill, i) => {
                 const labelRadius = maxRadius + 18;

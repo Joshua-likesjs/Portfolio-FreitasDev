@@ -354,9 +354,8 @@ export default function PortfolioHero() {
     { label: "HOME", href: "#home" },
     { label: "ABOUT", href: "#about" },
     { label: "PROJECTS", href: "#projects" },
-    { label: "EXPERIENCE", href: "#experience" },
-    { label: "ACHIEVEMENTS", href: "#achievements" },
-    { label: "PRICING", href: "#pricing" },
+    { label: "SKILLS", href: "#skills-radar"},
+    { label: "EDUCATION", href: "#education" },
     { label: "FAQ", href: "#faq" },
     { label: "CONTACT", href: "#contact" },
   ];
@@ -489,7 +488,7 @@ export default function PortfolioHero() {
               delay={200}
               animateBy="letters"
               direction="top"
-              className="font-bold text-[100px] sm:text-[140px] md:text-[180px] lg:text-[210px] leading-[0.75] tracking-tighter uppercase justify-center whitespace-nowrap"
+              className="font-bold text-[80px] sm:text-[140px] md:text-[180px] lg:text-[210px] leading-[0.75] tracking-tighter uppercase justify-center whitespace-nowrap"
               style={{ color: "#8A00C4", fontFamily: "'Fira Code', monospace" }}
             />
 

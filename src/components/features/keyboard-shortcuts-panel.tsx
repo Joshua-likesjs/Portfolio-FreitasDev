@@ -10,7 +10,7 @@ interface Shortcut {
 }
 
 const shortcuts: Shortcut[] = [
-  { keys: '⌘K / Ctrl+K', description: 'Command Palette' },
+  { keys: 'Cmd+K / Ctrl+K', description: 'Command Palette' },
   { keys: '?', description: 'Toggle Shortcuts' },
   { keys: 'T', description: 'Toggle Theme' },
   { keys: 'H', description: 'Scroll to Home' },

@@ -55,7 +55,7 @@ const categories: ToolCategory[] = [
     name: 'Hardware',
     icon: Monitor,
     tools: [
-      { name: 'Acer Aspire A515-45"', description: 'laptop', emoji: '💻' },
+      { name: 'Acer Aspire A515-45', description: 'laptop', emoji: '💻' },
       { name: 'ELG Dragon War Camuflado (MGDW)', description: 'mouse', emoji: '🖱️' },
     ],
   },

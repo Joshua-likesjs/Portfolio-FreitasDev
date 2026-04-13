@@ -24,8 +24,8 @@ export const metadata: Metadata = {
   description: "Designing human experiences in code.",
   keywords: ["portfolio", "design", "developer", "Freitas"],
   icons: {
-    // Certifique-se que a imagem esteja em: public/FreitasLogo.png
-    icon: "/FreitasLogo.png?v=1", 
+    // Certifique-se que a imagem esteja em: public/FreitasTopLogo.png
+    icon: "/FreitasTopLogo.png?v=1", 
   },
   openGraph: {
     title: "Portfolio - Freitas",

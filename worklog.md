@@ -1317,7 +1317,7 @@ The portfolio is a **fully-featured, production-quality single-page portfolio we
 - **Backend APIs**: Contact POST/GET + Newsletter POST with Zod + SQLite
 - **Floating paths**: Fixed viewport background with 36 animated SVG paths, visible throughout entire site
 - **Dark/Light theme**: Smooth transition, localStorage persistence, FOUC prevention
-- **Interactive elements**: Cursor glow, command palette (⌘K), magnetic buttons, shuffle testimonials
+- **Interactive elements**: Cursor glow, command palette (Control+K), magnetic buttons, shuffle testimonials
 - **Responsive**: Mobile (375px) to desktop (1920px)
 - **Zero compilation errors**, zero runtime errors, zero console errors
 
@@ -1612,7 +1612,7 @@ Part 1 — Keyboard Shortcuts Panel:
 - Small info button (Info icon from lucide-react in a circle) always visible
 - Panel slides up with Framer Motion AnimatePresence on click or pressing `?` key
 - Shortcuts list using existing `kbd` CSS class from globals.css:
-  - ⌘K / Ctrl+K — Command Palette
+  - Control+K / Ctrl+K — Command Palette
   - ? — Toggle Shortcuts
   - T — Toggle Theme
   - H — Scroll to Home
@@ -1768,7 +1768,7 @@ New Features (Subagent 13-b):
 - **Tools section enhanced**: Staggered entrance (0.05s/card), collapsible categories with rotating chevron, search input filter (rounded-full, ESC to clear), hover glow + emoji bounce
 
 New Features (Subagent 13-c):
-- **Keyboard shortcuts panel**: Floating info button (bottom-right), panel slides up on click or `?` key, 5 shortcuts listed (⌘K, ?, T, H, ↑↓), glass-card styling, click outside + Escape to close, skips when input focused
+- **Keyboard shortcuts panel**: Floating info button (bottom-right), panel slides up on click or `?` key, 5 shortcuts listed (Control+K, ?, T, H, ↑↓), glass-card styling, click outside + Escape to close, skips when input focused
 - **Theme toggle shortcut**: Press `T` to toggle dark/light theme, brief "Theme toggled" toast notification (1.5s fade)
 
 Styling Enhancements (Subagent 13-d):
@@ -1805,7 +1805,7 @@ Verification Results:
 ### Current Project Status / Assessment
 The portfolio is a **fully-featured, production-rich single-page portfolio website** for "Freitas". Current state:
 - **22 sections** with extensive interactivity: Hero (gradient ring + magnetic buttons), About (skill tooltips + status), Trusted Brands, Skills Radar, Stats, Services (expand case studies), Process (progress rings), Tech Stack, Projects (filter tabs), Experience (stagger + glow), Education, Featured Articles (carousel), Testimonials (progress + shuffle), FAQ (numbers + filter), Pricing (toggle), Achievements (category filter + year counter), Tools (search + collapsible), Contribution Graph, Timeline Journey, Now, Quote, Music Player, Newsletter, Contact
-- **Keyboard shortcuts**: ⌘K (command palette), T (theme), ? (shortcuts), H (home), ↑↓ (navigate)
+- **Keyboard shortcuts**: Control+K (command palette), T (theme), ? (shortcuts), H (home), ↑↓ (navigate)
 - **Floating paths**: Fixed viewport background, 36 animated SVG paths
 - **Music player**: Integrated, visible after Now section
 - **Dark/Light theme**: Smooth transition, T key shortcut, image adaptation

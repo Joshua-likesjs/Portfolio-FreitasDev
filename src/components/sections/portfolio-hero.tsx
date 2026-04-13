@@ -567,7 +567,7 @@ export default function PortfolioHero() {
             aria-label="Open command palette (Ctrl+K)"
           >
             <Search className="w-3 h-3" />
-            <span>⌘K</span>
+            <span>Control+K</span>
           </button>
         </div>
       </main>

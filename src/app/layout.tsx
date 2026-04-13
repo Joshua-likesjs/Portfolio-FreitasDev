@@ -1,7 +1,6 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next"; // Importe Viewport
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { Analytics } from "@vercel/analytics/next"
 import { Toaster } from "@/components/ui/toaster";
 
 const geistSans = Geist({
@@ -14,14 +13,19 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+// Configuração correta do Viewport
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
 
 export const metadata: Metadata = {
   title: "Portfolio - Freitas",
   description: "Designing human experiences in code.",
   keywords: ["portfolio", "design", "developer", "Freitas"],
   icons: {
-    icon: "https://z-cdn.chatglm.cn/z-ai/static/logo.svg",
+    // Certifique-se que a imagem esteja em: public/FreitasLogo.png
+    icon: "/FreitasLogo.png?v=1", 
   },
   openGraph: {
     title: "Portfolio - Freitas",
@@ -43,15 +47,14 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* O Next.js injetará o viewport e metadados aqui automaticamente */}
         <script
           dangerouslySetInnerHTML={{
             __html: `(function(){try{var t=localStorage.getItem('portfolio-theme');if(t==='light'){document.documentElement.classList.remove('dark')}else{document.documentElement.classList.add('dark')}}catch(e){document.documentElement.classList.add('dark')}})()`,
           }}
         />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@700&family=Antic&display=swap"
-        />
+        {/* JSON-LD e fontes externas permanecem aqui */}
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@700&family=Antic&display=swap" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -61,20 +64,16 @@ export default function RootLayout({
               "name": "Freitas",
               "url": "https://freitas.dev",
               "jobTitle": "Creative Developer & Designer",
-              "description": "Designing human experiences in code. Full-stack developer and UI/UX designer with 7+ years of experience.",
+              "description": "Designing human experiences in code.",
               "sameAs": [
                 "https://github.com/freitas",
                 "https://linkedin.com/in/freitas",
-                "https://twitter.com/freitas",
               ],
-              "knowsAbout": ["React", "Next.js", "TypeScript", "UI/UX Design", "Framer Motion", "Tailwind CSS", "Node.js", "Python", "PostgreSQL", "Figma"],
             }),
           }}
         />
       </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
-      >
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}>
         {children}
         <Toaster />
       </body>

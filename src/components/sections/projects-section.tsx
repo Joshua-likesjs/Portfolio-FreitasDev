@@ -38,7 +38,7 @@ const projects = [
     featured: false,
     link: "https://talon-beta.vercel.app/",
     github: "https://github.com/Joshua-likesjs/TALON",
-    highlights: ["Live video shopping", "Real-time inventory sync", "Stripe payment processing", "Creator analytics dashboard"],
+    highlights: ["Embedded System", "IoT", "dashboard with real-time mapping and Geofence", "HeatMap", "Traking", "Location History"],
   },
   {
     name: ".ChocaSystem",
@@ -50,7 +50,7 @@ const projects = [
     featured: false,
     link: "https://incubadora-vpjs.vercel.app/",
     github: "https://github.com/Joshua-likesjs/Projeto-ChocaSystem",
-    highlights: ["Live video shopping", "Real-time inventory sync", "Stripe payment processing", "Creator analytics dashboard"],
+    highlights: ["Embedded System", "IoT", "Sensors", "PID"],
   }
 ];
 

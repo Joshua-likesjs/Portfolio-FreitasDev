@@ -321,7 +321,7 @@ export default function ProjectsSection() {
                       width={600}
                       height={400}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
+                    <div className="absolute inset-0 bg-linear-to-t from-black/50 via-black/10 to-transparent" />
                     <div className="absolute bottom-3 left-4">
                       <span className="text-white text-lg font-bold drop-shadow-lg" style={{ fontFamily: "'Fira Code', monospace" }}>
                         {project.name}

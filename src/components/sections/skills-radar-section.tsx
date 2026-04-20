@@ -121,7 +121,7 @@ export default function SkillsRadarSection() {
 
   return (
     <section
-      id="skills-radar"
+      id="skills"
       ref={sectionRef}
       className="py-20 md:py-32 px-4 dark:bg-[hsl(0,0%,7%)] bg-[hsl(0,0%,100%)] transition-colors relative overflow-hidden"
     >
@@ -136,7 +136,7 @@ export default function SkillsRadarSection() {
 
       {/* Glow effects */}
       <div
-        className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] rounded-full blur-[160px] dark:opacity-[0.06] opacity-[0.03]"
+        className="absolute top-1/4 left-1/2 -translate-x-1/2 w-125500px] rounded-full blur-[160px] dark:opacity-[0.06] opacity-[0.03]"
         style={{ backgroundColor: ACCENT }}
       />
 
@@ -160,7 +160,7 @@ export default function SkillsRadarSection() {
           transition={{ duration: 0.6, ease: 'easeOut' }}
           className="flex justify-center mb-10"
         >
-          <div className="relative w-full max-w-[500px] aspect-square">
+          <div className="relative w-full max-w-125 aspect-square">
             <svg
               viewBox={`0 0 ${size} ${size}`}
               className="w-full h-full"

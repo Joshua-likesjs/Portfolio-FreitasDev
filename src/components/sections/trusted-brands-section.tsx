@@ -80,7 +80,7 @@ export default function TrustedBrandsSection() {
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.5, delay: index * 0.06 }}
             >
-              <div className="h-full p-5 md:p-6 rounded-2xl backdrop-blur-sm dark:bg-white/[0.03] bg-black/[0.02] dark:border-neutral-800 border-neutral-200 border group hover:scale-[1.05] hover:-translate-y-0.5 hover:dark:border-[#8A00C4]/50 hover:border-[#8A00C4]/50 hover:shadow-[0_8px_30px_rgba(195,228,29,0.15)] dark:hover:shadow-[0_8px_30px_rgba(195,228,29,0.1)] transition-all duration-300 cursor-default">
+              <div className="h-full p-5 md:p-6 rounded-2xl backdrop-blur-sm dark:bg-white/3 bg-black/2 dark:border-neutral-800 border-neutral-200 border group hover:scale-[1.05] hover:-translate-y-0.5 hover:dark:border-[#8A00C4]/50 hover:border-[#8A00C4]/50 hover:shadow-[0_8px_30px_rgba(195,228,29,0.15)] dark:hover:shadow-[0_8px_30px_rgba(195,228,29,0.1)] transition-all duration-300 cursor-default">
                 {/* Decorative colored dot and line */}
                 <div className="flex items-center gap-2.5 mb-4">
                   <span
@@ -91,7 +91,7 @@ export default function TrustedBrandsSection() {
                     }}
                   />
                   <span
-                    className="w-6 h-[2px] rounded-full opacity-50 group-hover:w-10 group-hover:opacity-100 transition-all duration-300"
+                    className="w-6 h-0.5 rounded-full opacity-50 group-hover:w-10 group-hover:opacity-100 transition-all duration-300"
                     style={{ backgroundColor: brand.color }}
                   />
                 </div>

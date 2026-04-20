@@ -40,6 +40,7 @@ const categories: ToolCategory[] = [
     icon: Server,
     tools: [
       { name: 'Node.js', description: 'runtime', emoji: '🟢' },
+      { name: 'Bun', description: 'runtime', emoji: '⚪' },
       { name: 'Prisma', description: 'ORM', emoji: '🔷' },
     ],
   },

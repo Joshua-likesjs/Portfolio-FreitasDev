@@ -109,7 +109,7 @@ export default function WritingSection() {
                   width={500}
                   height={300}
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-transparent md:from-black/50" />
+                <div className="absolute inset-0 bg-linear-to-r from-black/30 to-transparent md:from-black/50" />
                 <div className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-black"
                   style={{ backgroundColor: "#8A00C4", fontFamily: "'Fira Code', monospace" }}
                 >
@@ -169,7 +169,7 @@ export default function WritingSection() {
                   width={500}
                   height={300}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/40 to-transparent" />
               </div>
               <div className="p-5">
                 <div className="flex items-center gap-3 mb-2 text-[11px] dark:text-neutral-500 text-neutral-400" style={{ fontFamily: "'Fira Code', monospace" }}>

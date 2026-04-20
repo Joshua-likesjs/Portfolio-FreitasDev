@@ -98,15 +98,15 @@ export default function CommandPalette() {
   }, []);
 
   const navigationItems: CommandAction[] = [
-    { id: 'home', label: 'Home', icon: <Home className="size-4" />, action: () => navigateToSection('home') },
-    { id: 'about', label: 'About', icon: <User className="size-4" />, action: () => navigateToSection('about') },
-    { id: 'skills', label: 'Skills', icon: <BarChart3 className="size-4" />, action: () => navigateToSection('skills-radar') },
-    { id: 'process', label: 'How i work', icon: <LucideTrendingUpDown className="size-4" />, action: () => navigateToSection('process') },
-    { id: 'projects', label: 'Projects', icon: <FolderKanban className="size-4" />, shortcut: 'P', action: () => navigateToSection('projects') },
-    { id: 'tools', label: 'Tools', icon: <Wrench className="size-4" />, action: () => navigateToSection('tools') },
-    { id: 'quotes', label: 'Quotes', icon: <Quote className="size-4" />, action: () => navigateToSection('quotes') },
-    { id: 'faq', label: 'FAQ', icon: <HelpCircle className="size-4" />, action: () => navigateToSection('faq') },
-    { id: 'contact', label: 'Contact', icon: <Mail className="size-4" />, shortcut: 'C', action: () => navigateToSection('contact') },
+    { id: 'home',     label: 'Home',       icon: <Home                 className="size-4" />, action: () => navigateToSection('home') },
+    { id: 'about',    label: 'About',      icon: <User                 className="size-4" />, action: () => navigateToSection('about') },
+    { id: 'skills',   label: 'Skills',     icon: <BarChart3            className="size-4" />, action: () => navigateToSection('skills') },
+    { id: 'process',  label: 'How i work', icon: <LucideTrendingUpDown className="size-4" />, action: () => navigateToSection('process') },
+    { id: 'projects', label: 'Projects',   icon: <FolderKanban         className="size-4" />, action: () => navigateToSection('projects'), shortcut: 'P'},
+    { id: 'tools',    label: 'Tools',      icon: <Wrench               className="size-4" />, action: () => navigateToSection('tools') },
+    { id: 'quotes',   label: 'Quotes',     icon: <Quote                className="size-4" />, action: () => navigateToSection('quotes') },
+    { id: 'faq',      label: 'FAQ',        icon: <HelpCircle           className="size-4" />, action: () => navigateToSection('faq') },
+    { id: 'contact',  label: 'Contact',    icon: <Mail                 className="size-4" />, action: () => navigateToSection('contact'), shortcut: 'C'},
   ];
 
   const actionItems: CommandAction[] = [

@@ -137,7 +137,6 @@ function ProgressRing({ stepIndex }: { stepIndex: number }) {
   );
 }
 
-
 function ProcessCard({ step, index }: { step: (typeof steps)[0]; index: number }) {
   const [isHovered, setIsHovered] = useState(false);
 

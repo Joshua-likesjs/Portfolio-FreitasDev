@@ -137,54 +137,6 @@ function ProgressRing({ stepIndex }: { stepIndex: number }) {
   );
 }
 
-function ConnectorArrow({ index }: { index: number }) {
-  const [inView, setInView] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setInView(true);
-      },
-      { threshold: 0.3 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => {
-      if (ref.current) observer.unobserve(ref.current);
-    };
-  }, []);
-
-  return (
-    <div
-      ref={ref}
-      className="hidden lg:flex absolute -right-3 top-1/2 -translate-y-1/2 z-10"
-    >
-      <svg width="24" height="24" viewBox="0 0 24 24" className="overflow-visible">
-        {/* Dashed line */}
-        <motion.line
-          x1="0"
-          y1="12"
-          x2="20"
-          y2="12"
-          stroke="#8A00C4"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={inView ? { pathLength: 1, opacity: 0.35 } : { pathLength: 0, opacity: 0 }}
-          transition={{ duration: 0.6, delay: index * 0.15, ease: "easeOut" }}
-        />
-        {/* Arrow head */}
-        <motion.polygon
-          points="18,8 24,12 18,16"
-          fill="#8A00C4"
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={inView ? { opacity: 0.35, scale: 1 } : { opacity: 0, scale: 0.5 }}
-          transition={{ duration: 0.3, delay: index * 0.15 + 0.4, ease: "easeOut" }}
-        />
-      </svg>
-    </div>
-  );
-}
 
 function ProcessCard({ step, index }: { step: (typeof steps)[0]; index: number }) {
   const [isHovered, setIsHovered] = useState(false);
@@ -294,8 +246,7 @@ function ProcessCard({ step, index }: { step: (typeof steps)[0]; index: number }
         </div>
       </div>
 
-      {/* Connector arrow (not on last item) */}
-      {index < 3 && <ConnectorArrow index={index} />}
+      
     </motion.div>
   );
 }

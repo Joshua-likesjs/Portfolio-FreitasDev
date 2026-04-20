@@ -9,7 +9,7 @@ const steps = [
     number: "01",
     icon: MessageSquare,
     title: "Discovery",
-    description: "We start with a conversation. I learn about your goals, audience, constraints, and vision. No question is too small — understanding is the foundation of great work.",
+    description: "I start with a conversation. I learn about your goals, audience, constraints, and vision. No question is too small — understanding is the foundation of great work.",
     details: ["Kickoff call", "Stakeholder interviews", "Competitive Analysis", "Requirements doc"],
     keyTools: ["Obsidian"],
   },

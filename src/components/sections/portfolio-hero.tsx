@@ -162,7 +162,9 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({
   );
 };
 
-/* ─── ProfileImage (single source of truth) ─── */
+/* ─── ProfileImage (single source of truth) 
+
+
 const ProfileImage: React.FC<{ isDark: boolean }> = ({ isDark }) => {
   const [opacity, setOpacity] = useState(1);
 
@@ -185,7 +187,7 @@ const ProfileImage: React.FC<{ isDark: boolean }> = ({ isDark }) => {
     >
       <div className="relative">
   
-        {/* Solid background circle to mask inner area */}
+        Solid background circle to mask inner area 
         <div
           className="absolute rounded-full"
           style={{
@@ -193,7 +195,9 @@ const ProfileImage: React.FC<{ isDark: boolean }> = ({ isDark }) => {
             inset: "-5px",
           }}
         />
-        {/* Image */}
+
+        \\ Image 
+        
         <div
           className={`relative z-10 ${size}  fetchpriority=high rounded-full overflow-hidden shadow-2xl transition-transform duration-300 hover:scale-110 cursor-pointer`}
         >
@@ -212,6 +216,8 @@ const ProfileImage: React.FC<{ isDark: boolean }> = ({ isDark }) => {
     </div>
   );
 };
+
+─── */
 
 /* ─── Theme helpers ─── */
 function getStoredTheme(): boolean {
@@ -504,7 +510,7 @@ export default function PortfolioHero() {
             </div>
 
             {/* Single profile image — no duplicates */}
-            <ProfileImage isDark={isDark} />
+            {/* <ProfileImage isDark={isDark} /> */}
           </div>
         </div>
 

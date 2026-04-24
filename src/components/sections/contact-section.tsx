@@ -9,7 +9,6 @@ import { Button } from "@/components/ui/button";
 import { Github, Linkedin, Send, Mail, User, MessageSquare, CheckCircle2 } from "lucide-react";
 import emailjs from '@emailjs/browser'; // ✅ Importar EmailJS
 
-// ⚙️ CONFIGURAÇÃO DO EMAILJS - Substitua pelos seus valores!
 const EMAILJS_SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!;
 const EMAILJS_TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!;
 const EMAILJS_PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!;
@@ -87,7 +86,7 @@ export default function ContactSection() {
           description: "Obrigado pelo contato! Retornarei em breve.",
         });
         
-        // Limpar formulário
+        // Limpar  formulário
         setFormData({ name: "", email: "", message: "" });
         
         // Mostrar sucesso por 3 segundos

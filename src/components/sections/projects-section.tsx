@@ -23,7 +23,7 @@ function subscribeToTheme(callback: () => void) {
   return () => window.removeEventListener("storage", callback);
 }
 
-const categories = ["All", "Web Apps", "Mobile", "Design", "Open Source", "Web and Mobile"] as const;
+const categories = ["All", "Web Apps","Web and Mobile"] as const;
 
 type Category = (typeof categories)[number];
 

@@ -6,7 +6,7 @@ import { toast } from "@/hooks/use-toast";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { Github, Linkedin, Twitter, Send, Mail, User, MessageSquare, CheckCircle2 } from "lucide-react";
+import { Github, Linkedin, Send, Mail, User, MessageSquare, CheckCircle2 } from "lucide-react";
 import emailjs from '@emailjs/browser'; // ✅ Importar EmailJS
 
 // ⚙️ CONFIGURAÇÃO DO EMAILJS - Substitua pelos seus valores!
@@ -102,7 +102,7 @@ export default function ContactSection() {
       
       toast({
         title: "❌ Erro ao enviar",
-        description: "Não foi possível enviar a mensagem. Tente novamente.",
+        description: "Não foi possível enviar a mensagem. Verifique sua rede.",
         variant: "destructive",
       });
     } finally {

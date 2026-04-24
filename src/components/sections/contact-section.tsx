@@ -7,6 +7,12 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Github, Linkedin, Twitter, Send, Mail, User, MessageSquare, CheckCircle2 } from "lucide-react";
+import emailjs from '@emailjs/browser'; // ✅ Importar EmailJS
+
+// ⚙️ CONFIGURAÇÃO DO EMAILJS - Substitua pelos seus valores!
+const EMAILJS_SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!;
+const EMAILJS_TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!;
+const EMAILJS_PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!;
 
 function AnimatedHeading({ text }: { text: string }) {
   const ref = useRef<HTMLHeadingElement>(null);
@@ -44,42 +50,59 @@ function AnimatedHeading({ text }: { text: string }) {
 }
 
 export default function ContactSection() {
+  const formRef = useRef<HTMLFormElement>(null); // ✅ Referência para o formulário
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
+  // ✅ FUNÇÃO ATUALIZADA COM EMAILJS
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validação básica
+    if (!formData.name || !formData.email || !formData.message) {
+      toast({
+        title: "Campos obrigatórios",
+        description: "Por favor, preencha todos os campos.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsSubmitting(true);
     setIsSuccess(false);
 
     try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      // ✅ Enviar email usando EmailJS
+      const result = await emailjs.sendForm(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        formRef.current!, // Referência ao formulário
+        EMAILJS_PUBLIC_KEY
+      );
 
-      if (res.ok) {
+      if (result.status === 200) {
         toast({
-          title: "Message sent!",
-          description: "Thanks for reaching out. I'll get back to you soon.",
+          title: "✉️ Mensagem enviada!",
+          description: "Obrigado pelo contato! Retornarei em breve.",
         });
+        
+        // Limpar formulário
         setFormData({ name: "", email: "", message: "" });
+        
+        // Mostrar sucesso por 3 segundos
         setIsSuccess(true);
         setTimeout(() => setIsSuccess(false), 3000);
       } else {
-        const data = await res.json();
-        toast({
-          title: "Error",
-          description: data.error || "Something went wrong. Please try again.",
-          variant: "destructive",
-        });
+        throw new Error('Erro ao enviar');
       }
-    } catch {
+
+    } catch (error) {
+      console.error('Erro ao enviar email:', error);
+      
       toast({
-        title: "Network error",
-        description: "Please check your connection and try again.",
+        title: "❌ Erro ao enviar",
+        description: "Não foi possível enviar a mensagem. Tente novamente.",
         variant: "destructive",
       });
     } finally {
@@ -172,19 +195,24 @@ export default function ContactSection() {
             </div>
           </motion.div>
 
-          {/* Contact Form */}
+          {/* Contact Form - ✅ ATUALIZADO COM REF E NAME NOS CAMPOS */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            <form onSubmit={handleSubmit} className="space-y-5">
-              {/* Name */}
+            <form 
+              ref={formRef} // ✅ Adicionar referência aqui
+              onSubmit={handleSubmit} 
+              className="space-y-5"
+            >
+              {/* Name - ✅ Adicionar name attribute */}
               <div className="relative">
                 <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 dark:text-neutral-500 text-neutral-400" />
                 <Input
                   type="text"
+                  name="user_name" // ✅ IMPORTANTE: deve corresponder ao template
                   placeholder="Your Name"
                   required
                   value={formData.name}
@@ -193,11 +221,12 @@ export default function ContactSection() {
                 />
               </div>
 
-              {/* Email */}
+              {/* Email - ✅ Adicionar name attribute */}
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 dark:text-neutral-500 text-neutral-400" />
                 <Input
                   type="email"
+                  name="user_email" // ✅ IMPORTANTE: deve corresponder ao template
                   placeholder="Your Email"
                   required
                   value={formData.email}
@@ -206,10 +235,11 @@ export default function ContactSection() {
                 />
               </div>
 
-              {/* Message */}
+              {/* Message - ✅ Adicionar name attribute */}
               <div className="relative">
                 <MessageSquare className="absolute left-3 top-3 w-4 h-4 dark:text-neutral-500 text-neutral-400" />
                 <Textarea
+                  name="message" // ✅ IMPORTANTE: deve corresponder ao template
                   placeholder="Your Message"
                   required
                   rows={5}

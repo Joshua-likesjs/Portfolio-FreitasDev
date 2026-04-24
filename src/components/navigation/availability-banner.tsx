@@ -2,7 +2,6 @@
 
 import { useState, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X } from 'lucide-react';
 
 const STORAGE_KEY = 'availability-banner-dismissed';
 
@@ -62,7 +61,7 @@ export default function AvailabilityBanner() {
                 className="p-1 rounded-md hover:bg-foreground/10 transition-colors text-muted-foreground hover:text-foreground cursor-pointer"
                 aria-label="Dismiss availability banner"
               >
-                <X className="w-3.5 h-3.5" />
+               
               </button>
             </div>
           </div>

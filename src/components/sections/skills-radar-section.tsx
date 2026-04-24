@@ -10,11 +10,11 @@ interface SkillData {
 }
 
 const skills: SkillData[] = [
-  { name: 'Frontend', value: 92 },
+  { name: 'Frontend', value: 73 },
   { name: 'Backend', value: 83 },
-  { name: 'Design', value: 88 },
+  { name: 'Design', value: 80 },
   { name: 'DevOps', value: 80 },
-  { name: 'Mobile', value: 75 }
+  { name: 'Mobile', value: 76 }
 ];
 
 const ACCENT = '#8A00C4';

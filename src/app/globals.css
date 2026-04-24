@@ -539,14 +539,15 @@ html.theme-transitioning textarea {
   border-radius: 0.25rem;
   font-family: 'Fira Code', monospace;
   font-size: 0.625rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(0, 0, 0, 0.9);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.5);
+  color: rgb(255, 255, 255);
+
 }
 :not(.dark) .kbd {
-  background: rgba(0, 0, 0, 0.04);
+  background: rgba(0, 0, 0, 0.5);
   border-color: rgba(0, 0, 0, 0.1);
-  color: rgba(0, 0, 0, 0.4);
+  color: rgba(255, 255, 255);
 }
 
 /* Horizontal scroll snap for carousels */

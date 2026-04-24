@@ -92,7 +92,7 @@ export default function KeyboardShortcutsPanel() {
             initial={{ opacity: 0, y: 10, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
-            transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             className="glass-card rounded-xl p-4 max-w-xs mb-2 shadow-xl"
           >
             <h3
@@ -108,7 +108,7 @@ export default function KeyboardShortcutsPanel() {
                   className="flex items-center justify-between gap-3"
                 >
                   <span
-                    className="text-sm text-neutral-400"
+                    className="text-sm text-neutral-500 "
                     style={{ fontFamily: "'Antic', sans-serif" }}
                   >
                     {shortcut.description}
@@ -117,7 +117,7 @@ export default function KeyboardShortcutsPanel() {
                 </div>
               ))}
             </div>
-            <div className="mt-3 pt-2 border-t border-white/5 dark:border-white/5 border-black/5">
+            <div className="mt-3 pt-2 border-t border-white/1 dark:border-white/25">
               <span
                 className="text-[10px] text-neutral-600 tracking-wider"
                 style={{ fontFamily: "'Fira Code', monospace" }}

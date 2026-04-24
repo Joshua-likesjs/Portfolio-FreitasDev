@@ -4,7 +4,6 @@ import React, { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 const brands = [
-  { name: "Google", color: "#4285F4", category: "Technology" },
   { name: "Vercel", color: "#FFFFFF", category: "Cloud Platform" },
   { name: "Figma", color: "#F24E1E", category: "Design" },
   { name: "GitHub", color: "#E6EDF3", category: "Developer Tools" },
@@ -63,12 +62,12 @@ export default function TrustedBrandsSection() {
       />
 
       <div className="max-w-6xl mx-auto relative z-10">
-        <AnimatedHeading text="TRUSTED BY" />
+        <AnimatedHeading text="WAR SETUP" />
         <p
           className="text-base md:text-lg dark:text-neutral-400 text-neutral-500 mb-12 md:mb-16 max-w-2xl"
           style={{ fontFamily: "'Antic', sans-serif" }}
         >
-          Companies and teams I&apos;ve had the privilege of working with.
+          Technologies that I typically use for my projects.
         </p>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-6">

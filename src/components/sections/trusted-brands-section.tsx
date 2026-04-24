@@ -6,9 +6,10 @@ import { motion } from "framer-motion";
 const brands = [
   { name: "Vercel", color: "#FFFFFF", category: "Cloud Platform" },
   { name: "Figma", color: "#F24E1E", category: "Design" },
-  { name: "GitHub", color: "#E6EDF3", category: "Developer Tools" },
+  { name: "GitHub", color: "#080C12", category: "Developer Tools" },
   { name: "Obsidian", color: "#7E1DFB", category: "Productivity" },
   { name: "Firebase", color: "#FFC400", category: "Database" },
+  { name: "GLM", color: "#5c5b5b", category: "IA" },
 ];
 
 function AnimatedHeading({ text }: { text: string }) {

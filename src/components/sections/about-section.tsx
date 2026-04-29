@@ -12,19 +12,19 @@ const skillCategories = [
     label: "Frontend",
     icon: Code2,
     skills: [
-      { name: "React / Next.js", level: 95 },
+      { name: "React / Next.js", level: 75 },
       { name: "TypeScript", level: 92 },
       { name: "Tailwind CSS", level: 90 },
-      { name: "Framer Motion", level: 85 },
+      { name: "Framer Motion", level: 64 },
     ],
   },
   {
     label: "Backend",
     icon: Database,
     skills: [
-      { name: "Node.js", level: 88 },
-      { name: "PostgreSQL / Prisma", level: 85 },
-      { name: "Firebase", level: 78 },
+      { name: "Node.js", level: 78 },
+      { name: "Prisma", level: 65 },
+      { name: "Firebase", level: 68 },
     ],
   },
   {
@@ -41,8 +41,7 @@ const skillCategories = [
     label: "Tools",
     icon: BookOpen,
     skills: [
-      { name: "Git / GitHub", level: 92 },
-      { name: "CI/CD Pipelines", level: 78 },
+      { name: "Git / GitHub", level: 62 },
       { name: "D3.js", level: 42 },
     ],
   },

@@ -360,7 +360,7 @@ export default function PortfolioHero() {
     { label: "HOME", href: "#home" },
     { label: "ABOUT", href: "#about" },
     { label: "PROJECTS", href: "#projects" },
-    { label: "SKILLS", href: "#skills-radar"},
+    { label: "SKILLS", href: "#skills"},
     { label: "EDUCATION", href: "#education" },
     { label: "FAQ", href: "#faq" },
     { label: "CONTACT", href: "#contact" },

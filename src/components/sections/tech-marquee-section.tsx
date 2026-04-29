@@ -10,7 +10,6 @@ const technologies = [
   { name: "Tailwind CSS", category: "Styling" },
   { name: "Node.js", category: "Backend" },
   { name: "Prisma", category: "ORM" },
-  { name: "GraphQL", category: "API" },
   { name: "Figma", category: "Design" },
   { name: "Git", category: "Tools" },
   { name: "Vercel", category: "Hosting" },

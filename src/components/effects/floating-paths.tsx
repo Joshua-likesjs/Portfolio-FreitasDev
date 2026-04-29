@@ -1,6 +1,8 @@
 "use client";
 
+
 import { motion } from "framer-motion";
+
 
 function FloatingPaths({ position }: { position: number }) {
     const paths = Array.from({ length: 36 }, (_, i) => ({
@@ -35,7 +37,7 @@ function FloatingPaths({ position }: { position: number }) {
                     animate={{
                         pathLength: 1,
                         opacity: [0.3, 0.6, 0.3],
-                        pathOffset: [0, 1, 0],
+                        pathOffset: [0, 2, 0],
                     }}
                     transition={{
                         duration: 20 + Math.random() * 10,

@@ -14,6 +14,7 @@ const technologies = [
   { name: "Figma", category: "Design" },
   { name: "Git", category: "Tools" },
   { name: "Vercel", category: "Hosting" },
+  { name: "Railway", category: "Hosting" },
   { name: "D3.js", category: "Visualization" },
 ];
 

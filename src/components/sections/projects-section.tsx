@@ -36,7 +36,7 @@ const projects = [
     fullDescription: "Talon integrates an embedded system with GPS, SIM module, and a dashboard with real-time mapping, including location history and heat map/tracking capabilities, in addition to a geofencing system.",
     tags: ["Golang", "API RESTfull", "Railway"],
     image: Deltabank,
-    featured: false,
+    featured: true,
     link: "https://expo.dev/artifacts/eas/qTZ6bWnNsjiCRRSmJ292TC.apk",
     github: "https://github.com/edwardxxzz/delta-bank.git",
     highlights: [ "React Native", "Expo 54", "Go Backend", "Biometric Auth", "Real-time Simulation Pix"]

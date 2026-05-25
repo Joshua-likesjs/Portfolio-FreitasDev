@@ -110,7 +110,7 @@ function AnimatedHeading({ text }: { text: string }) {
 }
 
 const stats = [
-  { icon: Code2, value: 10, suffix: "+", label: "Projects Built", delay: 0 },
+  { icon: Code2, value: 5, suffix: "+", label: "Projects Built", delay: 0 },
   { icon: Users, value: 12, suffix: "+", label: "Happy Clients", delay: 150 },
   { icon: Layers, value: 4, suffix: "", label: "Products Shipped", delay: 300 },
   { icon: Award, value: 1, suffix: "+", label: "Year Experience", delay: 450 },

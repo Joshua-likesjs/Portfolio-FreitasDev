@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Star, X, Github, Globe } from "lucide-react";
 import TALON from "../images/TALON.png"
+import Deltabank from "../images/DeltaBank.png"
 import incubadora from "../images/incubadora.jpg"
 
 
@@ -23,11 +24,23 @@ function subscribeToTheme(callback: () => void) {
   return () => window.removeEventListener("storage", callback);
 }
 
-const categories = ["All", "Web Apps","Web and Mobile"] as const;
+const categories = ["All", "Web Apps","Mobile", "Web and Mobile"] as const;
 
 type Category = (typeof categories)[number];
 
 const projects = [
+  {
+    name: ".Delta Bank",
+    category: "Mobile" as Category,
+    description: "Delta Bank is a digital banking simulator built with a React Native frontend and a Go backend. It offers real-time Pix transactions, biometric login, card management, and investments.",
+    fullDescription: "Talon integrates an embedded system with GPS, SIM module, and a dashboard with real-time mapping, including location history and heat map/tracking capabilities, in addition to a geofencing system.",
+    tags: ["Golang", "API RESTfull", "Railway"],
+    image: Deltabank,
+    featured: false,
+    link: "https://expo.dev/artifacts/eas/qTZ6bWnNsjiCRRSmJ292TC.apk",
+    github: "https://github.com/edwardxxzz/delta-bank.git",
+    highlights: [ "React Native", "Expo 54", "Go Backend", "Biometric Auth", "Real-time Simulation Pix"]
+},
   {
     name: ".Talon",
     category: "Web Apps" as Category,

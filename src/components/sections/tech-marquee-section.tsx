@@ -9,6 +9,7 @@ const technologies = [
   { name: "TypeScript", category: "Language" },
   { name: "Tailwind CSS", category: "Styling" },
   { name: "Node.js", category: "Backend" },
+  { name: "Golang", category: "Backend" },
   { name: "Prisma", category: "ORM" },
   { name: "Figma", category: "Design" },
   { name: "Git", category: "Tools" },

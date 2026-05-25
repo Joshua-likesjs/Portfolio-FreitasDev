@@ -39,6 +39,7 @@ const categories: ToolCategory[] = [
     name: 'Backend',
     icon: Server,
     tools: [
+      { name: 'Golang', description: 'language', emoji: '🔵' },
       { name: 'Node.js', description: 'runtime', emoji: '🟢' },
       { name: 'Bun', description: 'runtime', emoji: '⚪' },
       { name: 'Prisma', description: 'ORM', emoji: '🔷' },
@@ -50,6 +51,7 @@ const categories: ToolCategory[] = [
     tools: [
       { name: 'GitHub Actions', description: 'CI/CD', emoji: '🤖' },
       { name: 'Vercel', description: 'deployment', emoji: '▲' },
+      { name: 'Railway', description: 'deployment', emoji: '🛤️' },
     ],
   },
   {

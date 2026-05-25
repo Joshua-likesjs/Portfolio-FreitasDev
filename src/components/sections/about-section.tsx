@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef, useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { BookOpen, Code2, Palette, Database, MapPin, Zap } from "lucide-react";
@@ -24,6 +24,7 @@ const skillCategories = [
     skills: [
       { name: "Node.js", level: 78 },
       { name: "Prisma", level: 65 },
+      { name: "Golang", level: 84 },
       { name: "Firebase", level: 68 },
     ],
   },
@@ -214,7 +215,7 @@ function ProgressBar({ name, level, delay }: { name: string; level: number; dela
 }
 
 // Container stagger animation variants
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -225,7 +226,7 @@ const containerVariants = {
   },
 };
 
-const fadeUpVariants = {
+const fadeUpVariants: Variants = {
   hidden: { opacity: 0, y: 30 },
   visible: (delay: number) => ({
     opacity: 1,
@@ -233,7 +234,7 @@ const fadeUpVariants = {
     transition: {
       duration: 0.6,
       delay,
-      ease: [0.16, 1, 0.3, 1],
+      ease: [0.16, 1, 0.3, 1] as const,
     },
   }),
 };

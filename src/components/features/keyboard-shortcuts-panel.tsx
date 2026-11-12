@@ -3,21 +3,11 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Info } from 'lucide-react';
-
-interface Shortcut {
-  keys: string;
-  description: string;
-}
-
-const shortcuts: Shortcut[] = [
-  { keys: 'Cmd+K / Ctrl+K', description: 'Command Palette' },
-  { keys: '?', description: 'Toggle Shortcuts' },
-  { keys: 'T', description: 'Toggle Theme' },
-  { keys: 'H', description: 'Scroll to Home' },
-  { keys: '↑ / ↓', description: 'Navigate Sections' },
-];
+import { useLanguage } from '@/lib/i18n/language-context';
 
 export default function KeyboardShortcutsPanel() {
+  const { t } = useLanguage();
+  const shortcuts = t.shortcuts.items;
   const [isOpen, setIsOpen] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -99,7 +89,7 @@ export default function KeyboardShortcutsPanel() {
               className="text-xs font-bold tracking-widest uppercase mb-3 text-neutral-500"
               style={{ fontFamily: "'Fira Code', monospace" }}
             >
-              Keyboard Shortcuts
+              {t.shortcuts.title}
             </h3>
             <div className="flex flex-col gap-2">
               {shortcuts.map((shortcut) => (

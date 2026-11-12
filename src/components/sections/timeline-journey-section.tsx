@@ -3,6 +3,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { MapPin, ArrowRight } from "lucide-react";
+import { useLanguage } from "@/lib/i18n/language-context";
 
 function AnimatedHeading({ text }: { text: string }) {
   const ref = useRef<HTMLHeadingElement>(null);
@@ -46,40 +47,22 @@ interface Milestone {
   active?: boolean;
 }
 
-const milestones: Milestone[] = [
-  {
-    year: "2024",
-    title: "Started coding journey",
-    description:
-      "Built my first website and fell in love with web development",
-  },
-  {
-    year: "2025",
-    title: "First freelance project",
-    description:
-      "Landed my first client and learned the art of client communication",
-  },
-  {
-    year: "2026",
-    title: "Building the future",
-    description: "Exploring AI-powered interfaces and creative tools",
-    active: true,
-  },
-];
-
 export default function TimelineJourneySection() {
+  const { t } = useLanguage();
+  const milestones: Milestone[] = t.journey.milestones;
+
   return (
     <section
       id="journey"
       className="py-20 md:py-32 px-4 dark:bg-[hsl(0,0%,7%)] bg-[hsl(0,0%,100%)] transition-colors"
     >
       <div className="max-w-3xl mx-auto">
-        <AnimatedHeading text="MY JOURNEY" />
+        <AnimatedHeading text={t.journey.heading} />
         <p
           className="text-base md:text-lg dark:text-neutral-500 text-neutral-500 mb-12 md:mb-16"
           style={{ fontFamily: "'Antic', sans-serif" }}
         >
-          A timeline of key moments in my career.
+          {t.journey.intro}
         </p>
 
         <div className="relative">
@@ -168,7 +151,7 @@ export default function TimelineJourneySection() {
                           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#8A00C4] opacity-75" />
                           <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#8A00C4]" />
                         </span>
-                        Current
+                        {t.journey.currentLabel}
                       </span>
                     )}
                   </div>

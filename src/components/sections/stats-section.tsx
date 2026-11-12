@@ -2,8 +2,9 @@
 
 import React, { useRef, useEffect, useState } from "react";
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
-import { Code2, Users, Layers, Award } from "lucide-react";
+import { Code2, Cloud, Layers, Award } from "lucide-react";
 import ScrollReveal from "@/components/effects/scroll-reveal";
+import { useLanguage } from "@/lib/i18n/language-context";
 
 interface StatItemProps {
   icon: React.ElementType;
@@ -109,14 +110,12 @@ function AnimatedHeading({ text }: { text: string }) {
   );
 }
 
-const stats = [
-  { icon: Code2, value: 5, suffix: "+", label: "Projects Built", delay: 0 },
-  { icon: Users, value: 12, suffix: "+", label: "Happy Clients", delay: 150 },
-  { icon: Layers, value: 4, suffix: "", label: "Products Shipped", delay: 300 },
-  { icon: Award, value: 1, suffix: "+", label: "Year Experience", delay: 450 },
-];
+const statIcons = [Code2, Cloud, Layers, Award];
 
 export default function StatsSection() {
+  const { t } = useLanguage();
+  const stats = t.stats.items.map((item, i) => ({ ...item, icon: statIcons[i], delay: i * 150 }));
+
   return (
     <section
       id="stats"
@@ -142,12 +141,12 @@ export default function StatsSection() {
       />
 
       <div className="max-w-6xl mx-auto relative z-10">
-        <AnimatedHeading text="BY THE NUMBERS" />
+        <AnimatedHeading text={t.stats.heading} />
         <p
           className="text-base md:text-lg dark:text-neutral-400 text-neutral-500 mb-12 md:mb-16 max-w-xl"
           style={{ fontFamily: "'Antic', sans-serif" }}
         >
-          A snapshot of my journey in design and development.
+          {t.stats.intro}
         </p>
 
         <ScrollReveal>

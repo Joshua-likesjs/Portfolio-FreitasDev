@@ -2,26 +2,7 @@
 
 import React, { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
-
-const technologies = [
-  { name: "React", category: "Frontend" },
-  { name: "Next.js", category: "Frontend" },
-  { name: "TypeScript", category: "Language" },
-  { name: "Tailwind CSS", category: "Styling" },
-  { name: "Node.js", category: "Backend" },
-  { name: "Golang", category: "Backend" },
-  { name: "Prisma", category: "ORM" },
-  { name: "Figma", category: "Design" },
-  { name: "Git", category: "Tools" },
-  { name: "Vercel", category: "Hosting" },
-  { name: "Railway", category: "Hosting" },
-  { name: "D3.js", category: "Visualization" },
-];
-
-// Row 1 items
-const marqueeItemsRow1 = [...technologies, ...technologies];
-// Row 2 items (reversed, using spread to avoid mutating original)
-const marqueeItemsRow2 = [...[...technologies].reverse(), ...[...technologies].reverse()];
+import { useLanguage } from "@/lib/i18n/language-context";
 
 function AnimatedHeading({ text }: { text: string }) {
   const ref = useRef<HTMLHeadingElement>(null);
@@ -59,18 +40,25 @@ function AnimatedHeading({ text }: { text: string }) {
 }
 
 export default function TechMarqueeSection() {
+  const { t } = useLanguage();
+  const technologies = t.techMarquee.items;
+  // Row 1 items
+  const marqueeItemsRow1 = [...technologies, ...technologies];
+  // Row 2 items (reversed, using spread to avoid mutating original)
+  const marqueeItemsRow2 = [...[...technologies].reverse(), ...[...technologies].reverse()];
+
   return (
     <section
       id="tech-stack"
       className="py-20 md:py-32 px-4 dark:bg-[hsl(0,0%,4%)] bg-[hsl(0,0%,96%)] transition-colors overflow-hidden"
     >
       <div className="max-w-6xl mx-auto">
-        <AnimatedHeading text="TECH STACK" />
+        <AnimatedHeading text={t.techMarquee.heading} />
         <p
           className="text-base md:text-lg dark:text-neutral-400 text-neutral-500 mb-12 md:mb-16 max-w-xl"
           style={{ fontFamily: "'Antic', sans-serif" }}
         >
-          The tools and technologies I use to bring products to life.
+          {t.techMarquee.intro}
         </p>
       </div>
 

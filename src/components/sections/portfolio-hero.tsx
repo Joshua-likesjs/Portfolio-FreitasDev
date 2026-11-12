@@ -1,8 +1,10 @@
 'use client';
 
 import React, { useState, useEffect, useRef, useMemo, useCallback, useSyncExternalStore } from "react";
-import { Menu, X, ChevronDown, Download, Sun, Moon, Search } from "lucide-react";
+import { Menu, X, ChevronDown, ArrowRight, Sun, Moon, Search } from "lucide-react";
 import Image from "next/image";
+import { useLanguage } from "@/lib/i18n/language-context";
+import LanguageToggle from "@/components/navigation/language-toggle";
 
 /* ─── CSS keyframes (inject once) ─── */
 const STYLE_ID = "portfolio-hero-keyframes";
@@ -240,6 +242,7 @@ function subscribeToTheme(callback: () => void) {
 /* ─── Main Component ─── */
 export default function PortfolioHero() {
   const isDark = useSyncExternalStore(subscribeToTheme, getStoredTheme, () => true);
+  const { t, locale } = useLanguage();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [isScrolled, setIsScrolled] = useState(false);
@@ -357,13 +360,13 @@ export default function PortfolioHero() {
   }, []);
 
   const menuItems = [
-    { label: "HOME", href: "#home" },
-    { label: "ABOUT", href: "#about" },
-    { label: "PROJECTS", href: "#projects" },
-    { label: "SKILLS", href: "#skills"},
-    { label: "EDUCATION", href: "#education" },
-    { label: "FAQ", href: "#faq" },
-    { label: "CONTACT", href: "#contact" },
+    { label: t.nav.home, href: "#home" },
+    { label: t.nav.about, href: "#about" },
+    { label: t.nav.projects, href: "#projects" },
+    { label: t.nav.skills, href: "#skills"},
+    { label: t.nav.education, href: "#education" },
+    { label: t.nav.faq, href: "#faq" },
+    { label: t.nav.contact, href: "#contact" },
   ];
 
   return (
@@ -386,7 +389,7 @@ export default function PortfolioHero() {
             transition: "opacity 0.3s ease, transform 0.3s ease",
           }}
         >
-          Theme toggled
+          {t.hero.themeToast}
         </div>
       </div>
 
@@ -463,24 +466,27 @@ export default function PortfolioHero() {
             F
           </div>
 
-          {/* Theme toggle */}
-          <button
-            type="button"
-            onClick={toggleTheme}
-            className="relative w-16 h-8 rounded-full transition-all duration-300 hover:shadow-[0_0_12px_rgba(195,228,29,0.2)]"
-            style={{ backgroundColor: isDark ? "hsl(0 0% 15%)" : "hsl(0 0% 88%)" }}
-            aria-label="Toggle theme"
-          >
-            <div
-              className="absolute top-1 left-1 w-6 h-6 rounded-full flex items-center justify-center transition-all duration-300"
-              style={{
-                backgroundColor: isDark ? "#8A00C4" : "hsl(0 0% 10%)",
-                transform: isDark ? "translateX(2rem)" : "translateX(0)",
-              }}
+          {/* Language toggle + Theme toggle */}
+          <div className="flex items-center gap-3">
+            <LanguageToggle />
+            <button
+              type="button"
+              onClick={toggleTheme}
+              className="relative w-16 h-8 rounded-full transition-all duration-300 hover:shadow-[0_0_12px_rgba(195,228,29,0.2)]"
+              style={{ backgroundColor: isDark ? "hsl(0 0% 15%)" : "hsl(0 0% 88%)" }}
+              aria-label="Toggle theme"
             >
-              {isDark ? <Moon className="w-3.5 h-3.5 text-black" /> : <Sun className="w-3.5 h-3.5 text-yellow-500" />}
-            </div>
-          </button>
+              <div
+                className="absolute top-1 left-1 w-6 h-6 rounded-full flex items-center justify-center transition-all duration-300"
+                style={{
+                  backgroundColor: isDark ? "#8A00C4" : "hsl(0 0% 10%)",
+                  transform: isDark ? "translateX(2rem)" : "translateX(0)",
+                }}
+              >
+                {isDark ? <Moon className="w-3.5 h-3.5 text-black" /> : <Sun className="w-3.5 h-3.5 text-yellow-500" />}
+              </div>
+            </button>
+          </div>
         </nav>
       </header>
 
@@ -490,6 +496,7 @@ export default function PortfolioHero() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full px-4">
           <div className="relative text-center">
             <BlurText
+              key={`headline-${locale}`}
               text="FREITAS"
               delay={200}
               animateBy="letters"
@@ -500,13 +507,24 @@ export default function PortfolioHero() {
 
             <div className="mt-4">
               <BlurText
-                text="Creative Developer & Designer"
-                delay={60}
+                key={`sub-${locale}`}
+                text={t.hero.headline}
+                delay={40}
                 animateBy="words"
                 direction="top"
-                className="text-sm sm:text-base md:text-lg tracking-[0.3em] uppercase justify-center text-neutral-500"
+                className="text-[10px] sm:text-xs md:text-sm tracking-[0.18em] uppercase justify-center text-neutral-500 max-w-3xl mx-auto leading-relaxed"
                 style={{ fontFamily: "'Fira Code', monospace" }}
               />
+            </div>
+
+            {/* Location + technical credential badge */}
+            <div className="mt-5 flex justify-center">
+              <p
+                className="text-[9px] sm:text-[10px] md:text-[11px] tracking-[0.14em] uppercase text-neutral-600 dark:text-neutral-500 border dark:border-neutral-800 border-neutral-200 dark:bg-white/5 bg-black/5 rounded-full px-3 py-1"
+                style={{ fontFamily: "'Fira Code', monospace" }}
+              >
+                {t.hero.badge}
+              </p>
             </div>
 
             {/* Single profile image — no duplicates */}
@@ -523,7 +541,7 @@ export default function PortfolioHero() {
               color="black"
               hoverShadow="0 4px 20px rgba(195,228,29,0.2)"
             >
-              Get in Touch
+              {t.hero.ctaPrimary}
             </MagneticButton>
 
             <MagneticButton
@@ -533,9 +551,9 @@ export default function PortfolioHero() {
               border={isDark ? "hsl(0 0% 25%)" : "hsl(0 0% 80%)"}
               hoverBorder="#8A00C4"
               hoverColor="#8A00C4"
-              icon={<Download className="w-4 h-4" />}
+              icon={<ArrowRight className="w-4 h-4" />}
             >
-              Resume
+              {t.hero.ctaSecondary}
             </MagneticButton>
           </div>
         </div>
@@ -544,13 +562,8 @@ export default function PortfolioHero() {
         <div className="absolute bottom-16 sm:bottom-20 md:bottom-24 lg:bottom-28 xl:bottom-32 left-1/2 -translate-x-1/2 w-full px-6">
           <div className="flex justify-center">
             <TypewriterText
-              phrases={[
-                "Designing human experiences in code.",
-                "Building products people love.",
-                "Turning ideas into interactive reality.",
-                "Crafting interfaces that feel alive.",
-                "Where design meets engineering.",
-              ]}
+              key={`typewriter-${locale}`}
+              phrases={t.hero.phrases}
               style={{ fontFamily: "'Antic', sans-serif" }}
             />
           </div>

@@ -3,25 +3,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, Minus } from "lucide-react";
-
-const faqs = [
-  {
-    question: "What is your typical project timeline?",
-    answer: "Most projects take 4-8 weeks from kickoff to launch, depending on complexity. A simple marketing site might take 2-3 weeks, while a full-featured SaaS application could take 8-12 weeks. I always provide a detailed timeline upfront after our initial discovery call.",
-  },
-  {
-    question: "What does your design-to-development process look like?",
-    answer: "I typically start with a discovery phase to understand your goals, users, and constraints. Then I move into wireframing and high-fidelity design in Figma, followed by development with regular check-ins. I believe in an iterative approach — you'll see progress early and often.",
-  },
-  {
-    question: "Can you work with my existing design system or brand guidelines?",
-    answer: "Absolutely. Whether you have a comprehensive Figma library or just a brand color palette, I'll make sure the final product aligns perfectly with your brand.",
-  },
-  {
-    question: "How do you handle project communication and updates?",
-    answer: "I use Whatsapp or Discord for daily communication and provide weekly progress updates via OBS walkthroughs. For project management, I prefer Obsidian — whichever fits your team's workflow. You'll always know exactly where things stand.",
-  },
-];
+import { useLanguage } from "@/lib/i18n/language-context";
 
 function AnimatedHeading({ text }: { text: string }) {
   const ref = useRef<HTMLHeadingElement>(null);
@@ -148,6 +130,8 @@ function FAQItem({ question, answer, isOpen, onToggle, index }: { question: stri
 }
 
 export default function FAQSection() {
+  const { t } = useLanguage();
+  const faqs = t.faq.items;
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
@@ -156,12 +140,12 @@ export default function FAQSection() {
       className="py-20 md:py-32 px-4 dark:bg-[hsl(0,0%,7%)] bg-[hsl(0,0%,100%)] transition-colors"
     >
       <div className="max-w-3xl mx-auto">
-        <AnimatedHeading text="FAQ" />
+        <AnimatedHeading text={t.faq.heading} />
         <p
           className="text-base md:text-lg dark:text-neutral-400 text-neutral-500 mb-12 md:mb-16 max-w-xl"
           style={{ fontFamily: "'Antic', sans-serif" }}
         >
-          Common questions about working together. Can&apos;t find what you&apos;re looking for? Reach out directly.
+          {t.faq.intro}
         </p>
 
         <div className="space-y-3">

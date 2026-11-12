@@ -31,9 +31,11 @@ import PortfolioFooter from "@/components/sections/portfolio-footer";
 import ToolsSection from "@/components/sections/tools-section";
 import TimelineJourneySection from "@/components/sections/timeline-journey-section";
 import QuoteSection from "@/components/sections/quote-section";
+import { LanguageProvider } from "@/lib/i18n/language-context";
 
 export default function Home() {
   return (
+    <LanguageProvider>
     <div className="min-h-screen flex flex-col relative">
       <FloatingPathsBackground />
       <div className="relative z-10 flex flex-col min-h-screen">
@@ -73,5 +75,6 @@ export default function Home() {
         <KeyboardShortcutsPanel />
       </div>
     </div>
+    </LanguageProvider>
   );
 }

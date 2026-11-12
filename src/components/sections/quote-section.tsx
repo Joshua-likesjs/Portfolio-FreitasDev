@@ -3,39 +3,7 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-
-const quotes = [
-  {
-    text: 'Design is not just what it looks like and feels like. Design is how it works.',
-    author: 'Steve Jobs',
-    role: 'Co-founder, Apple',
-  },
-  {
-    text: 'The best way to predict the future is to invent it.',
-    author: 'Alan Kay',
-    role: 'Computer Scientist',
-  },
-  {
-    text: 'Simplicity is the ultimate sophistication.',
-    author: 'Leonardo da Vinci',
-    role: 'Polymath & Visionary',
-  },
-  {
-    text: 'Good design is obvious. Great design is transparent.',
-    author: 'Joe Sparano',
-    role: 'Graphic Designer',
-  },
-  {
-    text: 'Code is poetry.',
-    author: 'Various',
-    role: 'Developer Philosophy',
-  },
-  {
-    text: 'Make it simple, but significant.',
-    author: 'Don Draper',
-    role: 'Creative Director (fictional)',
-  },
-];
+import { useLanguage } from '@/lib/i18n/language-context';
 
 function AnimatedHeading({ text }: { text: string }) {
   const ref = useRef<HTMLHeadingElement>(null);
@@ -73,6 +41,8 @@ function AnimatedHeading({ text }: { text: string }) {
 }
 
 export default function QuoteSection() {
+  const { t } = useLanguage();
+  const quotes = t.quotes.items;
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(0);
 
@@ -110,12 +80,12 @@ export default function QuoteSection() {
       className="py-20 md:py-32 px-4 dark:bg-[hsl(0,0%,4%)] bg-[hsl(0,0%,96%)] transition-colors"
     >
       <div className="max-w-4xl mx-auto text-center">
-        <AnimatedHeading text="WORDS I LIVE BY" />
+        <AnimatedHeading text={t.quotes.heading} />
         <p
           className="text-base md:text-lg dark:text-neutral-400 text-neutral-500 mb-12 md:mb-16 max-w-xl mx-auto"
           style={{ fontFamily: "'Antic', sans-serif" }}
         >
-          Quotes and philosophies that shape how I think about design, code, and craft.
+          {t.quotes.intro}
         </p>
 
         {/* Quote Display */}

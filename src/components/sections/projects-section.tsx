@@ -2,7 +2,7 @@
 
 import React, { useRef, useEffect, useState, useCallback, useSyncExternalStore } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
+import Image, { type StaticImageData } from "next/image";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -10,6 +10,7 @@ import { ExternalLink, Star, X, Github, Globe } from "lucide-react";
 import TALON from "../images/TALON.png"
 import Deltabank from "../images/DeltaBank.png"
 import incubadora from "../images/incubadora.jpg"
+import { useLanguage } from "@/lib/i18n/language-context";
 
 
 function getStoredTheme(): boolean {
@@ -24,47 +25,46 @@ function subscribeToTheme(callback: () => void) {
   return () => window.removeEventListener("storage", callback);
 }
 
-const categories = ["All", "Web Apps","Mobile", "Web and Mobile"] as const;
+/* Non-translatable project metadata — texts come from t.projects.items */
+interface ProjectMeta {
+  image: StaticImageData;
+  link: string;
+  github: string;
+  featured: boolean;
+  catIdx: number; // 0 = Backend, 1 = Web & IoT, 2 = Full-Stack
+}
 
-type Category = (typeof categories)[number];
+interface ProjectItem extends ProjectMeta {
+  name: string;
+  category: string;
+  description: string;
+  fullDescription: string;
+  tags: string[];
+  highlights: string[];
+}
 
-const projects = [
+const projectMeta: ProjectMeta[] = [
   {
-    name: ".Delta Bank",
-    category: "Mobile" as Category,
-    description: "Delta Bank is a digital banking simulator built with a React Native frontend and a Go backend. It offers real-time Pix transactions, biometric login, card management, and investments.",
-    fullDescription: "Talon integrates an embedded system with GPS, SIM module, and a dashboard with real-time mapping, including location history and heat map/tracking capabilities, in addition to a geofencing system.",
-    tags: ["Golang", "API RESTfull", "Railway"],
     image: Deltabank,
+    link: "https://delta-bank-backend-in-golang-production.up.railway.app",
+    github: "https://github.com/Joshua-likesjs/Delta-Bank-Backend-In-Golang",
     featured: true,
-    link: "https://expo.dev/artifacts/eas/qTZ6bWnNsjiCRRSmJ292TC.apk",
-    github: "https://github.com/edwardxxzz/delta-bank.git",
-    highlights: [ "React Native", "Expo 54", "Go Backend", "Biometric Auth", "Real-time Simulation Pix"]
-},
-  {
-    name: ".Talon",
-    category: "Web Apps" as Category,
-    description: "A tracking and location observation networky for endangered Brazilian felines, leveraging IoT and embedded technology for wildlife conservation.",
-    fullDescription: "Talon integrates an embedded system with GPS, SIM module, and a dashboard with real-time mapping, including location history and heat map/tracking capabilities, in addition to a geofencing system.",
-    tags: ["Next.js", "OpenStreetMap", "Leaflet"],
-    image: TALON,
-    featured: false,
-    link: "https://talon-beta.vercel.app/",
-    github: "https://github.com/Joshua-likesjs/TALON",
-    highlights: ["Embedded System", "IoT", "dashboard with real-time mapping and Geofence", "HeatMap", "Traking", "Location History"],
+    catIdx: 0,
   },
   {
-    name: ".ChocaSystem",
-    category: "Web and Mobile" as Category,
-    description: "A system for monitoring variables in an egg incubator, with the possibility of controlling heaters and humidifiers, as well as including a presence detector.",
-    fullDescription: "ChocaSystem integrates an embedded system with heaters, humidifiers, and a dashboard in realtime with temperature, presence and humidity capabilities.",
-    tags: ["Next.js", "ESP32", "IoT"],
+    image: TALON,
+    link: "https://talon-beta.vercel.app/",
+    github: "https://github.com/Joshua-likesjs/TALON",
+    featured: true,
+    catIdx: 1,
+  },
+  {
     image: incubadora,
-    featured: false,
     link: "https://incubadora-vpjs.vercel.app/",
     github: "https://github.com/Joshua-likesjs/Projeto-ChocaSystem",
-    highlights: ["Embedded System", "IoT", "Sensors", "PID"],
-  }
+    featured: false,
+    catIdx: 2,
+  },
 ];
 
 function AnimatedHeading({ text }: { text: string }) {
@@ -102,7 +102,8 @@ function AnimatedHeading({ text }: { text: string }) {
   );
 }
 
-function ProjectModal({ project, onClose }: { project: typeof projects[0]; onClose: () => void }) {
+function ProjectModal({ project, onClose }: { project: ProjectItem; onClose: () => void }) {
+  const { t } = useLanguage();
 
    const handleLiveDemo = () => {
     if (project.link) {
@@ -183,7 +184,7 @@ function ProjectModal({ project, onClose }: { project: typeof projects[0]; onClo
               className="text-xs uppercase tracking-widest dark:text-neutral-500 text-neutral-500 mb-3"
               style={{ fontFamily: "'Fira Code', monospace" }}
             >
-              Key Highlights
+              {t.projects.highlightsTitle}
             </h4>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {project.highlights.map((h) => (
@@ -204,7 +205,7 @@ function ProjectModal({ project, onClose }: { project: typeof projects[0]; onClo
               onClick={handleLiveDemo}
             >
               <Globe className="w-4 h-4 mr-2" />
-              Live
+              {t.projects.liveLabel}
             </Button>
             <Button
               variant="outline"
@@ -213,7 +214,7 @@ function ProjectModal({ project, onClose }: { project: typeof projects[0]; onClo
               onClick={handleGithub}
             >
               <Github className="w-4 h-4 mr-2" />
-              Source Code
+              {t.projects.sourceLabel}
             </Button>
           </div>
         </div>
@@ -223,13 +224,20 @@ function ProjectModal({ project, onClose }: { project: typeof projects[0]; onClo
 }
 
 export default function ProjectsSection() {
-  const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
-  const [activeCategory, setActiveCategory] = useState<Category>("All");
+  const { t } = useLanguage();
+  const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
+  const [activeCategory, setActiveCategory] = useState<number>(0); // 0 = "All"
   const isDark = useSyncExternalStore(subscribeToTheme, getStoredTheme, () => true);
 
-  const filteredProjects = activeCategory === "All"
+  const projects: ProjectItem[] = projectMeta.map((meta, i) => ({
+    ...meta,
+    ...t.projects.items[i],
+    category: t.projects.categories[meta.catIdx + 1] ?? "",
+  }));
+
+  const filteredProjects = activeCategory === 0
     ? projects
-    : projects.filter((p) => p.category === activeCategory);
+    : projects.filter((p) => p.catIdx === activeCategory - 1);
 
   // Close modal on Escape key
   useEffect(() => {
@@ -248,23 +256,23 @@ export default function ProjectsSection() {
       className="py-20 md:py-32 px-4 dark:bg-[hsl(0,0%,7%)] bg-[hsl(0,0%,100%)] transition-colors"
     >
       <div className="max-w-6xl mx-auto">
-        <AnimatedHeading text="PROJECTS" />
+        <AnimatedHeading text={t.projects.heading} />
         <p
           className="text-base md:text-lg dark:text-neutral-400 text-neutral-500 mb-12 md:mb-16 max-w-2xl"
           style={{ fontFamily: "'Antic', sans-serif" }}
         >
-          A selection of projects I&apos;ve built — from AI-powered tools to real-time collaboration platforms.
+          {t.projects.intro}
         </p>
 
         {/* Category Filter Tabs */}
         <div className="flex flex-wrap gap-2 mb-10 md:mb-12">
-          {categories.map((category) => {
-            const isActive = activeCategory === category;
-            const count = category === "All" ? projects.length : projects.filter((p) => p.category === category).length;
+          {t.projects.categories.map((category, catIdx) => {
+            const isActive = activeCategory === catIdx;
+            const count = catIdx === 0 ? projects.length : projects.filter((p) => p.catIdx === catIdx - 1).length;
             return (
               <motion.button
                 key={category}
-                onClick={() => setActiveCategory(category)}
+                onClick={() => setActiveCategory(catIdx)}
                 whileHover={
                   isActive
                     ? { scale: 1.03 }
@@ -322,7 +330,7 @@ export default function ProjectsSection() {
                       style={{ backgroundColor: "#8A00C4", fontFamily: "'Fira Code', monospace" }}
                     >
                       <Star className="w-3 h-3" />
-                      Featured
+                      {t.projects.featuredLabel}
                     </div>
                   )}
 
@@ -366,7 +374,7 @@ export default function ProjectsSection() {
                       className="dark:border-neutral-700 dark:text-neutral-300 dark:hover:border-[#8A00C4] dark:hover:text-[#8A00C4] border-neutral-300 text-neutral-600 hover:border-[#8A00C4] hover:text-[#8A00C4] transition-colors"
                     >
                       <ExternalLink className="w-4 h-4 mr-2" />
-                      View Details
+                      {t.projects.viewDetails}
                     </Button>
                   </CardFooter>
                 </Card>

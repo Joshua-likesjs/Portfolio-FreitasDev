@@ -2,19 +2,9 @@
 
 import React, { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/lib/i18n/language-context";
 
-const brands = [
-  { name: "Vercel", color: "#FFFFFF", category: "Cloud Platform" },
-  { name: "Figma", color: "#F24E1E", category: "Design" },
-  { name: "GitHub", color: "#080C12", category: "Developer Tools" },
-  { name: "Obsidian", color: "#7E1DFB", category: "Productivity" },
-  { name: "Firebase", color: "#FFC400", category: "Database" },
-  { name: "Claude", color: "#DE7356", category: "IA" },
-  { name: "GLM", color: "#5c5b5b", category: "IA" },
- 
-
-
-];
+const brandColors = ["#FFFFFF", "#F24E1E", "#080C12", "#7E1DFB", "#FFC400", "#DE7356", "#5c5b5b"];
 
 function AnimatedHeading({ text }: { text: string }) {
   const ref = useRef<HTMLHeadingElement>(null);
@@ -52,6 +42,9 @@ function AnimatedHeading({ text }: { text: string }) {
 }
 
 export default function TrustedBrandsSection() {
+  const { t } = useLanguage();
+  const brands = t.brands.items.map((brand, i) => ({ ...brand, color: brandColors[i] }));
+
   return (
     <section
       id="trusted-brands"
@@ -67,12 +60,12 @@ export default function TrustedBrandsSection() {
       />
 
       <div className="max-w-6xl mx-auto relative z-10">
-        <AnimatedHeading text="WAR SETUP" />
+        <AnimatedHeading text={t.brands.heading} />
         <p
           className="text-base md:text-lg dark:text-neutral-400 text-neutral-500 mb-12 md:mb-16 max-w-2xl"
           style={{ fontFamily: "'Antic', sans-serif" }}
         >
-          Technologies that I typically use for my projects.
+          {t.brands.intro}
         </p>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-6">

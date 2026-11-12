@@ -1,18 +1,8 @@
 'use client';
 
 import React, { useRef, useCallback } from "react";
-import { Heart, Github, Linkedin, Twitter, Mail, ArrowUp, Code2 } from "lucide-react";
-
-const navLinks = [
-  { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
-  { label: "Projects", href: "#projects" },
-  { label: "Skills", href: "#skills" },
-  { label: "Tools", href: "#tools" },
-  { label: "Quotes", href: "#quotes" },
-  { label: "FAQ", href: "#faq" },
-  { label: "Contact", href: "#contact" },
-];
+import { Heart, Github, Linkedin, Mail, ArrowUp, Code2 } from "lucide-react";
+import { useLanguage } from "@/lib/i18n/language-context";
 
 const socialLinks = [
   { icon: Github, href: "https://github.com/Joshua-likesjs", label: "GitHub" },
@@ -21,6 +11,8 @@ const socialLinks = [
 ];
 
 export default function PortfolioFooter() {
+  const { t } = useLanguage();
+  const navLinks = t.footer.nav;
   const ctaButtonRef = useRef<HTMLButtonElement>(null); 
 
   const handleClick = (href: string) => {
@@ -133,13 +125,13 @@ export default function PortfolioFooter() {
             className="text-2xl md:text-3xl font-bold mb-4 dark:text-white text-neutral-900"
             style={{ fontFamily: "'Fira Code', monospace" }}
           >
-            Let&apos;s work together
+            {t.footer.ctaTitle}
           </p>
           <p
             className="text-base dark:text-neutral-400 text-neutral-500 mb-6 max-w-md mx-auto"
             style={{ fontFamily: "'Antic', sans-serif" }}
           >
-            Have a project in mind? I&apos;d love to hear about it.
+            {t.footer.ctaSubtitle}
           </p>
           <button
             ref={ctaButtonRef}
@@ -156,7 +148,7 @@ export default function PortfolioFooter() {
             }}
           >
             <Mail className="w-4 h-4" />
-            Get in Touch
+            {t.footer.ctaButton}
           </button>
         </div>
 
@@ -188,7 +180,7 @@ export default function PortfolioFooter() {
               style={{ fontFamily: "'Fira Code', monospace" }}
               className="text-xs uppercase tracking-wider dark:text-neutral-500 text-neutral-400"
             >
-              &copy; {new Date().getFullYear()} Freitas. All rights reserved.
+              &copy; {new Date().getFullYear()} Freitas. {t.footer.copyright}
             </p>
             <span className="dark:text-neutral-700 text-neutral-300">|</span>
             <button
@@ -198,7 +190,7 @@ export default function PortfolioFooter() {
               aria-label="Back to top"
             >
               <ArrowUp className="w-3 h-3" />
-              Top
+              {t.footer.top}
             </button>
           </div>
 
@@ -232,10 +224,11 @@ export default function PortfolioFooter() {
             className="flex items-center gap-1.5 text-xs dark:text-neutral-600 text-neutral-400"
             style={{ fontFamily: "'Antic', sans-serif" }}
           >
-            Made with
+            {t.footer.madeWith}
             <Heart className="w-3 h-3 text-[#8A00C4] fill-[#8A00C4] animate-pulse" />
-            and
+            {t.footer.madeAnd}
             <Code2 className="w-3 h-3 text-[#8A00C4]" />
+            <span>{t.footer.madeCode}</span>
           </p>
         </div>
       </div>

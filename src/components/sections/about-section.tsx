@@ -4,72 +4,16 @@ import React, { useRef, useEffect, useState } from "react";
 import { motion, type Variants } from "framer-motion";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
-import { BookOpen, Code2, Palette, Database, MapPin, Zap } from "lucide-react";
+import { Server, Palette, Database, Cpu, MapPin, Zap } from "lucide-react";
 import imageProfile from "../images/imageProfile.png"
+import { useLanguage } from "@/lib/i18n/language-context";
 
-const skillCategories = [
-  {
-    label: "Frontend",
-    icon: Code2,
-    skills: [
-      { name: "React / Next.js", level: 75 },
-      { name: "TypeScript", level: 92 },
-      { name: "Tailwind CSS", level: 90 },
-      { name: "Framer Motion", level: 64 },
-    ],
-  },
-  {
-    label: "Backend",
-    icon: Database,
-    skills: [
-      { name: "Node.js", level: 78 },
-      { name: "Prisma", level: 65 },
-      { name: "Golang", level: 84 },
-      { name: "Firebase", level: 68 },
-    ],
-  },
-  {
-    label: "Design",
-    icon: Palette,
-    skills: [
-      { name: "Figma", level: 60 },
-      { name: "UI/UX Design", level: 58 },
-      { name: "Design Systems", level: 45 },
-      { name: "Prototyping", level: 68 },
-    ],
-  },
-  {
-    label: "Tools",
-    icon: BookOpen,
-    skills: [
-      { name: "Git / GitHub", level: 62 },
-      { name: "D3.js", level: 42 },
-    ],
-  },
-];
+/* Icon per skill category, aligned by index with t.about.categories */
+const categoryIcons = [Server, Palette, Database, Cpu];
 
-const statusItems = [
-  {
-    emoji: "🟢",
-    label: "Available for freelance",
-    description: "Open to new projects",
-    icon: null,
-  },
-  {
-    emoji: "📍",
-    label: "Manaus, AM",
-    description: "Open to remote work worldwide",
-    icon: MapPin,
-  },
-  {
-    emoji: "⚡",
-    label: "Usually responds",
-    description: "Within 24h",
-    icon: Zap,
-  },
-];
+const statusIcons = [null, MapPin, Zap];
 
-function AnimatedHeading({ text }: { text: string }) {
+function AnimatedHeading({ text, badge }: { text: string; badge: string }) {
   const ref = useRef<HTMLHeadingElement>(null);
   const [inView, setInView] = useState(false);
 
@@ -117,7 +61,7 @@ function AnimatedHeading({ text }: { text: string }) {
           className="text-xs font-semibold dark:text-green-400 text-green-700"
           style={{ fontFamily: "'Fira Code', monospace" }}
         >
-          Available
+          {badge}
         </span>
       </motion.div>
     </div>
@@ -240,6 +184,17 @@ const fadeUpVariants: Variants = {
 };
 
 export default function AboutSection() {
+  const { t } = useLanguage();
+  const skillCategories = t.about.categories.map((category, i) => ({
+    ...category,
+    icon: categoryIcons[i],
+  }));
+  const statusItems = t.about.status.map((item, i) => ({
+    ...item,
+    emoji: ["🟢", "📍", "⚡"][i] ?? "•",
+    icon: statusIcons[i],
+  }));
+
   return (
     <section
       id="about"
@@ -247,13 +202,13 @@ export default function AboutSection() {
     >
       <div className="max-w-6xl mx-auto">
         <div className="mb-4">
-          <AnimatedHeading text="ABOUT" />
+          <AnimatedHeading text={t.about.heading} badge={t.about.availableBadge} />
         </div>
         <p
           className="text-base md:text-lg dark:text-neutral-400 text-neutral-500 mb-12 md:mb-16 max-w-2xl"
           style={{ fontFamily: "'Antic', sans-serif" }}
         >
-          A creative developer and designer based in San Francisco, crafting digital experiences that matter.
+          {t.about.intro}
         </p>
 
         <motion.div
@@ -287,7 +242,7 @@ export default function AboutSection() {
                 {/* Status badge */}
                 <div className="absolute -top-2 -right-2 flex items-center gap-1.5 px-2 py-1 rounded-full dark:bg-[hsl(0,0%,12%)] bg-white dark:border-neutral-800 border-neutral-200 border shadow-lg">
                   <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                  <span className="text-[10px] font-mono dark:text-neutral-300 text-neutral-600">Open to work</span>
+                  <span className="text-[10px] font-mono dark:text-neutral-300 text-neutral-600">{t.about.availableBadge}</span>
                 </div>
               </motion.div>
 
@@ -297,28 +252,22 @@ export default function AboutSection() {
                   className="text-base md:text-lg leading-relaxed dark:text-neutral-300 text-neutral-700 mb-4"
                   style={{ fontFamily: "'Antic', sans-serif" }}
                 >
-                  I&apos;m Freitas — a creative Jr. developer and designer who bridges the gap between
-                  aesthetics and engineering. With 1+ year building digital products, I specialize
-                  in crafting interfaces that are beautiful, performant, and accessible.
+                  {t.about.bio1}
                 </p>
                 <p
                   className="text-base md:text-lg leading-relaxed dark:text-neutral-300 text-neutral-700"
                   style={{ fontFamily: "'Antic', sans-serif" }}
                 >
-                  My approach combines design principles with modern web technologies. I believe great
-                  software is invisible — it simply works and brings delight.
+                  {t.about.bio2}
                 </p>
               </div>
             </div>
 
             {/* Quick stat badges */}
             <div className="flex flex-wrap gap-3 mb-6">
-              {[
-                { label: "1+ Year Exp.", value: "" },
-                { label: "3 Projects", value: "" },
-              ].map((stat, i) => (
+              {t.about.badges.map((label, i) => (
                 <motion.div
-                  key={stat.label}
+                  key={label}
                   initial={{ opacity: 0, scale: 0.8 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
@@ -329,7 +278,7 @@ export default function AboutSection() {
                     className="px-3 py-1.5 text-sm dark:border-neutral-700 dark:text-neutral-300 border-neutral-300 text-neutral-600 cursor-default"
                     style={{ borderColor: "#8A00C430" }}
                   >
-                    {stat.label}
+                    {label}
                   </Badge>
                 </motion.div>
               ))}
@@ -386,7 +335,7 @@ export default function AboutSection() {
                 className="text-xs uppercase tracking-widest dark:text-neutral-400 text-neutral-500 font-semibold mb-4"
                 style={{ fontFamily: "'Fira Code', monospace" }}
               >
-                Currently
+                {t.about.currentlyTitle}
               </h3>
               <div className="space-y-3">
                 {statusItems.map((item, i) => (

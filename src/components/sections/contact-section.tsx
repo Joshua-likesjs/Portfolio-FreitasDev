@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Github, Linkedin, Send, Mail, User, MessageSquare, CheckCircle2 } from "lucide-react";
 import emailjs from '@emailjs/browser'; // ✅ Importar EmailJS
+import { useLanguage } from "@/lib/i18n/language-context";
 
 const EMAILJS_SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!;
 const EMAILJS_TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!;
@@ -49,6 +50,7 @@ function AnimatedHeading({ text }: { text: string }) {
 }
 
 export default function ContactSection() {
+  const { t } = useLanguage();
   const formRef = useRef<HTMLFormElement>(null); // ✅ Referência para o formulário
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -57,12 +59,12 @@ export default function ContactSection() {
   // ✅ FUNÇÃO ATUALIZADA COM EMAILJS
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Validação básica
     if (!formData.name || !formData.email || !formData.message) {
       toast({
-        title: "Campos obrigatórios",
-        description: "Por favor, preencha todos os campos.",
+        title: t.contact.toastRequiredTitle,
+        description: t.contact.toastRequiredDescription,
         variant: "destructive",
       });
       return;
@@ -82,8 +84,8 @@ export default function ContactSection() {
 
       if (result.status === 200) {
         toast({
-          title: "✉️ Mensagem enviada!",
-          description: "Obrigado pelo contato! Retornarei em breve.",
+          title: t.contact.toastSuccessTitle,
+          description: t.contact.toastSuccessDescription,
         });
         
         // Limpar  formulário
@@ -98,10 +100,10 @@ export default function ContactSection() {
 
     } catch (error) {
       console.error('Erro ao enviar email:', error);
-      
+
       toast({
-        title: "❌ Erro ao enviar",
-        description: "Não foi possível enviar a mensagem. Verifique sua rede.",
+        title: t.contact.toastErrorTitle,
+        description: t.contact.toastErrorDescription,
         variant: "destructive",
       });
     } finally {
@@ -121,12 +123,12 @@ export default function ContactSection() {
       />
 
       <div className="max-w-4xl mx-auto relative z-10">
-        <AnimatedHeading text="GET IN TOUCH" />
+        <AnimatedHeading text={t.contact.heading} />
         <p
           className="text-base md:text-lg dark:text-neutral-400 text-neutral-500 mb-12 md:mb-16 max-w-xl"
           style={{ fontFamily: "'Antic', sans-serif" }}
         >
-          Have a project in mind or just want to say hello? I&apos;d love to hear from you.
+          {t.contact.intro}
         </p>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16">
@@ -147,7 +149,7 @@ export default function ContactSection() {
                   <Mail className="w-5 h-5" style={{ color: "#8A00C4" }} />
                 </div>
                 <div>
-                  <p className="text-xs uppercase tracking-widest dark:text-neutral-500 text-neutral-500 mb-0.5" style={{ fontFamily: "'Fira Code', monospace" }}>Email</p>
+                  <p className="text-xs uppercase tracking-widest dark:text-neutral-500 text-neutral-500 mb-0.5" style={{ fontFamily: "'Fira Code', monospace" }}>{t.contact.emailLabel}</p>
                   <span className="text-sm dark:text-neutral-300 text-neutral-700" style={{ fontFamily: "'Fira Code', monospace" }}>
                     freitascontactdev@gmail.com
                   </span>
@@ -163,16 +165,16 @@ export default function ContactSection() {
                   <User className="w-5 h-5" style={{ color: "#8A00C4" }} />
                 </div>
                 <div>
-                  <p className="text-xs uppercase tracking-widest dark:text-neutral-500 text-neutral-500 mb-0.5" style={{ fontFamily: "'Fira Code', monospace" }}>Based in</p>
+                  <p className="text-xs uppercase tracking-widest dark:text-neutral-500 text-neutral-500 mb-0.5" style={{ fontFamily: "'Fira Code', monospace" }}>{t.contact.basedInLabel}</p>
                   <span className="text-sm dark:text-neutral-300 text-neutral-700" style={{ fontFamily: "'Fira Code', monospace" }}>
-                    Manaus, AM
+                    {t.contact.basedInValue}
                   </span>
                 </div>
               </div>
 
               {/* Social Links */}
               <div>
-                <p className="text-xs uppercase tracking-widest dark:text-neutral-500 text-neutral-500 mb-3" style={{ fontFamily: "'Fira Code', monospace" }}>Connect</p>
+                <p className="text-xs uppercase tracking-widest dark:text-neutral-500 text-neutral-500 mb-3" style={{ fontFamily: "'Fira Code', monospace" }}>{t.contact.connectLabel}</p>
                 <div className="flex gap-3">
                   {[
                     { icon: Github, label: "GitHub", href: "https://github.com/Joshua-likesjs" },
@@ -212,7 +214,7 @@ export default function ContactSection() {
                 <Input
                   type="text"
                   name="user_name" // ✅ IMPORTANTE: deve corresponder ao template
-                  placeholder="Your Name"
+                  placeholder={t.contact.namePlaceholder}
                   required
                   value={formData.name}
                   onChange={(e) => setFormData((prev) => ({ ...prev, name: e.target.value }))}
@@ -226,7 +228,7 @@ export default function ContactSection() {
                 <Input
                   type="email"
                   name="user_email" // ✅ IMPORTANTE: deve corresponder ao template
-                  placeholder="Your Email"
+                  placeholder={t.contact.emailPlaceholder}
                   required
                   value={formData.email}
                   onChange={(e) => setFormData((prev) => ({ ...prev, email: e.target.value }))}
@@ -239,7 +241,7 @@ export default function ContactSection() {
                 <MessageSquare className="absolute left-3 top-3 w-4 h-4 dark:text-neutral-500 text-neutral-400" />
                 <Textarea
                   name="message" // ✅ IMPORTANTE: deve corresponder ao template
-                  placeholder="Your Message"
+                  placeholder={t.contact.messagePlaceholder}
                   required
                   rows={5}
                   value={formData.message}
@@ -262,17 +264,17 @@ export default function ContactSection() {
                 {isSuccess ? (
                   <span className="flex items-center gap-2">
                     <CheckCircle2 className="w-4 h-4" />
-                    Sent Successfully!
+                    {t.contact.sentButton}
                   </span>
                 ) : isSubmitting ? (
                   <span className="flex items-center gap-2">
                     <span className="w-4 h-4 border-2 border-black/30 border-t-black rounded-full animate-spin" />
-                    Sending...
+                    {t.contact.sendingButton}
                   </span>
                 ) : (
                   <span className="flex items-center gap-2">
                     <Send className="w-4 h-4" />
-                    Send Message
+                    {t.contact.sendButton}
                   </span>
                 )}
               </Button>

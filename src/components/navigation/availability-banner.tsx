@@ -2,10 +2,12 @@
 
 import { useState, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLanguage } from '@/lib/i18n/language-context';
 
 const STORAGE_KEY = 'availability-banner-dismissed';
 
 export default function AvailabilityBanner() {
+  const { t } = useLanguage();
   const [visible, setVisible] = useState(false);
   useEffect(() => {
     const dismissed = localStorage.getItem(STORAGE_KEY);
@@ -44,7 +46,7 @@ export default function AvailabilityBanner() {
                 className="text-xs uppercase tracking-widest text-foreground/80"
                 style={{ fontFamily: "'Fira Code', monospace" }}
               >
-                Available for freelance work
+                {t.banner.text}
               </span>
             </div>
 
@@ -54,7 +56,7 @@ export default function AvailabilityBanner() {
                 className="text-xs text-muted-foreground hidden sm:inline"
                 style={{ fontFamily: "'Fira Code', monospace" }}
               >
-                Updated Apr 2026
+                {t.banner.updated}
               </span>
               <button
                 onClick={handleDismiss}
@@ -72,7 +74,7 @@ export default function AvailabilityBanner() {
               className="text-xs text-muted-foreground"
               style={{ fontFamily: "'Fira Code', monospace" }}
             >
-              Updated Apr 2026
+              {t.banner.updated}
             </span>
           </div>
         </motion.div>

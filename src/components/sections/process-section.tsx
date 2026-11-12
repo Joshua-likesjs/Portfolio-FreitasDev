@@ -2,42 +2,20 @@
 
 import React, { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { MessageSquare, Search, Lightbulb, Rocket, ArrowRight } from "lucide-react";
+import { MessageSquare, DraftingCompass, Terminal, Rocket, ArrowRight } from "lucide-react";
+import { useLanguage } from "@/lib/i18n/language-context";
 
-const steps = [
-  {
-    number: "01",
-    icon: MessageSquare,
-    title: "Discovery",
-    description: "I start with a conversation. I learn about your goals, audience, constraints, and vision. No question is too small — understanding is the foundation of great work.",
-    details: ["Kickoff call", "Stakeholder interviews", "Competitive Analysis", "Requirements doc"],
-    keyTools: ["Obsidian"],
-  },
-  {
-    number: "02",
-    icon: Search,
-    title: "Research & Strategy",
-    description: "I dive deep into user research, market analysis, and technical feasibility. This phase ensures every design and engineering decision is grounded in data.",
-    details: ["User research", "Information architecture", "Technical planning", "Project roadmap"],
-    keyTools: ["Analytics", "Competitive Analysis"],
-  },
-  {
-    number: "03",
-    icon: Lightbulb,
-    title: "Design & Prototype",
-    description: "From wireframes to high-fidelity prototypes in Figma. Every interaction is considered, every pixel is intentional. You'll review and iterate until it's perfect.",
-    details: ["Wireframes", "UI design", "Interactive prototypes", "Design system"],
-    keyTools: ["Figma"],
-  },
-  {
-    number: "04",
-    icon: Rocket,
-    title: "Build & Launch",
-    description: "Clean, performant code with modern technologies. Regular updates, thorough testing, and a smooth handoff. Your product ships on schedule.",
-    details: ["Development sprints", "Code review", "QA testing", "Deployment & launch"],
-    keyTools: ["Next.js", "TypeScript", "GitHub Actions"],
-  },
-];
+/* Icon per step, aligned by index with t.process.steps */
+const stepIcons = [MessageSquare, DraftingCompass, Terminal, Rocket];
+
+interface ProcessStep {
+  number: string;
+  icon: React.ElementType;
+  title: string;
+  description: string;
+  details: string[];
+  keyTools: string[];
+}
 
 function AnimatedHeading({ text }: { text: string }) {
   const ref = useRef<HTMLHeadingElement>(null);
@@ -74,7 +52,7 @@ function AnimatedHeading({ text }: { text: string }) {
   );
 }
 
-function ProgressRing({ stepIndex }: { stepIndex: number }) {
+function ProgressRing({ stepIndex, number }: { stepIndex: number; number: string }) {
   const [inView, setInView] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const size = 44;
@@ -131,13 +109,13 @@ function ProgressRing({ stepIndex }: { stepIndex: number }) {
           color: "#8A00C4",
         }}
       >
-        {steps[stepIndex].number}
+        {number}
       </span>
     </div>
   );
 }
 
-function ProcessCard({ step, index }: { step: (typeof steps)[0]; index: number }) {
+function ProcessCard({ step, index, keyToolsTitle }: { step: ProcessStep; index: number; keyToolsTitle: string }) {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -163,7 +141,7 @@ function ProcessCard({ step, index }: { step: (typeof steps)[0]; index: number }
         <div className="relative z-10">
           {/* Animated progress ring */}
           <div className="mb-4">
-            <ProgressRing stepIndex={index} />
+            <ProgressRing stepIndex={index} number={step.number} />
           </div>
 
           {/* Icon */}
@@ -224,7 +202,7 @@ function ProcessCard({ step, index }: { step: (typeof steps)[0]; index: number }
               className="text-[10px] uppercase tracking-wider dark:text-neutral-600 text-neutral-400 mb-2 block"
               style={{ fontFamily: "'Fira Code', monospace" }}
             >
-              Key Tools
+              {keyToolsTitle}
             </span>
             <div className="flex flex-wrap gap-1.5">
               {step.keyTools.map((tool) => (
@@ -251,23 +229,30 @@ function ProcessCard({ step, index }: { step: (typeof steps)[0]; index: number }
 }
 
 export default function ProcessSection() {
+  const { t } = useLanguage();
+  const steps: ProcessStep[] = t.process.steps.map((step, i) => ({
+    ...step,
+    number: String(i + 1).padStart(2, "0"),
+    icon: stepIcons[i],
+  }));
+
   return (
     <section
       id="process"
       className="py-20 md:py-32 px-4 dark:bg-[hsl(0,0%,4%)] bg-[hsl(0,0%,96%)] transition-colors"
     >
       <div className="max-w-6xl mx-auto">
-        <AnimatedHeading text="HOW I WORK" />
+        <AnimatedHeading text={t.process.heading} />
         <p
           className="text-base md:text-lg dark:text-neutral-400 text-neutral-500 mb-12 md:mb-16 max-w-2xl"
           style={{ fontFamily: "'Antic', sans-serif" }}
         >
-          A proven process that turns ideas into polished products. Four phases, clear deliverables, zero surprises.
+          {t.process.intro}
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {steps.map((step, index) => (
-            <ProcessCard key={step.number} step={step} index={index} />
+            <ProcessCard key={step.number} step={step} index={index} keyToolsTitle={t.process.keyToolsTitle} />
           ))}
         </div>
       </div>

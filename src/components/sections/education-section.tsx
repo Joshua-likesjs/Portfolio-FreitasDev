@@ -4,19 +4,9 @@ import React, { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { GraduationCap, BookOpen } from "lucide-react";
 import ScrollReveal from "@/components/effects/scroll-reveal";
+import { useLanguage } from "@/lib/i18n/language-context";
 
-const education = [
-  {
-    degree: "High School",
-    school: "Fundation Matias Machline",
-    location: "Manaus, AM",
-    period: "2024 – 2026",
-    bullets: [
-      "Developing full-stack web and mobile applications with a focus on Embedded Systems integration",
-      "Architecting a tracking system for endangered Brazilian felines, leveraging IoT and embedded technology for wildlife conservation",
-    ],
-  },
-];
+/* Education data is fully bilingual — see t.education */
 
 function AnimatedHeading({ text }: { text: string }) {
   const ref = useRef<HTMLHeadingElement>(null);
@@ -54,13 +44,16 @@ function AnimatedHeading({ text }: { text: string }) {
 }
 
 export default function EducationSection() {
+  const { t } = useLanguage();
+  const education = [t.education];
+
   return (
     <section
       id="education"
       className="py-20 md:py-32 px-4 dark:bg-[hsl(0,0%,7%)] bg-[hsl(0,0%,100%)] transition-colors"
     >
       <div className="max-w-4xl mx-auto">
-        <AnimatedHeading text="EDUCATION" />
+        <AnimatedHeading text={t.education.heading} />
 
         <ScrollReveal>
         <div className="relative">

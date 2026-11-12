@@ -2,46 +2,18 @@
 
 import React, { useRef, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Palette, Code2, Smartphone, Globe, BarChart3, Zap } from "lucide-react";
+import { Server, Code2, Cpu, Database, Cloud, ShieldCheck } from "lucide-react";
+import { useLanguage } from "@/lib/i18n/language-context";
 
-const services = [
-  {
-    icon: Palette,
-    title: "UI/UX Design",
-    description: "Crafting intuitive, beautiful interfaces grounded in user research and design thinking. From wireframes to high-fidelity prototypes in Figma.",
-    tags: ["Figma", "Prototyping", "Design Systems"],
-  },
-  {
-    icon: Code2,
-    title: "Frontend Development",
-    description: "Building responsive, performant web applications with modern frameworks. Clean code, pixel-perfect implementation, and accessibility-first.",
-    tags: ["React", "Next.js", "TypeScript"],
-  },
-  {
-    icon: Globe,
-    title: "Full-Stack Engineering",
-    description: "End-to-end application development with scalable APIs and database design. From concept to production.",
-    tags: ["Node.js", "Firebase"],
-  },
-  {
-    icon: Smartphone,
-    title: "Mobile Experiences",
-    description: "Cross-platform mobile applications that feel native. Smooth animations, offline support, and device-specific optimizations.",
-    tags: ["React Native", "PWA", "Touch UX"],
-  },
-  {
-    icon: BarChart3,
-    title: "Data Visualization",
-    description: "Turning complex data into clear, actionable visual stories. Interactive dashboards, charts, and real-time analytics.",
-    tags: ["D3.js", "Charts", "Dashboards"],
-  },
-  {
-    icon: Zap,
-    title: "Performance Optimization",
-    description: "Auditing and improving Core Web Vitals, bundle sizes, and rendering performance. Making fast experiences even faster.",
-    tags: ["Lighthouse", "Caching"],
-  },
-];
+/* Icon per service, aligned by index with t.services.items */
+const serviceIcons = [Server, Code2, Cpu, Database, Cloud, ShieldCheck];
+
+interface ServiceEntry {
+  icon: React.ElementType;
+  title: string;
+  description: string;
+  tags: string[];
+}
 
 function AnimatedHeading({ text }: { text: string }) {
   const ref = useRef<HTMLHeadingElement>(null);
@@ -84,7 +56,7 @@ function ServiceCard({
   isExpanded,
   onToggle,
 }: {
-  service: (typeof services)[0];
+  service: ServiceEntry;
   index: number;
   isExpanded: boolean;
   onToggle: () => void;
@@ -205,6 +177,11 @@ function ServiceCard({
 }
 
 export default function ServicesSection() {
+  const { t } = useLanguage();
+  const services: ServiceEntry[] = t.services.items.map((item, i) => ({
+    ...item,
+    icon: serviceIcons[i],
+  }));
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
   const handleToggle = (index: number) => {
@@ -217,13 +194,12 @@ export default function ServicesSection() {
       className="py-20 md:py-32 px-4 dark:bg-[hsl(0,0%,7%)] bg-[hsl(0,0%,100%)] transition-colors"
     >
       <div className="max-w-6xl mx-auto">
-        <AnimatedHeading text="WHAT I DO" />
+        <AnimatedHeading text={t.services.heading} />
         <p
           className="text-base md:text-lg dark:text-neutral-400 text-neutral-500 mb-12 md:mb-16 max-w-2xl"
           style={{ fontFamily: "'Antic', sans-serif" }}
         >
-          I bring ideas to life through design and code. Here&apos;s how I can
-          help you build something great.
+          {t.services.intro}
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

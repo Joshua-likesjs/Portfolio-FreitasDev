@@ -24,7 +24,9 @@ import {
   Quote,
   BarChart3,
  LucideTrendingUpDown,
+ Languages,
 } from 'lucide-react';
+import { useLanguage } from '@/lib/i18n/language-context';
 
 interface CommandAction {
   id: string;
@@ -36,6 +38,7 @@ interface CommandAction {
 
 export default function CommandPalette() {
   const [open, setOpen] = useState(false);
+  const { t, toggleLocale } = useLanguage();
 
   const navigateToSection = useCallback((id: string) => {
     setOpen(false);
@@ -98,28 +101,38 @@ export default function CommandPalette() {
   }, []);
 
   const navigationItems: CommandAction[] = [
-    { id: 'home',     label: 'Home',       icon: <Home                 className="size-4" />, action: () => navigateToSection('home') },
-    { id: 'about',    label: 'About',      icon: <User                 className="size-4" />, action: () => navigateToSection('about') },
-    { id: 'skills',   label: 'Skills',     icon: <BarChart3            className="size-4" />, action: () => navigateToSection('skills') },
-    { id: 'process',  label: 'How i work', icon: <LucideTrendingUpDown className="size-4" />, action: () => navigateToSection('process') },
-    { id: 'projects', label: 'Projects',   icon: <FolderKanban         className="size-4" />, action: () => navigateToSection('projects'), shortcut: 'P'},
-    { id: 'tools',    label: 'Tools',      icon: <Wrench               className="size-4" />, action: () => navigateToSection('tools') },
-    { id: 'quotes',   label: 'Quotes',     icon: <Quote                className="size-4" />, action: () => navigateToSection('quotes') },
-    { id: 'faq',      label: 'FAQ',        icon: <HelpCircle           className="size-4" />, action: () => navigateToSection('faq') },
-    { id: 'contact',  label: 'Contact',    icon: <Mail                 className="size-4" />, action: () => navigateToSection('contact'), shortcut: 'C'},
+    { id: 'home',     label: t.palette.navItems[0].label, icon: <Home                 className="size-4" />, action: () => navigateToSection('home') },
+    { id: 'about',    label: t.palette.navItems[1].label, icon: <User                 className="size-4" />, action: () => navigateToSection('about') },
+    { id: 'skills',   label: t.palette.navItems[2].label, icon: <BarChart3            className="size-4" />, action: () => navigateToSection('skills') },
+    { id: 'process',  label: t.palette.navItems[3].label, icon: <LucideTrendingUpDown className="size-4" />, action: () => navigateToSection('process') },
+    { id: 'projects', label: t.palette.navItems[4].label, icon: <FolderKanban         className="size-4" />, action: () => navigateToSection('projects'), shortcut: 'P'},
+    { id: 'tools',    label: t.palette.navItems[5].label, icon: <Wrench               className="size-4" />, action: () => navigateToSection('tools') },
+    { id: 'quotes',   label: t.palette.navItems[6].label, icon: <Quote                className="size-4" />, action: () => navigateToSection('quotes') },
+    { id: 'faq',      label: t.palette.navItems[7].label, icon: <HelpCircle           className="size-4" />, action: () => navigateToSection('faq') },
+    { id: 'contact',  label: t.palette.navItems[8].label, icon: <Mail                 className="size-4" />, action: () => navigateToSection('contact'), shortcut: 'C'},
   ];
 
   const actionItems: CommandAction[] = [
     {
       id: 'theme',
-      label: 'Toggle Theme',
+      label: t.palette.toggleTheme,
       icon: <Sun className="size-4 dark:hidden" />,
       action: toggleTheme,
       shortcut: 'T',
     },
     {
+      id: 'language',
+      label: t.palette.toggleLanguage,
+      icon: <Languages className="size-4" />,
+      action: () => {
+        setOpen(false);
+        setTimeout(toggleLocale, 100);
+      },
+      shortcut: 'L',
+    },
+    {
       id: 'scroll-top',
-      label: 'Scroll to Top',
+      label: t.palette.scrollToTop,
       icon: <ArrowUp className="size-4" />,
       action: scrollToTop,
     },
@@ -127,15 +140,15 @@ export default function CommandPalette() {
 
   return (
     <CommandDialog open={open} onOpenChange={setOpen}>
-      <CommandInput placeholder="Search sections, actions..." />
+      <CommandInput placeholder={t.palette.placeholder} />
       <CommandList>
         <CommandEmpty>
           <div className="flex flex-col items-center gap-2 py-4">
             <Search className="size-8 text-muted-foreground/30" />
-            <p className="text-sm text-muted-foreground">No results found.</p>
+            <p className="text-sm text-muted-foreground">{t.palette.empty}</p>
           </div>
         </CommandEmpty>
-        <CommandGroup heading="Navigation">
+        <CommandGroup heading={t.palette.navigationHeading}>
           {navigationItems.map((item) => (
             <CommandItem
               key={item.id}
@@ -155,7 +168,7 @@ export default function CommandPalette() {
           ))}
         </CommandGroup>
         <CommandSeparator />
-        <CommandGroup heading="Actions">
+        <CommandGroup heading={t.palette.actionsHeading}>
           {actionItems.map((item) => (
             <CommandItem
               key={item.id}
@@ -175,13 +188,13 @@ export default function CommandPalette() {
       </CommandList>
       <div className="border-t px-3 py-2 flex items-center justify-between">
         <span className="text-[10px] font-['Fira_Code'] text-muted-foreground tracking-wider">
-          NAVIGATE WITH ↑↓ ENTER
+          {t.palette.footerNavigate}
         </span>
         <span className="text-[10px] font-['Fira_Code'] text-muted-foreground tracking-wider">
           <kbd className="inline-flex items-center gap-0.5 rounded border bg-muted px-1 font-mono text-[10px]">
             ESC
           </kbd>{' '}
-          CLOSE
+          {t.palette.footerClose}
         </span>
       </div>
     </CommandDialog>

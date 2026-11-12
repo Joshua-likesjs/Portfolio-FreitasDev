@@ -3,28 +3,19 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Target } from 'lucide-react';
+import { useLanguage } from '@/lib/i18n/language-context';
 
 interface SkillData {
   name: string;
   value: number;
 }
 
-const skills: SkillData[] = [
-  { name: 'Frontend', value: 73 },
-  { name: 'Backend', value: 83 },
-  { name: 'Design', value: 80 },
-  { name: 'DevOps', value: 80 },
-  { name: 'Mobile', value: 76 }
-];
-
 const ACCENT = '#8A00C4';
 const ACCENT_FILL = 'rgba(195, 228, 29, 0.12)';
-const NUM_AXES = skills.length;
-const ANGLE_STEP = (2 * Math.PI) / NUM_AXES;
 const START_ANGLE = -Math.PI / 2; // start from top
 
-function getPoint(cx: number, cy: number, radius: number, index: number, fraction: number) {
-  const angle = START_ANGLE + index * ANGLE_STEP;
+function getPoint(cx: number, cy: number, radius: number, index: number, fraction: number, numAxes = 5) {
+  const angle = START_ANGLE + index * ((2 * Math.PI) / numAxes);
   const r = radius * fraction;
   return {
     x: cx + r * Math.cos(angle),
@@ -40,7 +31,6 @@ function polarToPath(cx: number, cy: number, radius: number, values: number[]) {
     })
     .join(' ') + ' Z';
 }
-
 function AnimatedHeading({ text }: { text: string }) {
   const ref = useRef<HTMLHeadingElement>(null);
   const [inView, setInView] = useState(false);
@@ -77,6 +67,8 @@ function AnimatedHeading({ text }: { text: string }) {
 }
 
 export default function SkillsRadarSection() {
+  const { t } = useLanguage();
+  const skills: SkillData[] = t.skillsRadar.axes;
   const sectionRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -143,12 +135,12 @@ export default function SkillsRadarSection() {
       <div className="max-w-2xl mx-auto relative z-10">
         {/* Section header */}
         <div className="text-center mb-12 md:mb-16">
-          <AnimatedHeading text="SKILLS OVERVIEW" />
+          <AnimatedHeading text={t.skillsRadar.heading} />
           <p
             className="text-base md:text-lg dark:text-neutral-400 text-neutral-500 max-w-lg mx-auto"
             style={{ fontFamily: "'Antic', sans-serif" }}
           >
-            A visual breakdown of my core competencies across different domains of design and development.
+            {t.skillsRadar.intro}
           </p>
         </div>
 
@@ -166,12 +158,13 @@ export default function SkillsRadarSection() {
               className="w-full h-full"
               role="img"
               aria-label="Skills radar chart showing proficiency levels"
+          key={`radar-${t.skillsRadar.axes.map((s) => s.name).join('')}`}
             >
               {/* Grid rings */}
               {gridLevels.map((level) => (
                 <polygon
                   key={level}
-                  points={Array.from({ length: NUM_AXES }, (_, i) => {
+                  points={Array.from({ length: skills.length }, (_, i) => {
                     const { x, y } = getPoint(cx, cy, maxRadius, i, level);
                     return `${x},${y}`;
                   }).join(' ')}
@@ -399,33 +392,17 @@ export default function SkillsRadarSection() {
           transition={{ duration: 0.5, delay: 0.5 }}
           className="flex flex-wrap justify-center gap-x-6 gap-y-3"
         >
-          <div className="flex items-center gap-2">
-            <Target className="w-4 h-4" style={{ color: ACCENT }} />
-            <span
-              className="text-xs uppercase tracking-widest dark:text-neutral-500 text-neutral-400"
-              style={{ fontFamily: "'Fira Code', monospace" }}
-            >
-              70–79: Proficient
-            </span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Target className="w-4 h-4" style={{ color: ACCENT }} />
-            <span
-              className="text-xs uppercase tracking-widest dark:text-neutral-500 text-neutral-400"
-              style={{ fontFamily: "'Fira Code', monospace" }}
-            >
-              80–89: Advanced
-            </span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Target className="w-4 h-4" style={{ color: ACCENT }} />
-            <span
-              className="text-xs uppercase tracking-widest dark:text-neutral-500 text-neutral-400"
-              style={{ fontFamily: "'Fira Code', monospace" }}
-            >
-              90+: Expert
-            </span>
-          </div>
+          {t.skillsRadar.legend.map((legend) => (
+            <div key={legend} className="flex items-center gap-2">
+              <Target className="w-4 h-4" style={{ color: ACCENT }} />
+              <span
+                className="text-xs uppercase tracking-widest dark:text-neutral-500 text-neutral-400"
+                style={{ fontFamily: "'Fira Code', monospace" }}
+              >
+                {legend}
+              </span>
+            </div>
+          ))}
         </motion.div>
       </div>
     </section>
